@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+
+{% block title %}Kelola Pesanan - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Kelola Pesanan</h1>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Semua Pesanan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>WhatsApp</th>
+                            <th>Jenis Cetakan</th>
+                            <th>Jumlah</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.user_name or 'Guest' }}</td>
+                            <td>{{ order.nama }}</td>
+                            <td>{{ order.email }}</td>
+                            <td>{{ order.whatsapp }}</td>
+                            <td>{{ order.jenis_cetakan }}</td>
+                            <td>{{ order.jumlah }}</td>
+                            <td>
+                                <span class="badge bg-{% if order.status == 'Completed' %}success{% elif order.status == 'Processing' %}warning{% else %}secondary{% endif %}">
+                                    {{ order.status }}
+                                </span>
+                            </td>
+                            <td>{{ order.created_at }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('update_order_status') }}" class="d-inline">
+                                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                                    <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                        <option value="Pending" {% if order.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                        <option value="Processing" {% if order.status == 'Processing' %}selected{% endif %}>Processing</option>
+                                        <option value="Completed" {% if order.status == 'Completed' %}selected{% endif %}>Completed</option>
+                                        <option value="Cancelled" {% if order.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                                    </select>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="10" class="text-center">Belum ada pesanan</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
