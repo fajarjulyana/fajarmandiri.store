@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.couple_name }} - Wedding Invitation</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Customizable -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CUSTOMIZABLE THEME VARIABLES ===== */
+        :root {
+            /* Primary Colors - Change these for different themes */
+            --primary-color: #d4af37;      /* Main accent color */
+            --secondary-color: #8b4513;    /* Secondary accent color */
+            --accent-color: #f5f5dc;       /* Background accent */
+            --text-dark: #2c2c2c;          /* Dark text color */
+            --text-light: #ffffff;         /* Light text color */
+            
+            /* Theme-specific colors */
+            --theme-light: #f4e6a1;        /* Light theme variant */
+            --theme-dark: #b8860b;         /* Dark theme variant */
+            --romantic-accent: #f8e8f0;    /* Romantic theme accent */
+            
+            /* Typography */
+            --font-primary: 'Inter', sans-serif;           /* Body font */
+            --font-script: 'Dancing Script', cursive;      /* Script font */
+            --font-serif: 'Playfair Display', serif;       /* Serif font */
+            
+            /* Spacing & Sizing */
+            --section-padding: 80px;
+            --card-radius: 20px;
+            --button-radius: 10px;
+            --ornament-size: 3rem;
+            
+            /* Animation timings */
+            --animation-fast: 0.3s;
+            --animation-medium: 1s;
+            --animation-slow: 2s;
+        }
+
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .font-script {
+            font-family: var(--font-script);
+        }
+
+        .font-serif {
+            font-family: var(--font-serif);
+        }
+
+        /* ===== ANIMATED BACKGROUND ELEMENTS ===== */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== WELCOME SCREEN ===== */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .welcome-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-script);
+        }
+
+        .welcome-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-open {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all var(--animation-fast) ease;
+            cursor: pointer;
+        }
+
+        .btn-open:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* ===== MAIN INVITATION CONTAINER ===== */
+        .main-invitation {
+            display: none;
+            opacity: 0;
+            transition: opacity var(--animation-medium) ease;
+        }
+
+        .main-invitation.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-ornament {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--ornament-size);
+            color: var(--primary-color);
+            animation: pulse var(--animation-slow) infinite;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1.5s ease-out;
+            background: linear-gradient(45deg, #ffffff, var(--primary-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: textShine 3s ease-in-out infinite;
+        }
+
+        @keyframes textShine {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .wedding-info p {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .custom-message {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            font-style: italic;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 2.5s ease-out;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            padding: var(--section-padding) 0;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+            position: relative;
+            text-align: center;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-family: var(--font-serif);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            border-radius: 2px;
+        }
+
+        /* ===== COUNTDOWN SECTION ===== */
+        .countdown-section {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                var(--accent-color);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .countdown-item {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 30px;
+            border-radius: var(--card-radius);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            min-width: 120px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            transition: all var(--animation-fast) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 30px 50px rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            border-color: var(--primary-color);
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== COUPLE SECTION ===== */
+        .couple-section {
+            background: white;
+        }
+
+        .couple-card {
+            text-align: center;
+            padding: 40px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .couple-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .couple-name {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-family: var(--font-script);
+        }
+
+        /* ===== EVENT SECTION ===== */
+        .event-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: var(--card-radius);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-control {
+            border: 2px solid #ddd;
+            border-radius: var(--button-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--button-radius);
+            font-weight: 600;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--theme-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* ===== FLOATING NAVIGATION ===== */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .floating-nav.show {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--animation-fast) ease;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: var(--theme-dark);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in-up {
+            animation: fadeInUp var(--animation-medium) ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1) translateX(-50%);
+            }
+            50% {
+                transform: scale(1.05) translateX(-50%);
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 40px;
+                --ornament-size: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .countdown-container {
+                gap: 15px;
+            }
+
+            .countdown-item {
+                padding: 20px;
+                min-width: 100px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .floating-nav {
+                bottom: 80px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== THEME-SPECIFIC CUSTOMIZATIONS ===== */
+        /* Add your custom theme styles here */
+        
+        /* Example: Romantic Theme 
+        .romantic-theme {
+            --primary-color: #ff69b4;
+            --secondary-color: #ff1493;
+            --accent-color: #fff0f5;
+        }
+        */
+        
+        /* Example: Modern Theme 
+        .modern-theme {
+            --primary-color: #333;
+            --secondary-color: #666;
+            --accent-color: #f5f5f5;
+        }
+        */
+        
+        /* Example: Beach Theme 
+        .beach-theme {
+            --primary-color: #20b2aa;
+            --secondary-color: #4682b4;
+            --accent-color: #f0f8ff;
+        }
+        */
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    {% if invitation.background_music %}
+    <audio id="bgMusic" loop>
+        <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+    </audio>
+    {% endif %}
+
+    <!-- Floating Animated Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content fade-in-up">
+            <div class="hero-ornament mb-4">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1>{{ invitation.bride_name }} & {{ invitation.groom_name }}</h1>
+            <p class="font-serif">Mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami</p>
+            <button class="btn-open" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <div class="floating-nav" id="floatingNav">
+        <button class="nav-btn" onclick="scrollToSection('hero')" title="Home">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('countdown')" title="Countdown">
+            <i class="fas fa-clock"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('couple')" title="Pasangan">
+            <i class="fas fa-heart"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('event')" title="Acara">
+            <i class="fas fa-calendar"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('rsvp')" title="RSVP">
+            <i class="fas fa-reply"></i>
+        </button>
+    </div>
+
+    <!-- Main Invitation -->
+    <div class="main-invitation" id="mainInvitation">
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-ornament">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="container">
+                <div class="hero-content fade-in-up">
+                    <h1 class="font-script">{{ invitation.bride_name }} & {{ invitation.groom_name }}</h1>
+                    <div class="wedding-info">
+                        <p class="mb-2">
+                            {% if invitation.wedding_date %}
+                                {% if invitation.wedding_date.__class__.__name__ == 'datetime' %}
+                                    {{ invitation.wedding_date.strftime('%A, %d %B %Y') }}
+                                {% else %}
+                                    {{ invitation.wedding_date }}
+                                {% endif %}
+                            {% else %}
+                                Tanggal akan diumumkan
+                            {% endif %}
+                        </p>
+                        <p class="mb-2">{{ invitation.wedding_time or 'Waktu akan diumumkan' }}</p>
+                        <p>{{ invitation.venue_name or 'Lokasi akan diumumkan' }}</p>
+                    </div>
+                    {% if invitation.custom_message %}
+                    <div class="custom-message mt-4">
+                        <p class="lead">"{{ invitation.custom_message }}"</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section section" id="countdown">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="font-serif">Menuju Hari Bahagia</h2>
+                    <p class="lead">Hitung mundur menuju momen istimewa kami</p>
+                </div>
+                <div class="countdown-container" id="countdownContainer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Hari</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section class="couple-section section" id="couple">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2 class="font-serif">Mempelai</h2>
+                    <p class="lead">Dua hati yang bersatu dalam kasih</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="couple-card">
+                            <h3 class="couple-name">{{ invitation.bride_title }} {{ invitation.bride_name }}</h3>
+                            <p class="mb-3">Putri dari:</p>
+                            <p><strong>{{ invitation.bride_father }}</strong></p>
+                            <p><strong>{{ invitation.bride_mother }}</strong></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="couple-card">
+                            <h3 class="couple-name">{{ invitation.groom_title }} {{ invitation.groom_name }}</h3>
+                            <p class="mb-3">Putra dari:</p>
+                            <p><strong>{{ invitation.groom_father }}</strong></p>
+                            <p><strong>{{ invitation.groom_mother }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section class="event-section section" id="event">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2 class="font-serif">Detail Acara</h2>
+                    <p class="lead">Informasi waktu dan tempat</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="event-card">
+                            <h4 class="mb-3">{{ invitation.venue_name or 'Venue Pernikahan' }}</h4>
+                            <p class="mb-3">{{ invitation.venue_address }}</p>
+                            <p><strong>
+                                {% if invitation.wedding_date %}
+                                    {% if invitation.wedding_date.__class__.__name__ == 'datetime' %}
+                                        {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                                    {% else %}
+                                        {{ invitation.wedding_date }}
+                                    {% endif %}
+                                {% else %}
+                                    Tanggal TBA
+                                {% endif %}
+                            </strong></p>
+                            <p><strong>{{ invitation.wedding_time or 'Waktu TBA' }}</strong></p>
+                            <div class="mt-4">
+                                <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="btn btn-light">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section section" id="rsvp">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2 class="font-serif">RSVP</h2>
+                    <p class="lead">Konfirmasi kehadiran Anda</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-control" name="attendance" required>
+                                    <option value="">Pilih Kehadiran</option>
+                                    <option value="hadir">Hadir</option>
+                                    <option value="tidak_hadir">Tidak Hadir</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" value="1">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ===== CONFIGURATION VARIABLES =====
+        // Wedding date setup
+        {% if invitation.wedding_date and invitation.wedding_time %}
+        const weddingDate = new Date('{{ invitation.wedding_date.strftime("%Y-%m-%d") }} {{ invitation.wedding_time }}');
+        {% else %}
+        const weddingDate = new Date();
+        weddingDate.setDate(weddingDate.getDate() + 30); // Default 30 days from now
+        {% endif %}
+
+        // Animation elements configuration
+        const floatingElements = ['🍃', '🌿', '🍂', '🌾', '🌱', '✨', '💫', '⭐', '🌟'];
+        let musicPlaying = false;
+
+        // ===== ANIMATION FUNCTIONS =====
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                element.innerHTML = floatingElements[Math.floor(Math.random() * floatingElements.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                element.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                container.appendChild(element);
+                
+                setTimeout(() => {
+                    if (element.parentNode) {
+                        element.parentNode.removeChild(element);
+                    }
+                }, 25000);
+            }, 3000);
+        }
+
+        // ===== MAIN FUNCTIONS =====
+        function openInvitation() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('mainInvitation').classList.add('show');
+            document.getElementById('floatingNav').classList.add('show');
+
+            // Start animations
+            createFloatingElements();
+
+            // Start background music if available
+            {% if invitation.background_music %}
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.play().then(() => {
+                musicPlaying = true;
+            }).catch(e => {
+                console.log('Autoplay prevented');
+                musicPlaying = false;
+            });
+            {% endif %}
+
+            // Start countdown
+            startCountdown();
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function startCountdown() {
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const timeLeft = weddingDate.getTime() - now;
+
+                if (timeLeft > 0) {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    updateCountdownNumber('days', days);
+                    updateCountdownNumber('hours', hours);
+                    updateCountdownNumber('minutes', minutes);
+                    updateCountdownNumber('seconds', seconds);
+                } else {
+                    // Wedding day arrived
+                    updateCountdownNumber('days', 0);
+                    updateCountdownNumber('hours', 0);
+                    updateCountdownNumber('minutes', 0);
+                    updateCountdownNumber('seconds', 0);
+                    
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+        }
+
+        function updateCountdownNumber(id, value) {
+            const element = document.getElementById(id);
+            if (element && element.textContent !== value.toString()) {
+                element.style.transform = 'scale(1.2)';
+                element.textContent = value;
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        // ===== CUSTOMIZATION INSTRUCTIONS =====
+        /*
+        THEME CUSTOMIZATION GUIDE:
+        
+        1. CSS Variables (Root section):
+           - Change --primary-color for main theme color
+           - Change --secondary-color for accent color
+           - Change --accent-color for background color
+           - Modify font variables for typography
+           
+        2. Floating Elements:
+           - Edit floatingElements array to change animated symbols
+           - Modify animation timing in CSS @keyframes
+           
+        3. Sections:
+           - Add new sections by copying existing structure
+           - Modify section backgrounds in CSS
+           - Add custom animations
+           
+        4. Responsive Design:
+           - Modify breakpoints in @media queries
+           - Adjust mobile-specific styling
+           
+        5. Custom Themes:
+           - Add theme-specific CSS classes
+           - Use CSS custom properties for easy switching
+           
+        Example theme implementation:
+        <body class="romantic-theme"> // Add theme class to body
+        
+        Then define in CSS:
+        .romantic-theme {
+            --primary-color: #ff69b4;
+            --secondary-color: #ff1493;
+        }
+        */
+    </script>
+</body>
+</html>
