@@ -1,0 +1,56 @@
+
+{% extends "admin/base_template.html" %}
+
+{% block theme_style %}
+<style>
+    :root {
+        /* Classic Elegant Theme */
+        --primary-color: #d4af37;
+        --secondary-color: #8b4513;
+        --accent-color: #f4f1ea;
+        --text-primary: #2c2c2c;
+        --text-secondary: #666;
+        
+        /* Ornament Colors */
+        --ornament-primary: #d4af37;
+        --ornament-secondary: rgba(212, 175, 55, 0.2);
+        --ornament-shadow: rgba(212, 175, 55, 0.3);
+    }
+
+    /* Classic ornaments */
+    .section-ornament::before,
+    .section-ornament::after {
+        content: '❦';
+        position: absolute;
+        left: -2rem;
+        color: var(--ornament-primary);
+        opacity: 0.5;
+        font-size: 1.5rem;
+    }
+    
+    .section-ornament::after {
+        left: auto;
+        right: -2rem;
+    }
+
+    .hero-ornament {
+        font-size: 3rem;
+        color: var(--ornament-primary);
+        text-shadow: 0 0 20px var(--ornament-shadow);
+    }
+
+    /* Elegant borders */
+    .event-card::before {
+        background: linear-gradient(90deg, #d4af37, #b8941f, #d4af37);
+    }
+
+    .couple-name::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 2px;
+        background: var(--primary-color);
+        margin: 0.5rem auto;
+    }
+</style>
+{% endblock %}
