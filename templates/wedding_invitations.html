@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}Undangan Pernikahan - Fajar Mandiri Store{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="font-heading text-gradient mb-3">
+                    <i class="fas fa-heart me-2"></i>Undangan Pernikahan Digital
+                </h1>
+                <p class="lead text-muted">Kelola semua undangan pernikahan digital Anda</p>
+                <div class="divider mx-auto"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-dark mb-0">Daftar Undangan Saya</h3>
+                <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Buat Undangan Baru
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if invitations %}
+    <div class="row g-4">
+        {% for invitation in invitations %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card wedding-card h-100 shadow-sm">
+                <div class="card-header bg-gradient text-white">
+                    <h5 class="card-title mb-0 font-script">{{ invitation.couple_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="wedding-info mb-3">
+                        <p class="mb-2">
+                            <i class="fas fa-calendar-alt text-primary me-2"></i>
+                            {{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date else 'Tanggal belum ditentukan' }}
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-clock text-primary me-2"></i>
+                            {{ invitation.wedding_time or 'Waktu belum ditentukan' }}
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                            {{ invitation.venue_name or 'Venue belum ditentukan' }}
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-users text-primary me-2"></i>
+                            {{ invitation.guest_limit }} tamu maksimal
+                        </p>
+                    </div>
+
+                    <div class="invitation-stats">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <span class="stat-number">{{ invitation.id }}</span>
+                                    <span class="stat-label">ID</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <span class="stat-number text-success">{{ 'Aktif' if invitation.is_active else 'Nonaktif' }}</span>
+                                    <span class="stat-label">Status</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="btn-group w-100" role="group">
+                        <a href="{{ url_for('view_wedding_invitation', link=invitation.invitation_link) }}" 
+                           class="btn btn-outline-primary" target="_blank">
+                            <i class="fas fa-eye me-1"></i>Lihat
+                        </a>
+                        <button class="btn btn-outline-info" onclick="copyLink('{{ url_for('view_wedding_invitation', link=invitation.invitation_link, _external=True) }}')">
+                            <i class="fas fa-copy me-1"></i>Copy Link
+                        </button>
+                        <a href="{{ url_for('create_wedding_invitation') }}" 
+                           class="btn btn-outline-secondary">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card text-center">
+                <div class="card-body py-5">
+                    <div class="empty-state">
+                        <i class="fas fa-heart fa-4x text-muted mb-4"></i>
+                        <h4 class="text-muted mb-3">Belum Ada Undangan</h4>
+                        <p class="text-muted mb-4">Anda belum membuat undangan pernikahan digital. Mulai buat undangan pertama Anda sekarang!</p>
+                        <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus me-2"></i>Buat Undangan Pertama
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.text-gradient {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 2px;
+}
+
+.font-script {
+    font-family: 'Dancing Script', cursive;
+}
+
+.wedding-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.wedding-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.wedding-info p {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.invitation-stats {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #374151;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.empty-state i {
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        border-radius: 8px !important;
+        margin-bottom: 5px;
+    }
+}
+</style>
+
+<script>
+function copyLink(link) {
+    navigator.clipboard.writeText(link).then(function() {
+        // Show success message
+        const toast = document.createElement('div');
+        toast.className = 'alert alert-success position-fixed';
+        toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        toast.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>Link undangan berhasil disalin!
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+        `;
+        document.body.appendChild(toast);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 3000);
+    }).catch(function(err) {
+        console.error('Could not copy text: ', err);
+        alert('Gagal menyalin link. Silakan copy manual.');
+    });
+}
+</script>
+{% endblock %}
