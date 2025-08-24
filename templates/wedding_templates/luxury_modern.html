@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f6f3 0%, #e8e5e0 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .invitation-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                        url('{{ url_for("static", filename="images/templates/luxury-bg.jpg") }}') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .date-badge {
+            background: rgba(255,255,255,0.95);
+            color: #8B7355;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .date-day {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .date-month {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .couple-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .save-date {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        .content-section {
+            padding: 40px 30px;
+            background: white;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #8B7355;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .bride-groom-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .bride-groom-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #8B7355;
+            margin-bottom: 10px;
+        }
+
+        .parents-info {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .event-details {
+            background: #f8f6f3;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .event-time {
+            font-size: 1.1rem;
+            color: #8B7355;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .venue-info h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .venue-address {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .maps-button {
+            background: #8B7355;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .maps-button:hover {
+            background: #7A634A;
+            transform: translateY(-2px);
+        }
+
+        .rsvp-section {
+            background: #8B7355;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .rsvp-form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .rsvp-button {
+            background: white;
+            color: #8B7355;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gift-section {
+            padding: 40px 30px;
+            text-align: center;
+            background: #f8f6f3;
+        }
+
+        .gift-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border: 5px solid #8B7355;
+            border-radius: 15px;
+        }
+
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(139, 115, 85, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 25px 25px 0 0;
+            display: flex;
+            gap: 30px;
+            max-width: 400px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            opacity: 1;
+            color: white;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @media (min-width: 768px) {
+            .invitation-container {
+                max-width: 600px;
+                margin: 20px auto;
+                border-radius: 20px;
+                box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+            }
+            
+            .hero-section {
+                height: 80vh;
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="date-badge fade-in">
+                <div class="date-day">{{ invitation.wedding_date.strftime('%d') if invitation.wedding_date else '31' }}</div>
+                <div class="date-month">{{ invitation.wedding_date.strftime('%B') if invitation.wedding_date else 'DESEMBER' }}</div>
+                <div class="date-month">{{ invitation.wedding_date.strftime('%Y') if invitation.wedding_date else '2025' }}</div>
+            </div>
+            
+            <h1 class="couple-names fade-in">{{ invitation.bride_name }}<br>&<br>{{ invitation.groom_name }}</h1>
+            <p class="save-date fade-in">SAVE THE DATE | {{ invitation.wedding_date.strftime('%d.%m.%Y') if invitation.wedding_date else '31.12.2025' }}</p>
+            
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i><br>
+                Scroll untuk info lengkap
+            </div>
+        </section>
+
+        <!-- Bride & Groom Info -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">Mempelai</h2>
+            
+            <div class="bride-groom-info">
+                <h3>{{ invitation.bride_name }}</h3>
+                <div class="parents-info">
+                    Putri dari<br>
+                    Bpk. {{ invitation.bride_father }} & Ibu {{ invitation.bride_mother }}
+                </div>
+            </div>
+
+            <div class="bride-groom-info">
+                <h3>{{ invitation.groom_name }}</h3>
+                <div class="parents-info">
+                    Putra dari<br>
+                    Bpk. {{ invitation.groom_father }} & Ibu {{ invitation.groom_mother }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">Detail Acara</h2>
+            
+            <div class="event-details">
+                <div class="event-time">
+                    {{ invitation.wedding_time or '09:00' }} WIB - Selesai
+                </div>
+                
+                <div class="venue-info">
+                    <h4>{{ invitation.venue_name or 'Lokasi Acara' }}</h4>
+                    <div class="venue-address">
+                        {{ invitation.venue_address }}
+                    </div>
+                </div>
+                
+                <a href="https://maps.google.com/?q={{ invitation.venue_address }}" class="maps-button" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i> GOOGLE MAPS
+                </a>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section">
+            <h2 class="section-title" style="color: white;">Konfirmasi Kehadiran</h2>
+            
+            <form class="rsvp-form" method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="text" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label>Konfirmasi Kehadiran</label>
+                    <select name="attendance" required>
+                        <option value="">Pilih konfirmasi</option>
+                        <option value="hadir">Hadir</option>
+                        <option value="tidak_hadir">Tidak Dapat Hadir</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Jumlah Tamu</label>
+                    <select name="guest_count">
+                        <option value="1">1 Orang</option>
+                        <option value="2">2 Orang</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Pesan & Doa</label>
+                    <textarea name="wishes" rows="3" placeholder="Berikan pesan dan doa untuk kami..."></textarea>
+                </div>
+                
+                <button type="submit" class="rsvp-button">Kirim Konfirmasi</button>
+            </form>
+        </section>
+
+        <!-- Gift Section -->
+        <section class="gift-section">
+            <h2 class="section-title">Kado Digital</h2>
+            <p style="margin-bottom: 20px; color: #666; font-size: 0.9rem;">
+                Doa restu Anda adalah kado yang sangat berarti bagi kami.<br>
+                Namun jika ingin memberikan kado, bisa melalui:
+            </p>
+            
+            {% if invitation.bank_name and invitation.bank_account %}
+            <div class="gift-card">
+                <h4 style="color: #8B7355; margin-bottom: 10px;">
+                    <i class="fas fa-university"></i> Transfer Bank
+                </h4>
+                <p><strong>{{ invitation.bank_name }}</strong></p>
+                <p style="font-size: 1.1rem; color: #8B7355; font-weight: 600;">
+                    {{ invitation.bank_account }}
+                </p>
+                <p>a.n. {{ invitation.account_holder or invitation.bride_name }}</p>
+            </div>
+            {% endif %}
+            
+            {% if invitation.qris_code %}
+            <div class="gift-card">
+                <h4 style="color: #8B7355; margin-bottom: 15px;">
+                    <i class="fas fa-qrcode"></i> QRIS Payment
+                </h4>
+                <img src="data:image/png;base64,{{ invitation.qris_code }}" class="qr-code" alt="QRIS Code">
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-navigation">
+            <a href="#hero" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#event" class="nav-item">
+                <i class="fas fa-calendar"></i>
+                <span>Acara</span>
+            </a>
+            <a href="#rsvp" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>RSVP</span>
+            </a>
+            <a href="#gift" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>Kado</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Simple scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = e.currentTarget.getAttribute('href');
+                if (target.startsWith('#')) {
+                    const element = document.querySelector(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,718 @@
+{% extends "base.html" %}
+
+{% block title %}Fajar Mandiri Store - Undangan Digital & Cetak Berkualitas{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative overflow-hidden">
+    <div class="hero-bg position-absolute w-100 h-100"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <div class="hero-content fade-in-up">
+                    <h1 class="display-4 fw-bold text-white mb-4">
+                        Fajar Mandiri Store
+                        <span class="text-gradient">Solusi Cetak Digital Terpercaya</span>
+                    </h1>
+                    <p class="lead text-white-75 mb-5">
+                        Toko terpercaya untuk undangan pernikahan digital, CV profesional, 
+                        dan layanan cetak berkualitas tinggi di Bandung Barat.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3 pulse-animation">
+                            <i class="fas fa-rocket me-2"></i>Mulai Order
+                        </a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-store me-2"></i>Lihat Katalog
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image text-center fade-in-right">
+                    <div class="floating-card">
+                        <img src="{{ url_for('static', filename='images/estalase.jpg') }}" 
+                             alt="Wedding Invitation Preview" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-particles"></div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Layanan Unggulan</h2>
+            <p class="lead text-muted">Solusi lengkap cetak digital dan undangan berkualitas tinggi</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Wedding Invitations -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 text-center p-4 rounded-4 shadow-sm hover-lift">
+                    <div class="feature-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-primary">
+                            <i class="fas fa-heart text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">10 Template Premium</h5>
+                    <p class="text-muted mb-4">
+                        Pilihan template undangan yang elegan dengan tema emas-hitam, 
+                        anime sakura, dan ornamen dedaunan emas.
+                    </p>
+                    <ul class="list-unstyled text-start mb-4">
+                        <li><i class="fas fa-check text-success me-2"></i>Animasi & Ornamen Mewah</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Background Musik</li>
+                        <li><i class="fas fa-check text-success me-2"></i>10 Foto Pre-wedding</li>
+                        <li><i class="fas fa-check text-success me-2"></i>QRIS & Rekening Kado</li>
+                    </ul>
+                    <a href="{{ url_for('wedding_invitations') }}" class="btn btn-primary">
+                        Buat Undangan
+                    </a>
+                </div>
+            </div>
+
+            <!-- CV Generator -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 text-center p-4 rounded-4 shadow-sm hover-lift">
+                    <div class="feature-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-success">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">CV Generator Pro</h5>
+                    <p class="text-muted mb-4">
+                        Buat CV profesional dengan 10 template berkualitas tinggi 
+                        untuk berbagai industri dan posisi.
+                    </p>
+                    <ul class="list-unstyled text-start mb-4">
+                        <li><i class="fas fa-check text-success me-2"></i>Template Multi-Industri</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Desain Modern & Elegan</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Export PDF/Print Ready</li>
+                        <li><i class="fas fa-check text-success me-2"></i>ATS Friendly</li>
+                    </ul>
+                    <a href="{{ url_for('cv_generator') }}" class="btn btn-success">
+                        Buat CV
+                    </a>
+                </div>
+            </div>
+
+            <!-- RSVP Management -->
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 text-center p-4 rounded-4 shadow-sm hover-lift">
+                    <div class="feature-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-warning">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">Kelola Tamu & RSVP</h5>
+                    <p class="text-muted mb-4">
+                        Sistem manajemen tamu yang canggih dengan fitur RSVP, 
+                        pesan kesan, dan konfirmasi kehadiran real-time.
+                    </p>
+                    <ul class="list-unstyled text-start mb-4">
+                        <li><i class="fas fa-check text-success me-2"></i>RSVP Online</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Pesan & Doa</li>
+                        <li><i class="fas fa-check text-success me-2"></i>QR Code Undangan</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Analytics Dashboard</li>
+                    </ul>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-warning">
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Templates Showcase -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Galeri Template</h2>
+            <p class="lead text-muted">Pilihan template undangan dan CV yang memukau</p>
+        </div>
+
+<!-- Wedding Templates Showcase -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3">Template Undangan Pernikahan</h2>
+            <p class="lead text-muted">Pilih desain yang sempurna untuk hari bahagia Anda</p>
+        </div>
+
+        <div class="row g-4" id="templatesShowcase">
+            <!-- Templates will be loaded here -->
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-heart me-2"></i>Mulai Buat Undangan
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Template Preview Modal -->
+<div class="modal fade" id="templatePreviewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="templatePreviewTitle">Preview Template</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <iframe id="templatePreviewIframe" src="" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                    </div>
+                    <div class="col-md-4 bg-light p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold mb-0" id="templateDetailName">Template Name</h6>
+                            <span class="badge bg-warning" id="templatePrice" style="display: none;">
+                                <i class="fas fa-crown me-1"></i>Premium
+                            </span>
+                        </div>
+                        <p class="text-muted mb-4" id="templateDescription">Template description</p>
+
+                        <div class="feature-list mb-4">
+                            <div class="feature-item mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <span>Responsive Design</span>
+                            </div>
+                            <div class="feature-item mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <span>Background Music</span>
+                            </div>
+                            <div class="feature-item mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <span>Photo Gallery</span>
+                            </div>
+                            <div class="feature-item mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <span>RSVP Form</span>
+                            </div>
+                            <div class="feature-item mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <span>Digital Gift</span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary">
+                                <i class="fas fa-heart me-2"></i>Gunakan Template Ini
+                            </a>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-arrow-left me-2"></i>Lihat Template Lain
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold counter" data-target="{{ stats.total_invitations or 156 }}">0</h2>
+                    <p class="lead mb-0">Undangan Dibuat</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold counter" data-target="{{ stats.total_users or 89 }}">0</h2>
+                    <p class="lead mb-0">Pasangan Bahagia</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold counter" data-target="{{ stats.premium_templates or 12 }}">0</h2>
+                    <p class="lead mb-0">Template Premium</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold counter" data-target="{{ stats.total_guests or 2847 }}">0</h2>
+                    <p class="lead mb-0">Tamu Terdaftar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Store Information Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Informasi Toko</h2>
+            <p class="lead text-muted">Kunjungi toko kami atau hubungi untuk konsultasi</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="info-card h-100 text-center p-4 rounded-4 shadow-sm">
+                    <div class="info-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-primary">
+                            <i class="fas fa-map-marker-alt text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">Alamat Toko</h5>
+                    <p class="text-muted">
+                        Jl. Pasir Wangi, RT.01/RW.11<br>
+                        Gudangkahuripan, Kec. Lembang<br>
+                        Kabupaten Bandung Barat<br>
+                        Jawa Barat 40391
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="info-card h-100 text-center p-4 rounded-4 shadow-sm">
+                    <div class="info-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-success">
+                            <i class="fas fa-globe text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">Website Resmi</h5>
+                    <p class="text-muted mb-3">
+                        Kunjungi website resmi kami untuk melihat katalog lengkap dan informasi terbaru.
+                    </p>
+                    <a href="https://fajarmandiri.store" target="_blank" class="btn btn-success">
+                        fajarmandiri.store
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="info-card h-100 text-center p-4 rounded-4 shadow-sm">
+                    <div class="info-icon mb-3">
+                        <div class="icon-wrapper bg-gradient-warning">
+                            <i class="fas fa-clock text-white"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">Jam Operasional</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li><strong>Senin - Sabtu:</strong> 06:00 - 22:00</li>
+                        <li><strong>Minggu:</strong> 10:00 - 22:00</li>
+                        <li class="mt-2"><small>Siap melayani konsultasi dan pesanan</small></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-6 fw-bold mb-4">Siap Berbelanja di Fajar Mandiri Store?</h2>
+                <p class="lead text-muted mb-5">
+                    Bergabunglah dengan ribuan pelanggan yang telah mempercayai Fajar Mandiri Store 
+                    untuk kebutuhan cetak dan undangan digital berkualitas.
+                </p>
+                <div class="cta-buttons">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-user-plus me-2"></i>Daftar Sekarang
+                    </a>
+                    <a href="https://fajarmandiri.store" target="_blank" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-globe me-2"></i>Kunjungi Website
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.floating-card {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.feature-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-wrapper i {
+    font-size: 2rem;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(45deg, #ffc107, #e0a800);
+}
+
+.template-card {
+    transition: all 0.3s ease;
+}
+
+.template-card:hover {
+    transform: scale(1.05);
+}
+
+.template-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.template-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.stat-item {
+    padding: 2rem 0;
+}
+
+.counter {
+    transition: all 2s ease;
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease-out;
+}
+
+.fade-in-right {
+    animation: fadeInRight 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+.template-card-showcase {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.template-card-showcase:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.template-image-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.template-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.template-card-showcase:hover .template-preview-img {
+    transform: scale(1.05);
+}
+
+.premium-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.template-overlay-showcase {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.template-card-showcase:hover .template-overlay-showcase {
+    opacity: 1;
+}
+
+.template-info-showcase {
+    padding: 1.5rem;
+}
+
+.template-badges .badge {
+    margin-right: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+/* Custom styles for stat cards */
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+</style>
+
+<script>
+// Counter animation
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    const animateCounter = (counter) => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 1);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        updateCount();
+    };
+
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+});
+
+// Load wedding templates showcase
+document.addEventListener('DOMContentLoaded', function() {
+    loadTemplatesShowcase();
+});
+
+function loadTemplatesShowcase() {
+    // Fetch templates from API
+    fetch('/api/wedding-templates')
+        .then(response => response.json())
+        .then(templates => {
+            renderTemplatesShowcase(templates);
+        })
+        .catch(error => {
+            console.error('Error loading templates:', error);
+            // Fallback to sample data
+            const sampleTemplates = [
+                {
+                    id: 1,
+                    name: 'Elegant Golden',
+                    description: 'Mewah dan elegan dengan sentuhan emas',
+                    category: 'luxury',
+                    preview_image: '/static/images/wedding_templates/elegant_golden_preview.jpg',
+                    is_premium: true,
+                    price: 35000
+                },
+                {
+                    id: 2,
+                    name: 'Modern Minimalist',
+                    description: 'Desain minimalis yang bersih dan modern',
+                    category: 'modern',
+                    preview_image: '/static/images/wedding_templates/modern_minimalist_preview.jpg',
+                    is_premium: false,
+                    price: 0
+                },
+                {
+                    id: 3,
+                    name: 'Classic Romance',
+                    description: 'Romantis klasik dengan ornamen tradisional',
+                    category: 'classic',
+                    preview_image: '/static/images/wedding_templates/classic_romance_preview.jpg',
+                    is_premium: false,
+                    price: 0
+                }
+            ];
+            renderTemplatesShowcase(sampleTemplates);
+        });
+}
+
+function renderTemplatesShowcase(templates) {
+    const showcase = document.getElementById('templatesShowcase');
+    if (!showcase) return;
+
+    showcase.innerHTML = templates.slice(0, 6).map(template => `
+        <div class="col-lg-4 col-md-6">
+            <div class="template-card-showcase h-100">
+                <div class="template-image-container">
+                    <img src="${template.preview_image}" alt="${template.name}" class="template-preview-img">
+                    ${template.is_premium ? '<span class="badge bg-warning premium-badge"><i class="fas fa-crown me-1"></i>Premium</span>' : ''}
+                    <div class="template-overlay-showcase">
+                        <button class="btn btn-light btn-sm me-2" onclick="previewTemplateHome(${template.id}, '${template.name}', '${template.description}', ${template.is_premium}, ${template.price})">
+                            <i class="fas fa-eye me-1"></i>Demo
+                        </button>
+                        <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-heart me-1"></i>Gunakan
+                        </a>
+                    </div>
+                </div>
+                <div class="template-info-showcase">
+                    <h6 class="fw-bold mb-1">${template.name}</h6>
+                    <p class="text-muted small mb-2">${template.description}</p>
+                    <div class="template-badges">
+                        <span class="badge bg-light text-dark">${template.category}</span>
+                        ${template.is_premium ? `<span class="badge bg-warning">Rp ${template.price.toLocaleString()}</span>` : '<span class="badge bg-success">Gratis</span>'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function previewTemplateHome(templateId, name, description, isPremium, price) {
+    document.getElementById('templatePreviewTitle').textContent = `Preview: ${name}`;
+    document.getElementById('templateDetailName').textContent = name;
+    document.getElementById('templateDescription').textContent = description;
+
+    const priceElement = document.getElementById('templatePrice');
+    if (isPremium) {
+        priceElement.textContent = `Rp ${price.toLocaleString()}`;
+        priceElement.style.display = 'inline-block';
+    } else {
+        priceElement.style.display = 'none';
+    }
+
+    document.getElementById('templatePreviewIframe').src = `/wedding/preview-template/${templateId}`;
+
+    const modal = new bootstrap.Modal(document.getElementById('templatePreviewModal'));
+    modal.show();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, #f0f8e8 0%, #e8f5d8 100%);
+            min-height: 100vh;
+            color: #2d5016;
+        }
+
+        .invitation-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floral-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800"><path d="M50,50 Q70,30 90,50 Q110,70 130,50" fill="none" stroke="%23a3c585" stroke-width="2" opacity="0.3"/><path d="M350,50 Q330,30 310,50 Q290,70 270,50" fill="none" stroke="%23a3c585" stroke-width="2" opacity="0.3"/><circle cx="80" cy="100" r="8" fill="%23c4d9a8" opacity="0.4"/><circle cx="320" cy="100" r="6" fill="%23a3c585" opacity="0.5"/></svg>') repeat-y;
+            pointer-events: none;
+        }
+
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(163,197,133,0.05), rgba(196,217,168,0.1)), 
+                        radial-gradient(circle at 30% 70%, rgba(163,197,133,0.1) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 30px;
+        }
+
+        .floral-frame {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(163,197,133,0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .floral-frame::before {
+            content: '🌿';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: white;
+            padding: 0 10px;
+        }
+
+        .floral-frame::after {
+            content: '🌸';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: white;
+            padding: 0 10px;
+        }
+
+        .wedding-announcement {
+            font-size: 0.9rem;
+            color: #5a7c3a;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .couple-names {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.2rem;
+            color: #2d5016;
+            margin: 25px 0;
+            line-height: 1.1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wedding-date {
+            font-size: 1.1rem;
+            color: #5a7c3a;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 50px 30px;
+            background: white;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.2rem;
+            color: #2d5016;
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a3c585, transparent);
+        }
+
+        .mempelai-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .mempelai-card {
+            background: linear-gradient(135deg, #f9fdf6 0%, #f0f8e8 100%);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(163,197,133,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mempelai-card::before {
+            content: '🌺';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .mempelai-name {
+            font-family: 'Sacramento', cursive;
+            font-size: 2rem;
+            color: #2d5016;
+            margin-bottom: 15px;
+        }
+
+        .mempelai-parents {
+            font-size: 1rem;
+            color: #5a7c3a;
+            line-height: 1.7;
+        }
+
+        .event-section {
+            background: linear-gradient(135deg, #5a7c3a 0%, #2d5016 100%);
+            color: white;
+            padding: 50px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.95);
+            color: #2d5016;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .event-time {
+            font-size: 1.3rem;
+            color: #5a7c3a;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .venue-name {
+            font-family: 'Sacramento', cursive;
+            font-size: 1.8rem;
+            color: #2d5016;
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: #5a7c3a;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .maps-link {
+            background: #5a7c3a;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .maps-link:hover {
+            background: #2d5016;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .rsvp-section {
+            padding: 50px 30px;
+            background: #f9fdf6;
+            position: relative;
+        }
+
+        .rsvp-form {
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        .form-field {
+            margin-bottom: 22px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 1rem;
+            color: #2d5016;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(163,197,133,0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #2d5016;
+            background: white;
+            font-family: 'Lora', serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: #5a7c3a;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #5a7c3a 0%, #2d5016 100%);
+            color: white;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(90,124,58,0.3);
+        }
+
+        .gift-section {
+            padding: 50px 30px;
+            background: white;
+            text-align: center;
+        }
+
+        .gift-intro {
+            color: #5a7c3a;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .payment-option {
+            background: #f9fdf6;
+            padding: 25px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(163,197,133,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: rgba(163,197,133,0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .payment-option h4 {
+            color: #2d5016;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .account-details {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #5a7c3a;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border: 1px solid rgba(163,197,133,0.3);
+        }
+
+        .qr-code-img {
+            width: 160px;
+            height: 160px;
+            margin: 20px auto;
+            border: 3px solid #a3c585;
+            border-radius: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .invitation-container {
+                max-width: 500px;
+                margin: 25px auto;
+                border-radius: 25px;
+                box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            }
+
+            .mempelai-cards {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .mempelai-card {
+                flex: 1;
+            }
+
+            .payment-options {
+                flex-direction: row;
+            }
+
+            .payment-option {
+                flex: 1;
+            }
+        }
+
+        .slide-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="floral-border"></div>
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="floral-frame"></div>
+            <div class="wedding-announcement slide-in">The Wedding of</div>
+            <h1 class="couple-names slide-in">{{ invitation.bride_name }}<br>&<br>{{ invitation.groom_name }}</h1>
+            <div class="wedding-date slide-in">{{ invitation.wedding_date.strftime('%A, %d %B %Y') if invitation.wedding_date else 'Sabtu, 15 Juni 2025' }}</div>
+        </section>
+
+        <!-- Mempelai Section -->
+        <section class="content-section slide-in">
+            <h2 class="section-title">Mempelai</h2>
+            
+            <div class="mempelai-cards">
+                <div class="mempelai-card">
+                    <div class="mempelai-name">{{ invitation.bride_name }}</div>
+                    <div class="mempelai-parents">
+                        Putri dari<br>
+                        {{ invitation.bride_father }}<br>
+                        & {{ invitation.bride_mother }}
+                    </div>
+                </div>
+
+                <div class="mempelai-card">
+                    <div class="mempelai-name">{{ invitation.groom_name }}</div>
+                    <div class="mempelai-parents">
+                        Putra dari<br>
+                        {{ invitation.groom_father }}<br>
+                        & {{ invitation.groom_mother }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section class="event-section slide-in">
+            <h2 class="section-title" style="color: white;">Waktu & Tempat</h2>
+            
+            <div class="event-card">
+                <div class="event-time">{{ invitation.wedding_time or '10:00' }} - Selesai</div>
+                <div class="venue-name">{{ invitation.venue_name or 'Garden Wedding Venue' }}</div>
+                <div class="venue-address">{{ invitation.venue_address }}</div>
+                <a href="https://maps.google.com/?q={{ invitation.venue_address }}" class="maps-link" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i> Petunjuk Arah
+                </a>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section slide-in">
+            <h2 class="section-title">RSVP</h2>
+            
+            <form class="rsvp-form" method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}">
+                <div class="form-field">
+                    <label class="field-label">Nama Lengkap</label>
+                    <input type="text" name="name" class="field-input" required>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Nomor WhatsApp</label>
+                    <input type="text" name="phone" class="field-input">
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Konfirmasi Kehadiran</label>
+                    <select name="attendance" class="field-input" required>
+                        <option value="">Pilih konfirmasi</option>
+                        <option value="hadir">Hadir</option>
+                        <option value="tidak_hadir">Tidak Dapat Hadir</option>
+                    </select>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Jumlah Tamu</label>
+                    <select name="guest_count" class="field-input">
+                        <option value="1">1 Orang</option>
+                        <option value="2">2 Orang</option>
+                    </select>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Ucapan & Doa</label>
+                    <textarea name="wishes" class="field-input" rows="4" placeholder="Berikan ucapan dan doa untuk kami..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Kirim RSVP</button>
+            </form>
+        </section>
+
+        <!-- Gift Section -->
+        <section class="gift-section slide-in">
+            <h2 class="section-title">Wedding Gift</h2>
+            <div class="gift-intro">
+                <p>Kehadiran dan doa restu Anda adalah anugerah terindah bagi kami.<br>Jika ingin memberikan kado, Anda dapat mengirimkannya melalui:</p>
+            </div>
+            
+            <div class="payment-options">
+                {% if invitation.bank_name and invitation.bank_account %}
+                <div class="payment-option">
+                    <h4><i class="fas fa-university"></i> {{ invitation.bank_name }}</h4>
+                    <div class="account-details">{{ invitation.bank_account }}</div>
+                    <p style="color: #5a7c3a;">a.n. {{ invitation.account_holder or invitation.bride_name }}</p>
+                </div>
+                {% endif %}
+                
+                {% if invitation.qris_code %}
+                <div class="payment-option">
+                    <h4><i class="fas fa-qrcode"></i> Pembayaran Digital</h4>
+                    <img src="data:image/png;base64,{{ invitation.qris_code }}" class="qr-code-img" alt="QRIS Code">
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
