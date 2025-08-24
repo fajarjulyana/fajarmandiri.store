@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --primary-white: #FFFFFF;
+            --secondary-gray: #F8FAFC;
+            --accent-blue: #3B82F6;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .invitation-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 40px;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .couple-names-hero {
+            font-family: 'Crimson Text', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wedding-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+        }
+
+        /* Couple Cards */
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .couple-card {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 20px;
+            background: var(--secondary-gray);
+            border: 1px solid #E2E8F0;
+        }
+
+        .couple-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .couple-name {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Date & Venue */
+        .event-info {
+            background: var(--secondary-gray);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .date-display {
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .date-number {
+            font-family: 'Crimson Text', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .date-text {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .venue-info h4 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .time-info {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .maps-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .maps-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* RSVP Form */
+        .rsvp-section {
+            background: var(--secondary-gray);
+        }
+
+        .form-control {
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-submit {
+            background: var(--primary-blue);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .footer-icon {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 30px;
+            }
+
+            .couple-names-hero {
+                font-size: 2.5rem;
+            }
+
+            .content-section {
+                padding: 60px 30px;
+            }
+
+            .couple-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="couple-names-hero">{{ invitation.couple_name }}</h1>
+            <p class="wedding-subtitle">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </p>
+        </section>
+
+        <!-- Opening Section -->
+        <section class="content-section fade-in">
+            <div class="text-center">
+                <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8;">
+                    Dengan penuh sukacita, kami mengundang Anda untuk berbagi kebahagiaan di hari istimewa kami.
+                </p>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section class="content-section fade-in" style="background: var(--secondary-gray);">
+            <h2 class="section-title">Mempelai</h2>
+            
+            <div class="couple-grid">
+                <div class="couple-card">
+                    <div class="couple-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                    <div class="couple-parents">
+                        Putri dari<br>
+                        <strong>{{ invitation.bride_father }}</strong> & <strong>{{ invitation.bride_mother }}</strong>
+                    </div>
+                </div>
+
+                <div class="couple-card">
+                    <div class="couple-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                    <div class="couple-parents">
+                        Putra dari<br>
+                        <strong>{{ invitation.groom_father }}</strong> & <strong>{{ invitation.groom_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">Detail Acara</h2>
+            
+            <div class="event-info">
+                {% if invitation.wedding_date %}
+                <div class="date-display">
+                    <div class="date-number">{{ invitation.wedding_date.strftime('%d') }}</div>
+                    <div class="date-text">{{ invitation.wedding_date.strftime('%B %Y') }}</div>
+                </div>
+                {% endif %}
+
+                <div class="venue-info">
+                    {% if invitation.venue_name %}
+                        <h4>{{ invitation.venue_name }}</h4>
+                    {% endif %}
+                    <p class="venue-address">{{ invitation.venue_address }}</p>
+                    {% if invitation.wedding_time %}
+                        <p class="time-info">
+                            <i class="far fa-clock me-2"></i>
+                            {{ invitation.wedding_time }} WIB
+                        </p>
+                    {% endif %}
+                    <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="maps-btn">
+                        <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="content-section rsvp-section fade-in">
+            <h2 class="section-title">RSVP</h2>
+            <div style="max-width: 400px; margin: 0 auto;">
+                <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}">
+                    <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                    <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                    <select class="form-control" name="attendance" required>
+                        <option value="">Konfirmasi Kehadiran</option>
+                        <option value="hadir">Hadir</option>
+                        <option value="tidak_hadir">Tidak Hadir</option>
+                    </select>
+                    <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" value="1">
+                    <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer-section">
+            <div class="footer-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <p style="line-height: 1.8; opacity: 0.9;">
+                Terima kasih atas doa dan kehadiran Anda di hari bahagia kami.
+                <br><br>
+                <strong>{{ invitation.couple_name }}</strong>
+            </p>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
