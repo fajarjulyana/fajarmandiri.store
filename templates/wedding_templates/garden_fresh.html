@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #4A7C59;
+            --primary-white: #FFFFFF;
+            --secondary-cream: #F8F9F0;
+            --accent-sage: #87A96B;
+            --text-dark: #2C3E2D;
+            --text-light: #6B7C6B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, var(--secondary-cream) 0%, #FFFFFF 100%);
+            color: var(--text-dark);
+        }
+
+        .invitation-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Leaf Pattern */
+        .leaf-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234A7C59' fill-opacity='0.05'%3E%3Cpath d='M20 20c-2.2 0-4-1.8-4-4 0-1.1.4-2.1 1.2-2.8C18 12.4 19 12 20 12s2 .4 2.8 1.2c.8.7 1.2 1.7 1.2 2.8 0 2.2-1.8 4-4 4z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-sage) 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .leaf-ornament {
+            color: var(--secondary-cream);
+            font-size: 3rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .couple-names-hero {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nature-subtitle {
+            font-family: 'Merriweather', serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 3;
+        }
+
+        .wedding-date-hero {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🌿';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        /* Opening Section */
+        .opening-section {
+            background: var(--secondary-cream);
+            text-align: center;
+        }
+
+        .opening-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+        }
+
+        .nature-quote {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-green);
+            font-style: italic;
+            color: var(--text-dark);
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nature-quote::before {
+            content: '🌱';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Couple Section */
+        .couple-section {
+            background: white;
+        }
+
+        .couple-card {
+            background: var(--secondary-cream);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid #E8F5E8;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-sage) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .couple-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .couple-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Botanical Divider */
+        .botanical-divider {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2rem;
+            color: var(--accent-sage);
+        }
+
+        /* Event Section */
+        .event-section {
+            background: var(--secondary-cream);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #E8F5E8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .date-flower {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-sage));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.3);
+            position: relative;
+        }
+
+        .date-flower::before {
+            content: '🌸';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+        }
+
+        .date-number {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        .venue-name {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .venue-time {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .nature-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .nature-btn:hover {
+            background: var(--accent-sage);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: white;
+        }
+
+        .rsvp-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            border: 2px solid #E8F5E8;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: var(--secondary-cream);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .btn-rsvp {
+            background: var(--primary-green);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .btn-rsvp:hover {
+            background: var(--accent-sage);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--secondary-cream);
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 124, 89, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Floating Music Button */
+        .floating-music {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 1.5s infinite;
+            transition: background 0.3s ease;
+        }
+
+        .floating-music:hover {
+            background: var(--accent-sage);
+        }
+
+        .floating-music i {
+            font-size: 1.8rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-sage));
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-leaves {
+            color: var(--secondary-cream);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .couple-names-hero {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .couple-name {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 60px 30px;
+            }
+
+            .couple-card, .event-card {
+                padding: 30px 25px;
+            }
+
+            .date-flower {
+                width: 100px;
+                height: 100px;
+            }
+
+            .date-number {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .floating-music {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-music i {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="leaf-pattern"></div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="leaf-ornament">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="nature-subtitle">A Garden Wedding Celebration</div>
+            <h1 class="couple-names-hero">{{ invitation.couple_name }}</h1>
+            <div class="wedding-date-hero">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Opening Section -->
+        <section class="content-section opening-section fade-in">
+            <h2 class="section-title">Natural Love</h2>
+            <p class="opening-text">
+                Seperti bunga yang mekar di taman, cinta kami tumbuh dengan indah dan alami. Kami mengundang Anda untuk menyaksikan perjalanan cinta kami yang akan bersatu dalam ikatan suci pernikahan.
+            </p>
+
+            <div class="nature-quote">
+                <p>"Cinta adalah bunga yang tumbuh paling indah ketika dipupuk dengan ketulusan dan disiram dengan kebahagiaan."</p>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section class="content-section couple-section fade-in">
+            <h2 class="section-title">Mempelai</h2>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="nature-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                    <div class="couple-parents">
+                        Putri dari<br>
+                        <strong>{{ invitation.bride_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.bride_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="botanical-divider">
+                <i class="fas fa-seedling"></i>
+            </div>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="nature-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                    <div class="couple-parents">
+                        Putra dari<br>
+                        <strong>{{ invitation.groom_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.groom_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section class="content-section event-section fade-in">
+            <h2 class="section-title">Waktu & Tempat</h2>
+
+            <div class="event-card">
+                {% if invitation.wedding_date %}
+                <div class="date-flower">
+                    <div class="date-number">{{ invitation.wedding_date.strftime('%d') }}</div>
+                    <div class="date-month">{{ invitation.wedding_date.strftime('%b %Y') }}</div>
+                </div>
+                {% endif %}
+
+                {% if invitation.venue_name %}
+                    <h3 class="venue-name">{{ invitation.venue_name }}</h3>
+                {% endif %}
+                <p class="venue-address">{{ invitation.venue_address }}</p>
+                {% if invitation.wedding_time %}
+                    <p class="venue-time">
+                        <i class="far fa-clock me-2"></i>
+                        Pukul {{ invitation.wedding_time }} WIB
+                    </p>
+                {% endif %}
+                <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="nature-btn">
+                    <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi
+                </a>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        <section class="gallery-section fade-in">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-grid">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item" onclick="openModal('{{ url_for('static', filename='prewedding_photos/' + photo) }}')">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" alt="Prewedding Photo">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Photo Modal -->
+        <div class="modal fade" id="photoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1" 
+                                data-bs-dismiss="modal" style="z-index: 1050; filter: invert(1);"></button>
+                        <img id="modalImage" src="" alt="Gallery Photo" class="w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- RSVP Section -->
+        <section class="content-section rsvp-section fade-in">
+            <h2 class="section-title">Konfirmasi Kehadiran</h2>
+            <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form">
+                <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                <select class="form-control" name="attendance" required>
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Ya, Saya Akan Hadir</option>
+                    <option value="tidak_hadir">Maaf, Saya Tidak Dapat Hadir</option>
+                </select>
+                <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" max="5" value="1">
+                <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                <button type="submit" class="btn btn-rsvp">
+                    <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                </button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer-section">
+            <div class="footer-leaves">
+                <i class="fas fa-spa"></i>
+            </div>
+            <p style="line-height: 1.8; opacity: 0.95;">
+                Seperti taman yang indah, kehadiran Anda akan melengkapi kebahagiaan hari istimewa kami. Terima kasih atas doa dan dukungan yang telah diberikan.
+                <br><br>
+                <strong>{{ invitation.couple_name }}</strong>
+            </p>
+        </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicToggle">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="backgroundMusic" loop preload="auto">
+        {% if invitation.background_music %}
+            <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+        {% else %}
+            <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+        {% endif %}
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Photo Modal Function
+        function openModal(imageSrc) {
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            const photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+            photoModal.show();
+        }
+
+        // Music Toggle Functionality
+        const musicToggle = document.getElementById('musicToggle');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isMusicPlaying = false;
+
+        // Automatically play music if not paused
+        backgroundMusic.play().catch(error => {
+            // Autoplay was prevented, show the play button
+            console.log("Autoplay prevented. Showing music toggle button.");
+            musicToggle.style.display = 'flex'; 
+        });
+
+        musicToggle.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().catch(e => {
+                    console.log("Audio error:", e);
+                    // Coba dengan file default jika musik utama gagal
+                    backgroundMusic.src = "{{ url_for('static', filename='music/default_wedding.mp3') }}";
+                    backgroundMusic.play().catch(err => console.log("Default music also failed:", err));
+                });
+                musicIcon.classList.add('fa-beat'); // Add animation class
+                musicToggle.style.animationPlayState = 'running';
+            } else {
+                backgroundMusic.pause();
+                musicIcon.classList.remove('fa-beat'); // Remove animation class
+                musicToggle.style.animationPlayState = 'paused';
+            }
+        });
+
+        // Update icon and button state when music ends or is paused programmatically
+        backgroundMusic.addEventListener('play', () => {
+            isMusicPlaying = true;
+            musicIcon.classList.add('fa-beat');
+            musicToggle.style.animationPlayState = 'running';
+            musicToggle.style.display = 'flex'; // Ensure button is visible when playing
+        });
+
+        backgroundMusic.addEventListener('pause', () => {
+            isMusicPlaying = false;
+            musicIcon.classList.remove('fa-beat');
+            musicToggle.style.animationPlayState = 'paused';
+        });
+
+        // Show music toggle button initially if autoplay fails
+        window.addEventListener('load', () => {
+            if (!isMusicPlaying && backgroundMusic.readyState === 4) { // Check if music is ready but not playing
+                musicToggle.style.display = 'flex';
+            }
+        });
+
+    </script>
+</body>
+</html>
