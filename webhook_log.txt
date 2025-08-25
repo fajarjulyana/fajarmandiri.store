@@ -1,3 +1,0 @@
-[2025-04-06 17:17:52] {"transaction_id":"12345","status":"success"}
-[2025-04-06 17:17:59] {"transaction_id":"12345","status":"success"}
-[2025-04-06 17:44:47] {"transaction_id":"12345","status":"success"}
