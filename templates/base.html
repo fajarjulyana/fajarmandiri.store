@@ -299,7 +299,279 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Elegant Navbar Styles */
+        .navbar-elegant {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.8rem 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+        }
+
+        .navbar-elegant.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-elegant .navbar-brand .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .navbar-elegant .navbar-brand .brand-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-right: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-elegant .navbar-brand:hover .brand-icon {
+            transform: scale(1.1);
+        }
+
+        .navbar-elegant .navbar-brand .brand-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 0.5rem;
+        }
+
+        .navbar-elegant .navbar-brand .brand-subtitle {
+            font-size: 0.8rem;
+            color: var(--dark-color);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .navbar-elegant .elegant-toggler {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: transparent;
+            padding: 0;
+            width: 2.5rem;
+            height: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .navbar-elegant .elegant-toggler span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-elegant .elegant-toggler span:nth-child(2) {
+            width: 70%;
+            align-self: flex-end;
+        }
+
+        .navbar-elegant .elegant-toggler[aria-expanded="true"] span:first-child {
+            transform: translateY(8px) rotate(45deg);
+            width: 100%;
+        }
+
+        .navbar-elegant .elegant-toggler[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .navbar-elegant .elegant-toggler[aria-expanded="true"] span:last-child {
+            transform: translateY(-8px) rotate(-45deg);
+            width: 100%;
+        }
+
+        .navbar-elegant .nav-link-elegant {
+            color: var(--dark-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .navbar-elegant .nav-link-elegant .nav-icon {
+            margin-right: 0.6rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .navbar-elegant .nav-link-elegant:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar-elegant .nav-link-elegant::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-elegant .nav-link-elegant:hover::after {
+            width: 100%;
+        }
+
+        .navbar-elegant .nav-link-elegant.active::after {
+            width: 100%;
+        }
+
+        .navbar-elegant .navbar-text.contact-info {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        .navbar-elegant .navbar-text.contact-info i {
+            color: var(--warning-color);
+        }
+
+        .navbar-elegant .dropdown-menu.elegant-dropdown {
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        .navbar-elegant .dropdown-menu .dropdown-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 0.5rem;
+        }
+
+        .navbar-elegant .dropdown-item {
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-elegant .dropdown-item .dropdown-icon {
+            margin-right: 0.8rem;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .navbar-elegant .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .navbar-elegant .dropdown-item:hover .dropdown-icon {
+            color: white;
+        }
+
+        .navbar-elegant .dropdown-item.text-danger:hover {
+            background-color: var(--danger-color);
+        }
+
+        .navbar-elegant .admin-badge, .navbar-elegant .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-elegant .admin-badge .admin-label, .navbar-elegant .user-profile .user-name {
+            margin-left: 0.75rem;
+            font-weight: 500;
+        }
+
+        .navbar-elegant .admin-badge .admin-name {
+            font-weight: 600;
+            color: var(--warning-color); /* Admin specific color */
+            margin-left: 0.5rem;
+        }
+
+        .navbar-elegant .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-elegant .user-avatar-placeholder {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .btn-outline-elegant {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background-color: transparent;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-elegant:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-elegant {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-elegant:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+            background: var(--gradient-primary);
+        }
+
         /* Responsive */
+        @media (max-width: 991.98px) {
+            .navbar-elegant .navbar-nav {
+                padding-top: 1rem;
+                padding-bottom: 0.5rem;
+            }
+            .navbar-elegant .nav-link-elegant {
+                margin: 0.25rem 0;
+                padding: 0.5rem 0;
+            }
+            .navbar-elegant .nav-link-elegant::after {
+                display: none;
+            }
+            .navbar-elegant .navbar-text.contact-info {
+                display: none !important;
+            }
+            .navbar-elegant .ms-auto > .nav-item {
+                margin-bottom: 0.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar-brand {
                 font-size: 1.25rem;
@@ -318,84 +590,145 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-modern fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-elegant fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                <i class="fas fa-store me-2"></i>Fajar Mandiri Store
+            <a class="navbar-brand font-heading" href="{{ url_for('index') }}">
+                <div class="brand-logo">
+                    <i class="fas fa-store-alt brand-icon"></i>
+                    <span class="brand-text">Fajar Mandiri</span>
+                    <small class="brand-subtitle">Digital Store</small>
+                </div>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler elegant-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto ms-4">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        <a class="nav-link nav-link-elegant" href="{{ url_for('index') }}">
+                            <i class="fas fa-home nav-icon"></i>Home
+                        </a>
                     </li>
                     {% if session.user_id %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                        <a class="nav-link nav-link-elegant" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>Dashboard
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('wedding_invitations') }}">Undangan</a>
+                        <a class="nav-link nav-link-elegant" href="{{ url_for('wedding_invitations') }}">
+                            <i class="fas fa-heart nav-icon"></i>Undangan
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cv-generator">CV Generator</a>
+                        <a class="nav-link nav-link-elegant" href="/cv-generator">
+                            <i class="fas fa-file-alt nav-icon"></i>CV Generator
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/order">Cetak & Print</a>
+                        <a class="nav-link nav-link-elegant" href="/order">
+                            <i class="fas fa-print nav-icon"></i>Cetak & Print
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
 
                 <ul class="navbar-nav ms-auto">
-                        {% if session.admin %}
-                            <!-- Admin Navigation -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-warning" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user-shield me-2"></i>Admin: {{ session.admin_username }}
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard Admin</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('admin_orders') }}"><i class="fas fa-clipboard-list me-2"></i>Kelola Pesanan</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('admin_users') }}"><i class="fas fa-users me-2"></i>Kelola User</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('admin_wedding_templates') }}"><i class="fas fa-heart me-2"></i>Template Wedding</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('admin_cv_templates') }}"><i class="fas fa-file-alt me-2"></i>Template CV</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="{{ url_for('signout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout Admin</a></li>
-                                </ul>
-                            </li>
-                        {% elif session.user_id %}
-                            <!-- User Navigation -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                    <!-- Contact Info -->
+                    <li class="nav-item d-none d-lg-block">
+                        <span class="navbar-text contact-info">
+                            <i class="fas fa-phone text-warning me-1"></i>
+                            <span class="fw-medium">+6281804411937</span>
+                        </span>
+                    </li>
+
+                    {% if session.admin %}
+                        <!-- Admin Navigation -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle admin-dropdown" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                                <div class="admin-badge">
+                                    <i class="fas fa-user-shield me-2"></i>
+                                    <span class="admin-label">Admin</span>
+                                    <span class="admin-name">{{ session.admin_username }}</span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end elegant-dropdown">
+                                <li class="dropdown-header">
+                                    <i class="fas fa-cogs me-2"></i>Panel Admin
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}">
+                                    <i class="fas fa-tachometer-alt dropdown-icon"></i>Dashboard
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('admin_orders') }}">
+                                    <i class="fas fa-clipboard-list dropdown-icon"></i>Kelola Pesanan
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('admin_users') }}">
+                                    <i class="fas fa-users dropdown-icon"></i>Kelola User
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('admin_wedding_templates') }}">
+                                    <i class="fas fa-heart dropdown-icon"></i>Template Wedding
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('admin_cv_templates') }}">
+                                    <i class="fas fa-file-alt dropdown-icon"></i>Template CV
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('signout') }}">
+                                    <i class="fas fa-sign-out-alt dropdown-icon"></i>Logout Admin
+                                </a></li>
+                            </ul>
+                        </li>
+                    {% elif session.user_id %}
+                        <!-- User Navigation -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle user-dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <div class="user-profile">
                                     {% if session.user_picture %}
-                                        <img src="{{ session.user_picture }}" class="rounded-circle me-2" width="30" height="30" alt="Avatar">
+                                        <img src="{{ session.user_picture }}" class="user-avatar" alt="Avatar">
+                                    {% else %}
+                                        <div class="user-avatar-placeholder">
+                                            <i class="fas fa-user"></i>
+                                        </div>
                                     {% endif %}
-                                    {{ session.user_name }}
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('dashboard') }}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('my_orders') }}"><i class="fas fa-list me-2"></i>Pesanan Saya</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('wedding_invitations') }}"><i class="fas fa-heart me-2"></i>Undangan Saya</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('signout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                                </ul>
-                            </li>
-                        {% else %}
-                            <!-- Guest Navigation -->
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-primary me-2" href="{{ url_for('login') }}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-primary text-white" href="{{ url_for('register') }}">Daftar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-warning ms-2" href="{{ url_for('admin_login') }}">Admin</a>
-                            </li>
-                        {% endif %}
-                    </ul>
+                                    <span class="user-name">{{ session.user_name }}</span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end elegant-dropdown">
+                                <li class="dropdown-header">
+                                    <i class="fas fa-user me-2"></i>Akun Saya
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">
+                                    <i class="fas fa-tachometer-alt dropdown-icon"></i>Dashboard
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('my_orders') }}">
+                                    <i class="fas fa-list dropdown-icon"></i>Pesanan Saya
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('wedding_invitations') }}">
+                                    <i class="fas fa-heart dropdown-icon"></i>Undangan Saya
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('signout') }}">
+                                    <i class="fas fa-sign-out-alt dropdown-icon"></i>Logout
+                                </a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <!-- Guest Navigation -->
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-elegant" href="{{ url_for('signin') }}">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-elegant" href="{{ url_for('register') }}">
+                                <i class="fas fa-user-plus me-2"></i>Register
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
@@ -476,7 +809,7 @@
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar-modern');
+            const navbar = document.querySelector('.navbar-elegant');
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {

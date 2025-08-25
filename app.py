@@ -220,7 +220,212 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def generate_thumbnail_from_template(template_id, template_name, color_scheme, template_file):
+def generate_contact_qr_code(cv_data):
+    """Generate vCard QR code from CV data"""
+    try:
+        # Create vCard format
+        vcard = f"""BEGIN:VCARD
+VERSION:3.0
+FN:{cv_data.get('nama', '')}
+ORG:{cv_data.get('profesi', '')}
+TITLE:{cv_data.get('profesi', '')}
+TEL:{cv_data.get('telepon', '')}
+EMAIL:{cv_data.get('email', '')}
+ADR:;;{cv_data.get('alamat', '')};;;;
+END:VCARD"""
+
+        # Generate QR code
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(vcard)
+        qr.make(fit=True)
+
+        # Create QR code image
+        img = qr.make_image(fill_color="black", back_color="white")
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+        return qr_code_base64
+    except Exception as e:
+        print(f"Error generating contact QR code: {str(e)}")
+        return None
+
+def generate_cv_thumbnail_simple(template_id, template_name, color_scheme, category=None):
+    """Generate simple thumbnail for CV template using PIL with different designs based on category"""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+        
+        # Create a simple thumbnail image
+        width, height = 400, 300
+        
+        # Color scheme mapping
+        color_schemes = {
+            'blue': ['#1e3a8a', '#3b82f6', '#dbeafe'],
+            'green': ['#166534', '#22c55e', '#dcfce7'],
+            'red': ['#991b1b', '#ef4444', '#fee2e2'],
+            'purple': ['#581c87', '#a855f7', '#f3e8ff'],
+            'orange': ['#9a3412', '#f97316', '#fed7aa'],
+            'dark': ['#1f2937', '#6b7280', '#f9fafb'],
+            'light': ['#f8fafc', '#64748b', '#1e293b']
+        }
+        
+        colors = color_schemes.get(color_scheme, color_schemes['blue'])
+        bg_color = colors[2]
+        primary_color = colors[0]
+        secondary_color = colors[1]
+        
+        # Create image
+        img = Image.new('RGB', (width, height), bg_color)
+        draw = ImageDraw.Draw(img)
+        
+        # Generate different layouts based on category
+        if category == 'modern':
+            # Modern layout: Sidebar + main content
+            # Sidebar
+            draw.rectangle([0, 0, 120, height], fill=primary_color)
+            # Profile circle in sidebar
+            draw.ellipse([25, 30, 95, 100], fill='white')
+            # Sidebar content lines
+            for i in range(4):
+                y = 120 + (i * 25)
+                draw.rectangle([15, y, 105, y + 8], fill='white')
+            
+            # Main content area
+            draw.rectangle([140, 20, 380, 35], fill=primary_color)  # Name
+            draw.rectangle([140, 45, 300, 55], fill=secondary_color)  # Title
+            
+            # Content sections
+            for i in range(4):
+                y = 80 + (i * 40)
+                draw.rectangle([140, y, 220, y + 8], fill=primary_color)  # Section header
+                draw.rectangle([140, y + 15, 370, y + 22], fill='#ddd')  # Content line 1
+                draw.rectangle([140, y + 28, 320, y + 35], fill='#eee')  # Content line 2
+        
+        elif category == 'creative':
+            # Creative layout: Asymmetric design
+            # Header with diagonal cut
+            points = [(0, 0), (width, 0), (width, 60), (50, 90), (0, 90)]
+            draw.polygon(points, fill=primary_color)
+            
+            # Profile circle offset
+            draw.ellipse([320, 20, 380, 80], fill='white')
+            
+            # Creative elements - circles and shapes
+            draw.ellipse([50, 120, 80, 150], fill=secondary_color)
+            draw.rectangle([100, 130, 120, 140], fill=primary_color)
+            
+            # Content in creative layout
+            draw.rectangle([30, 170, 200, 180], fill=primary_color)
+            draw.rectangle([30, 190, 350, 200], fill='#ddd')
+            draw.rectangle([30, 210, 280, 220], fill='#eee')
+            
+            for i in range(2):
+                y = 240 + (i * 25)
+                draw.rectangle([30, y, 150, y + 8], fill=secondary_color)
+                draw.rectangle([160, y, 370, y + 8], fill='#ddd')
+        
+        elif category == 'professional':
+            # Professional layout: Clean and structured
+            # Top header bar
+            draw.rectangle([0, 0, width, 50], fill=primary_color)
+            
+            # Two column layout
+            # Left column
+            draw.rectangle([20, 70, 180, 80], fill=primary_color)  # Section header
+            for i in range(3):
+                y = 90 + (i * 20)
+                draw.rectangle([20, y, 170, y + 8], fill='#ddd')
+            
+            # Profile photo placeholder
+            draw.rectangle([20, 160, 80, 220], fill=secondary_color, outline=primary_color, width=2)
+            
+            # Right column
+            draw.rectangle([200, 70, 380, 80], fill=primary_color)  # Section header
+            for i in range(5):
+                y = 90 + (i * 25)
+                draw.rectangle([200, y, 370, y + 8], fill='#ddd')
+                draw.rectangle([200, y + 12, 320, y + 18], fill='#eee')
+        
+        elif category == 'minimalist':
+            # Minimalist layout: Lots of white space, clean lines
+            # Simple header line
+            draw.rectangle([0, 40, width, 42], fill=primary_color)
+            
+            # Minimal profile circle
+            draw.ellipse([30, 60, 90, 120], fill='white', outline=primary_color, width=3)
+            
+            # Clean text blocks
+            draw.rectangle([120, 70, 300, 80], fill=primary_color)  # Name
+            draw.rectangle([120, 90, 220, 95], fill=secondary_color)  # Title
+            
+            # Minimal content sections with lots of spacing
+            for i in range(3):
+                y = 140 + (i * 50)
+                draw.rectangle([30, y, 120, y + 6], fill=primary_color)  # Section title
+                draw.rectangle([30, y + 15, 350, y + 20], fill='#eee')  # Content
+                draw.rectangle([30, y + 25, 280, y + 30], fill='#f5f5f5')  # Content
+        
+        elif category == 'classic':
+            # Classic layout: Traditional CV format
+            # Header with border
+            draw.rectangle([20, 20, width-20, 80], fill='white', outline=primary_color, width=2)
+            
+            # Centered profile and info
+            draw.ellipse([width//2-40, 30, width//2+40, 110], fill=secondary_color)
+            
+            # Formal sections with borders
+            section_starts = [120, 180, 240]
+            for i, start_y in enumerate(section_starts):
+                draw.rectangle([30, start_y, width-30, start_y + 2], fill=primary_color)
+                draw.rectangle([30, start_y + 10, 150, start_y + 18], fill=secondary_color)
+                
+                # Content lines
+                for j in range(2):
+                    y = start_y + 25 + (j * 12)
+                    draw.rectangle([30, y, width-50, y + 6], fill='#ddd')
+        
+        else:
+            # Default layout (general category)
+            # Standard header
+            draw.rectangle([0, 0, width, 80], fill=primary_color)
+            
+            # Profile circle
+            draw.ellipse([30, 100, 90, 160], fill=secondary_color)
+            
+            # Text lines
+            draw.rectangle([120, 110, 350, 125], fill=primary_color)
+            draw.rectangle([120, 135, 280, 150], fill=secondary_color)
+            
+            # Content sections
+            for i in range(3):
+                y = 180 + (i * 35)
+                draw.rectangle([30, y, 200, y + 10], fill=primary_color)
+                draw.rectangle([30, y + 15, 320, y + 25], fill=secondary_color)
+        
+        # Add template name indicator (small text simulation)
+        name_width = len(template_name) * 8 if len(template_name) < 20 else 160
+        draw.rectangle([10, height-25, 10 + name_width, height-15], fill=primary_color)
+        
+        # Save thumbnail
+        timestamp = str(int(datetime.now().timestamp()))
+        thumbnail_filename = f"{timestamp}_cv_{template_id}_thumbnail.jpg"
+        thumbnail_path = os.path.join('static/images/templates', thumbnail_filename)
+        os.makedirs(os.path.dirname(thumbnail_path), exist_ok=True)
+        
+        img.save(thumbnail_path, "JPEG", quality=85)
+        
+        return thumbnail_filename
+        
+    except Exception as e:
+        print(f"[CV Thumbnail Error] Template {template_name} (ID {template_id}): {e}")
+        return None
+
+def generate_cv_thumbnail_from_template(template_id, template_name, color_scheme, template_file):
     try:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -467,8 +672,13 @@ def index():
             'premium_templates': conn.execute('SELECT COUNT(*) FROM wedding_templates WHERE is_premium = 1').fetchone()[0],
             'total_guests': conn.execute('SELECT COUNT(*) FROM wedding_guests').fetchone()[0]
         }
+        
+        # Get sample templates for showcase
+        wedding_templates = conn.execute('SELECT * FROM wedding_templates ORDER BY is_premium, name LIMIT 6').fetchall()
+        cv_templates = conn.execute('SELECT * FROM cv_templates ORDER BY is_premium, name LIMIT 6').fetchall()
+        
         conn.close()
-        return render_template('index.html', stats=stats)
+        return render_template('index.html', stats=stats, wedding_templates=wedding_templates, cv_templates=cv_templates)
 
 @app.route('/dashboard')
 @require_auth
@@ -643,6 +853,10 @@ def generate_cv():
             foto_base64 = base64.b64encode(foto_data).decode()
 
     cv_data['foto'] = foto_base64
+
+    # Generate QR Code for CV contact
+    qr_code_base64 = generate_contact_qr_code(cv_data)
+    cv_data['qr_code_base64'] = qr_code_base64
 
     return render_template('cv_preview.html', cv_data=cv_data, template=template)
 
@@ -989,8 +1203,8 @@ def view_wedding_invitation(link):
     if template_file:
         try:
             return render_template(template_file,
-                                 invitation=invitation_dict, 
-                                 guests=guests, 
+                                 invitation=invitation_dict,
+                                 guests=guests,
                                  prewedding_photos=prewedding_photos)
         except Exception as e:
             print(f"Error rendering template {template_file}: {str(e)}")
@@ -1271,6 +1485,66 @@ def generate_all_thumbnails():
     flash(f'Berhasil generate {success_count} dari {total_count} thumbnails!', 'success')
     return redirect(url_for('admin_wedding_templates'))
 
+@app.route('/admin/generate-cv-thumbnail/<int:template_id>')
+@require_admin
+def generate_cv_template_thumbnail(template_id):
+    """Generate thumbnail for a specific CV template"""
+    conn = get_db()
+    template = conn.execute('SELECT * FROM cv_templates WHERE id = ?', (template_id,)).fetchone()
+
+    if not template:
+        flash('Template tidak ditemukan!', 'error')
+        return redirect(url_for('admin_cv_templates'))
+
+    # Generate thumbnail for CV with category info
+    thumbnail_filename = generate_cv_thumbnail_simple(
+        template['id'],
+        template['name'],
+        template['color_scheme'],
+        template['category']
+    )
+
+    if thumbnail_filename:
+        # Update database with new thumbnail
+        conn.execute('UPDATE cv_templates SET preview_image = ? WHERE id = ?',
+                    (thumbnail_filename, template_id))
+        conn.commit()
+        flash(f'Thumbnail berhasil digenerate untuk template {template["name"]}!', 'success')
+    else:
+        flash('Gagal generate thumbnail!', 'error')
+
+    conn.close()
+    return redirect(url_for('admin_cv_templates'))
+
+@app.route('/admin/generate-all-cv-thumbnails')
+@require_admin
+def generate_all_cv_thumbnails():
+    """Generate thumbnails for all CV templates"""
+    conn = get_db()
+    templates = conn.execute('SELECT * FROM cv_templates').fetchall()
+
+    success_count = 0
+    total_count = len(templates)
+
+    for template in templates:
+        thumbnail_filename = generate_cv_thumbnail_simple(
+            template['id'],
+            template['name'],
+            template['color_scheme'],
+            template['category']
+        )
+
+        if thumbnail_filename:
+            conn.execute('UPDATE cv_templates SET preview_image = ? WHERE id = ?',
+                        (thumbnail_filename, template['id']))
+            success_count += 1
+
+    conn.commit()
+    conn.close()
+
+    flash(f'Berhasil generate {success_count} dari {total_count} CV thumbnails!', 'success')
+    return redirect(url_for('admin_cv_templates'))
+
 @app.route('/admin/wedding-templates', methods=['GET', 'POST'])
 @require_admin
 def admin_wedding_templates():
@@ -1519,8 +1793,8 @@ def query_db(query, args=(), one=False):
 def preview_thumbnail(template_id):
     # ambil data template dari DB
     template = query_db(
-        "SELECT * FROM wedding_templates WHERE id = ?", 
-        [template_id], 
+        "SELECT * FROM wedding_templates WHERE id = ?",
+        [template_id],
         one=True
     )
     if not template:
