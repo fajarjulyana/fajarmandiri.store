@@ -1,0 +1,185 @@
+
+{% extends "base.html" %}
+
+{% block title %}Pesanan Saya - Fajar Mandiri Store{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="font-heading text-gradient mb-3">
+                    <i class="fas fa-shopping-bag me-2"></i>Pesanan Saya
+                </h1>
+                <p class="lead text-muted">Kelola dan pantau status pesanan cetakan Anda</p>
+                <div class="divider mx-auto"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-dark mb-0">Riwayat Pesanan</h3>
+                <a href="{{ url_for('order') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Buat Pesanan Baru
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if orders %}
+    <div class="row g-4">
+        {% for order in orders %}
+        <div class="col-lg-6 col-xl-4">
+            <div class="card order-card h-100 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-muted">Order #{{ order.id }}</h6>
+                    <span class="badge bg-{{ 'success' if order.status == 'Selesai' else 'warning' if order.status == 'Diproses' else 'secondary' }}">
+                        {{ order.status }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="order-info">
+                        <h5 class="card-title mb-3">{{ order.jenis_cetakan }}</h5>
+                        
+                        <div class="info-item mb-2">
+                            <i class="fas fa-user text-primary me-2"></i>
+                            <strong>{{ order.nama }}</strong>
+                        </div>
+                        
+                        <div class="info-item mb-2">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            {{ order.email }}
+                        </div>
+                        
+                        <div class="info-item mb-2">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            {{ order.whatsapp }}
+                        </div>
+                        
+                        {% if order.ukuran %}
+                        <div class="info-item mb-2">
+                            <i class="fas fa-expand-arrows-alt text-primary me-2"></i>
+                            {{ order.ukuran }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="info-item mb-3">
+                            <i class="fas fa-sort-numeric-up text-primary me-2"></i>
+                            {{ order.jumlah }} pcs
+                        </div>
+                        
+                        {% if order.catatan %}
+                        <div class="order-notes">
+                            <small class="text-muted">
+                                <i class="fas fa-sticky-note me-1"></i>
+                                {{ order.catatan }}
+                            </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ order.created_at.strftime('%d %b %Y, %H:%M') }}
+                        </small>
+                        {% if order.file_path %}
+                        <a href="{{ url_for('download_file', order_id=order.id) }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-download me-1"></i>File
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination if needed -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <p class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Menampilkan {{ orders|length }} pesanan
+            </p>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card text-center">
+                <div class="card-body py-5">
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-bag fa-4x text-muted mb-4"></i>
+                        <h4 class="text-muted mb-3">Belum Ada Pesanan</h4>
+                        <p class="text-muted mb-4">Anda belum membuat pesanan cetakan. Mulai buat pesanan pertama Anda sekarang!</p>
+                        <a href="{{ url_for('order') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus me-2"></i>Buat Pesanan Pertama
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.text-gradient {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 2px;
+}
+
+.order-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.order-notes {
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.empty-state i {
+    opacity: 0.5;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+@media (max-width: 768px) {
+    .order-card {
+        margin-bottom: 1rem;
+    }
+}
+</style>
+{% endblock %}
