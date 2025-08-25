@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Undangan Pernikahan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a2e;
+            --accent-color: #16213e;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Cover/Landing Section */
+        .cover-section {
+            height: 100vh;
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23d4af37" stop-opacity="0.1"/><stop offset="100%" stop-color="%231a1a2e" stop-opacity="0.9"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23a)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .cover-content {
+            color: var(--text-light);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .cover-ornament {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .cover-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .cover-names {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .cover-date {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        /* Countdown */
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .countdown-title {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: rgba(212, 175, 55, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 70px;
+        }
+
+        .countdown-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .open-invitation-btn {
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+            color: var(--secondary-color);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .open-invitation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .ornament {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .couple-names {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .wedding-date {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Bride & Groom Section */
+        .couple-section {
+            background: var(--bg-light);
+        }
+
+        .couple-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .couple-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+        }
+
+        .couple-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .couple-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .couple-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .couple-detail {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .couple-detail i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        /* Event Details */
+        .event-section {
+            background: white;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite reverse;
+        }
+
+        .event-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .event-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .event-detail {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .event-detail i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            background: var(--bg-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* RSVP */
+        .rsvp-section {
+            background: white;
+        }
+
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+            color: var(--secondary-color);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Audio Control */
+        .audio-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .audio-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), #f1c40f);
+            color: var(--secondary-color);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-title { font-size: 2.5rem; }
+            .cover-names { font-size: 1.4rem; }
+            .title { font-size: 3rem; }
+            .couple-names { font-size: 2rem; }
+            .section-title { font-size: 2.5rem; }
+            .countdown-timer { flex-wrap: wrap; }
+            .countdown-item { min-width: 60px; }
+            .countdown-number { font-size: 1.5rem; }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .couple-grid,
+            .event-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .couple-card,
+            .event-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Section -->
+    <div class="cover-section" id="coverSection">
+        <div class="cover-content">
+            <div class="cover-ornament float-animation">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="cover-title">The Wedding Of</h1>
+            <div class="cover-names">{{ invitation.bride_name|default('Putri') }} & {{ invitation.groom_name|default('Putra') }}</div>
+            <div class="cover-date">{{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date else '01 Januari 2025' }}</div>
+
+            <!-- Countdown Section -->
+            <div class="countdown-section">
+                <div class="countdown-title">Menghitung hari menuju bahagia</div>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Hari</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>
+                BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="ornament float-animation">
+                        <i class="fas fa-rings-wedding"></i>
+                    </div>
+                    <h1 class="title">Wedding Invitation</h1>
+                    <p class="subtitle">Dengan penuh syukur dan kebahagiaan, kami mengundang Anda</p>
+                    <div class="couple-names">{{ invitation.bride_name|default('Putri') }} & {{ invitation.groom_name|default('Putra') }}</div>
+                    <div class="wedding-date">{{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date else '01 Januari 2025' }}</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Bride & Groom Section -->
+        <section class="section couple-section">
+            <div class="container">
+                <h2 class="section-title">Mempelai</h2>
+                <div class="couple-grid">
+                    <!-- Bride -->
+                    <div class="couple-card">
+                        <div class="couple-photo">
+                            {% if invitation.bride_photo %}
+                                <img src="{{ invitation.bride_photo }}" alt="{{ invitation.bride_name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user-woman"></i>
+                            {% endif %}
+                        </div>
+                        <h3 class="couple-name">
+                            {% if invitation.bride_title %}{{ invitation.bride_title }} {% endif %}{{ invitation.bride_name|default('Putri Cantik') }}
+                        </h3>
+                        <div class="couple-detail">
+                            <i class="fas fa-female"></i>
+                            <span>Putri dari Bapak {{ invitation.bride_father }}</span>
+                        </div>
+                        <div class="couple-detail">
+                            <i class="fas fa-female"></i>
+                            <span>dan Ibu {{ invitation.bride_mother }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Groom -->
+                    <div class="couple-card">
+                        <div class="couple-photo">
+                            {% if invitation.groom_photo %}
+                                <img src="{{ invitation.groom_photo }}" alt="{{ invitation.groom_name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user-man"></i>
+                            {% endif %}
+                        </div>
+                        <h3 class="couple-name">
+                            {% if invitation.groom_title %}{{ invitation.groom_title }} {% endif %}{{ invitation.groom_name|default('Putra Tampan') }}
+                        </h3>
+                        <div class="couple-detail">
+                            <i class="fas fa-male"></i>
+                            <span>Putra dari Bapak {{ invitation.groom_father }}</span>
+                        </div>
+                        <div class="couple-detail">
+                            <i class="fas fa-female"></i>
+                            <span>dan Ibu {{ invitation.groom_mother }}</span>
+                        </div>
+                        <div class="couple-detail">
+                            <i class="fab fa-instagram"></i>
+                            <span>{{ invitation.groom_instagram }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Events -->
+        <section class="section event-section">
+            <div class="container">
+                <h2 class="section-title">Acara Pernikahan</h2>
+                <div class="event-grid">
+                    {% if invitation.akad_date %}
+                    <div class="event-card">
+                        <div class="event-content">
+                            <div class="event-icon">
+                                <i class="fas fa-mosque"></i>
+                            </div>
+                            <h3 class="event-title">Akad Nikah</h3>
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{ invitation.akad_date.strftime('%d %B %Y') if invitation.akad_date else '01 Januari 2025' }}</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ invitation.akad_time|default('08:00 WIB') }}</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ invitation.akad_venue|default('Masjid Al-Ikhlas') }}</span>
+                            </div>
+                            {% if invitation.akad_address %}
+                            <div class="event-detail">
+                                <i class="fas fa-location-arrow"></i>
+                                <span>{{ invitation.akad_address }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="event-card">
+                        <div class="event-content">
+                            <div class="event-icon">
+                                <i class="fas fa-glass-cheers"></i>
+                            </div>
+                            <h3 class="event-title">Resepsi</h3>
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{ invitation.reception_date.strftime('%d %B %Y') if invitation.reception_date else invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date else '01 Januari 2025' }}</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ invitation.reception_time|default('19:00 WIB') }}</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ invitation.reception_venue|default('Gedung Serbaguna') }}</span>
+                            </div>
+                            {% if invitation.reception_address %}
+                            <div class="event-detail">
+                                <i class="fas fa-location-arrow"></i>
+                                <span>{{ invitation.reception_address }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if invitation.maps_url %}
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="{{ invitation.maps_url }}" target="_blank" class="submit-btn" style="display: inline-block; text-decoration: none; width: auto;">
+                        <i class="fas fa-map-marked-alt me-2"></i>
+                        Lihat Lokasi di Google Maps
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Love Story -->
+        {% if invitation.love_story %}
+        <section class="section" style="background: var(--bg-light);">
+            <div class="container">
+                <h2 class="section-title">Kisah Cinta Kami</h2>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8; color: var(--text-dark);">
+                    {{ invitation.love_story|safe }}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Gallery -->
+        <section class="section gallery-section">
+            <div class="container">
+                <h2 class="section-title">Galeri</h2>
+                <div class="gallery-grid">
+                    {% if invitation.gallery_photos %}
+                        {% for photo in invitation.gallery_photos %}
+                        <div class="gallery-item">
+                            <img src="{{ photo }}" alt="Gallery" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="gallery-item"><i class="fas fa-camera"></i></div>
+                        <div class="gallery-item"><i class="fas fa-heart"></i></div>
+                        <div class="gallery-item"><i class="fas fa-ring"></i></div>
+                        <div class="gallery-item"><i class="fas fa-flower"></i></div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Section -->
+        {% if invitation.bank_account or invitation.digital_wallet %}
+        <section class="section" style="background: white;">
+            <div class="container">
+                <h2 class="section-title">Hadiah Pernikahan</h2>
+                <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <p style="margin-bottom: 2rem; font-size: 1.1rem;">
+                        Doa restu Anda merupakan karunia yang sangat berarti bagi kami. 
+                        Namun jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.
+                    </p>
+
+                    {% if invitation.bank_account %}
+                    <div style="background: var(--bg-light); padding: 2rem; border-radius: 15px; margin-bottom: 1rem;">
+                        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-university me-2"></i>Transfer Bank
+                        </h4>
+                        <p><strong>{{ invitation.bank_name|default('Bank Mandiri') }}</strong></p>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">{{ invitation.bank_account }}</p>
+                        <p>a.n {{ invitation.account_holder|default(invitation.groom_name|default('Putra')) }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if invitation.digital_wallet %}
+                    <div style="background: var(--bg-light); padding: 2rem; border-radius: 15px;">
+                        <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-mobile-alt me-2"></i>E-Wallet
+                        </h4>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color);">{{ invitation.digital_wallet }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- RSVP -->
+        <section class="section rsvp-section">
+            <div class="container">
+                <h2 class="section-title">Konfirmasi Kehadiran</h2>
+                <form class="rsvp-form" method="POST" action="/submit_rsvp">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-input" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">No. WhatsApp</label>
+                        <input type="tel" class="form-input" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konfirmasi Kehadiran</label>
+                        <select class="form-select" name="attendance" required>
+                            <option value="">Pilih konfirmasi</option>
+                            <option value="hadir">Hadir</option>
+                            <option value="tidak_hadir">Tidak dapat hadir</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah Tamu</label>
+                        <select class="form-select" name="guest_count">
+                            <option value="1">1 orang</option>
+                            <option value="2">2 orang</option>
+                            <option value="3">3 orang</option>
+                            <option value="4">4 orang</option>
+                            <option value="5">5+ orang</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ucapan & Doa</label>
+                        <textarea class="form-textarea" name="message" placeholder="Berikan ucapan dan doa terbaik untuk kami..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Kirim Konfirmasi
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="ornament" style="font-size: 2rem;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Terima kasih</p>
+                    <p style="font-size: 2rem; font-weight: 700; color: var(--primary-color);">
+                        {{ invitation.bride_name|default('Putri') }} & {{ invitation.groom_name|default('Putra') }}
+                    </p>
+                    {% if invitation.social_media %}
+                    <div class="social-links">
+                        {% if invitation.bride_instagram %}
+                        <a href="https://instagram.com/{{ invitation.bride_instagram }}" class="social-link" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                        {% if invitation.groom_instagram %}
+                        <a href="https://instagram.com/{{ invitation.groom_instagram }}" class="social-link" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2024 - Made with ❤️ by FajarMandiri</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Audio Control -->
+    <div class="audio-control">
+        <button class="audio-btn" onclick="toggleMusic()" id="audioBtn">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+
+    <!-- Background Music -->
+    {% if invitation.background_music %}
+    <audio id="backgroundMusic" loop>
+        <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+    </audio>
+    {% else %}
+    <audio id="backgroundMusic" loop>
+        <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+    </audio>
+    {% endif %}
+
+    <script>
+        // Music Control
+        let isPlaying = false;
+        const audio = document.getElementById('backgroundMusic');
+        const audioBtn = document.getElementById('audioBtn');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                audioBtn.innerHTML = '<i class="fas fa-music"></i>';
+                isPlaying = false;
+            } else {
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                audioBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+            }
+        }
+
+        // Auto play music when invitation is opened
+        function openInvitation() {
+            document.getElementById('coverSection').style.display = 'none';
+            document.getElementById('mainContent').classList.add('active');
+
+            // Auto play music
+            setTimeout(() => {
+                audio.play().catch(e => {
+                    console.log('Auto play failed:', e);
+                    // Show play button if autoplay fails
+                    audioBtn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+                if (!audio.paused) {
+                    audioBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    isPlaying = true;
+                }
+            }, 1000);
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            // Set wedding date - you can modify this
+            const weddingDate = new Date("{{ invitation.wedding_date.strftime('%Y-%m-%d') if invitation.wedding_date else '2025-01-01' }}").getTime();
+
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById("countdownTimer").innerHTML = "<div class='countdown-item'><span class='countdown-number'>❤️</span><span class='countdown-label'>Hari Bahagia Telah Tiba!</span></div>";
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Simulate form submission
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Mengirim...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                alert('Terima kasih! Konfirmasi Anda telah terkirim.');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                this.reset();
+            }, 2000);
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
+
+    <!-- Universal Wedding Features Script -->
+    <script src="{{ url_for('static', filename='js/wedding-animations.js') }}"></script>
+</body>
+</html>
