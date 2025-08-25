@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8b5cf6; /* Ungu */
+            --secondary-color: #6d28d9; /* Ungu Tua */
+            --accent-color: #d946ef; /* Pink Ungu */
+            --background-light: #f3e8ff; /* Ungu Muda */
+            --text-color: #1e293b; /* Abu Gelap */
+            --text-muted: #64748b; /* Abu Sedang */
+            --header-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            --footer-gradient: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
+            --card-background: #ffffff;
+            --font-heading: 'Playfair Display', serif;
+            --font-script: 'Dancing Script', cursive;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--background-light);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* Opening Screen */
+        .opening-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--header-gradient);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+
+        .opening-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .opening-screen h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .opening-screen p {
+            font-family: var(--font-script);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 20px;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            min-width: 80px;
+        }
+
+        .countdown-item span {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .btn-open-invitation {
+            padding: 15px 30px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(217, 70, 239, 0.3);
+        }
+
+        .btn-open-invitation:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(217, 70, 239, 0.4);
+        }
+
+        /* Main Content */
+        .content-section {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 3px;
+        }
+
+        .couple-card {
+            background: var(--card-background);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .couple-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px rgba(139, 92, 246, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .couple-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+        }
+
+        .couple-name {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .venue-section {
+            background: linear-gradient(135deg, var(--background-light), #e9d5ff);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venue-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1'%3E%3Cpath fill='%238b5cf6' opacity='0.1' d='M0,50 Q25,25 50,50 T100,50'/%3E%3C/svg%3E") repeat;
+            animation: subtle-move 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes subtle-move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+
+        .venue-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .venue-details p {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .btn-maps {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+
+        .btn-maps:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+        }
+
+        .gallery-item img {
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.03);
+        }
+
+        .rsvp-section {
+            background: var(--footer-gradient);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1'%3E%3Cpath fill='%23d946ef' opacity='0.1' d='M0,50 Q25,75 50,50 T100,50'/%3E%3C/svg%3E") repeat;
+            animation: subtle-move-reverse 25s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes subtle-move-reverse {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50px); }
+        }
+
+        .rsvp-form .form-control {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .rsvp-form .form-control:focus {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-rsvp {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-rsvp:hover {
+            background: #c026d3; /* Darker accent */
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(217, 70, 239, 0.4);
+        }
+
+        .footer-section {
+            background: var(--footer-gradient);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        .footer-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1'%3E%3Cpath fill='%23ffffff' opacity='0.1' d='M0,50 C25,20 75,80 100,50'/%3E%3C/svg%3E") repeat;
+            animation: subtle-move 15s linear infinite;
+            z-index: 0;
+        }
+
+        .footer-message {
+            font-family: var(--font-script);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+            .opening-screen h1 {
+                font-size: 3rem;
+            }
+            .opening-screen p {
+                font-size: 1.5rem;
+            }
+            .countdown {
+                font-size: 2rem;
+            }
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .couple-card {
+                padding: 30px;
+            }
+            .couple-name {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .opening-screen h1 {
+                font-size: 2.5rem;
+            }
+            .opening-screen p {
+                font-size: 1.3rem;
+            }
+            .countdown {
+                font-size: 1.8rem;
+                gap: 15px;
+            }
+            .countdown-item {
+                min-width: 60px;
+                padding: 8px;
+                font-size: 1.5rem;
+            }
+            .countdown-item span {
+                font-size: 0.9rem;
+            }
+            .content-section {
+                padding: 40px 0;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .couple-card {
+                padding: 25px;
+                margin-bottom: 20px;
+            }
+            .venue-section, .rsvp-section {
+                padding: 30px;
+            }
+            .btn-rsvp, .btn-open-invitation {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .footer-message {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .opening-screen {
+                padding: 20px;
+            }
+            .opening-screen h1 {
+                font-size: 2rem;
+            }
+            .opening-screen p {
+                font-size: 1.1rem;
+            }
+            .countdown {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+            .countdown-item {
+                min-width: 100px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .couple-card .icon {
+                font-size: 2.5rem;
+            }
+            .couple-name {
+                font-size: 1.8rem;
+            }
+            .venue-details p {
+                font-size: 1rem;
+            }
+            .footer-message {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Screen -->
+    <div id="openingScreen" class="opening-screen">
+        <h1>The Wedding of</h1>
+        <div class="opening-names">
+            {{ invitation.bride_name or 'Marina' }} & {{ invitation.groom_name or 'Adrian' }}
+        </div>
+        <div class="countdown">
+            <div class="countdown-item">
+                <span id="days"></span>Days
+            </div>
+            <div class="countdown-item">
+                <span id="hours"></span>Hours
+            </div>
+            <div class="countdown-item">
+                <span id="minutes"></span>Minutes
+            </div>
+            <div class="countdown-item">
+                <span id="seconds"></span>Seconds
+            </div>
+        </div>
+        <button id="openBtn" class="btn-open-invitation">Buka Undangan</button>
+    </div>
+
+    <!-- Main Invitation Content -->
+    <div id="invitationContent" style="display: none;">
+        <!-- Header with Couple Names and Date -->
+        <header class="text-center py-5" style="background: var(--header-gradient); color: white;">
+            <h1 class="display-3" style="font-family: var(--font-heading);">{{ invitation.bride_name }}</h1>
+            <h1 class="display-3" style="font-family: var(--font-heading); margin: 20px 0;">&</h1>
+            <h1 class="display-3" style="font-family: var(--font-heading);">{{ invitation.groom_name }}</h1>
+            <p class="lead" style="font-family: var(--font-script); font-size: 2.5rem;">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+                {% if invitation.wedding_time %}
+                    | {{ invitation.wedding_time }} WIB
+                {% endif %}
+            </p>
+        </header>
+
+        <!-- Opening Message -->
+        <section class="content-section">
+            <div class="container">
+                <div class="text-center">
+                    <p class="lead" style="font-family: var(--font-script); font-size: 1.6rem; color: var(--text-color);">
+                        "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                    </p>
+                    <p style="color: var(--text-muted); font-style: italic;">(QS. Ar-Rum: 21)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bride & Groom Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Mempelai</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="couple-card">
+                            <i class="fas fa-ring icon"></i>
+                            <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                            {% if invitation.bride_title %}
+                                <p class="text-muted mb-3">{{ invitation.bride_title }}</p>
+                            {% endif %}
+                            <div class="couple-parents">
+                                Putri dari<br>
+                                <strong>{{ invitation.bride_father }}</strong><br>
+                                &<br>
+                                <strong>{{ invitation.bride_mother }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="couple-card">
+                            <i class="fas fa-ring icon"></i>
+                            <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                            {% if invitation.groom_title %}
+                                <p class="text-muted mb-3">{{ invitation.groom_title }}</p>
+                            {% endif %}
+                            <div class="couple-parents">
+                                Putra dari<br>
+                                <strong>{{ invitation.groom_father }}</strong><br>
+                                &<br>
+                                <strong>{{ invitation.groom_mother }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Venue Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="venue-section">
+                    <div class="text-center">
+                        <h3 class="venue-title">
+                            <i class="fas fa-map-marker-alt me-2" style="color: var(--accent-color);"></i>
+                            Lokasi Acara
+                        </h3>
+                        <div class="venue-details">
+                            {% if invitation.venue_name %}
+                                <h4 style="color: var(--secondary-color); font-family: var(--font-heading);">{{ invitation.venue_name }}</h4>
+                            {% endif %}
+                            <p>{{ invitation.venue_address }}</p>
+                            {% if invitation.wedding_date and invitation.wedding_time %}
+                                <p>
+                                    <i class="far fa-clock me-2"></i>
+                                    {{ invitation.wedding_date.strftime('%A, %d %B %Y') }} - {{ invitation.wedding_time }} WIB
+                                </p>
+                            {% endif %}
+                            <div class="text-center mt-4">
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ invitation.venue_address | urlencode }}" target="_blank" class="btn-maps">
+                                    <i class="fas fa-map-marked-alt me-2"></i>
+                                    Buka Maps
+                                </a>
+                                <a href="https://maps.google.com/maps?daddr={{ invitation.venue_address | urlencode }}" target="_blank" class="btn-maps" style="background: #34A853;">
+                                    <i class="fas fa-route me-2"></i>
+                                    Navigasi
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Message Section -->
+        {% if invitation.custom_message %}
+        <section class="content-section">
+            <div class="container">
+                <div class="text-center">
+                    <p style="font-family: var(--font-script); font-size: 1.5rem; color: var(--primary-color); font-style: italic;">
+                        "{{ invitation.custom_message }}"
+                    </p>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Gallery Section -->
+        {% if invitation.gallery_photos %}
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Galeri Kenangan</h2>
+                <div class="row g-3">
+                    {% for photo in invitation.gallery_photos %}
+                    <div class="col-md-4">
+                        <div class="gallery-item">
+                            <img src="{{ url_for('static', filename='photos/' + photo) }}" alt="Gallery Photo" class="img-fluid">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- RSVP Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="rsvp-section">
+                    <div class="text-center mb-5">
+                        <h3 class="mb-3" style="font-family: var(--font-heading); font-size: 2.5rem;">Konfirmasi Kehadiran</h3>
+                        <p class="lead" style="font-size: 1.1rem;">Do'a restu Anda adalah anugerah terindah bagi kami.</p>
+                    </div>
+                    <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form" id="rsvpForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <select class="form-control" name="attendance" required>
+                                        <option value="">Pilih Kehadiran</option>
+                                        <option value="hadir">Akan Hadir</option>
+                                        <option value="tidak_hadir">Tidak Dapat Hadir</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu (Maks 5)" min="1" max="5" value="1">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="wishes" rows="3" placeholder="Ucapan & Doa"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-rsvp">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    Kirim Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-section">
+            <div class="container">
+                <p class="footer-message">Terima kasih atas doa dan kehadiran Anda</p>
+                <p style="opacity: 0.8; font-size: 0.9rem;">
+                    {{ invitation.couple_name }}<br>
+                    <small>Wedding Invitation</small>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Audio Player for Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        {% if invitation.background_music %}
+            <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+        {% else %}
+            <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+        {% endif %}
+        <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openingScreen = document.getElementById('openingScreen');
+            const invitationContent = document.getElementById('invitationContent');
+            const openBtn = document.getElementById('openBtn');
+            const audio = document.getElementById('backgroundMusic');
+
+            // Countdown Timer
+            const targetDate = new Date("{{ invitation.wedding_date.strftime('%Y-%m-%d %H:%M:%S') }}").getTime();
+
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('days').innerText = '0';
+                    document.getElementById('hours').innerText = '0';
+                    document.getElementById('minutes').innerText = '0';
+                    document.getElementById('seconds').innerText = '0';
+                    // Optionally, change button text or behavior when countdown ends
+                } else {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById('days').innerText = days;
+                    document.getElementById('hours').innerText = hours;
+                    document.getElementById('minutes').innerText = minutes;
+                    document.getElementById('seconds').innerText = seconds;
+                }
+            }, 1000);
+
+            // Open Invitation Button
+            openBtn.addEventListener('click', function() {
+                openingScreen.classList.add('hidden');
+                invitationContent.style.display = 'block';
+
+                // Auto-play music after opening
+                if (audio) {
+                    audio.volume = 0.3; // Set initial volume
+                    audio.play().catch(error => {
+                        console.log("Autoplay prevented:", error);
+                        // Handle user interaction to play music if needed
+                    });
+                }
+            });
+
+            // Handle music autoplay fallback on user interaction
+            document.addEventListener('click', function() {
+                if (audio && audio.paused && !openingScreen.classList.contains('hidden')) {
+                     audio.play().catch(error => {
+                        console.log("Autoplay prevented on interaction:", error);
+                    });
+                }
+            }, { once: true });
+
+            // Form submission handler
+            const rsvpForm = document.getElementById('rsvpForm');
+            if (rsvpForm) {
+                rsvpForm.addEventListener('submit', function(e) {
+                    const submitBtn = this.querySelector('.btn-rsvp');
+                    const originalText = submitBtn.innerHTML;
+
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Mengirim...';
+                    submitBtn.disabled = true;
+
+                    // Simulate form submission delay
+                    setTimeout(() => {
+                        // Reset button state
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        // Optionally clear form or show success message
+                        // rsvpForm.reset();
+                        // alert('Terima kasih atas konfirmasi Anda!');
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+    
+    <!-- Universal Wedding Features Script -->
+    <script src="{{ url_for('static', filename='js/wedding-animations.js') }}"></script>
+</body>
+</html>
