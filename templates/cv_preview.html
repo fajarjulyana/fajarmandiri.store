@@ -1,0 +1,302 @@
+
+{% extends "base.html" %}
+
+{% block title %}Preview CV - {{ cv_data.nama }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cv-container {
+        background: white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        margin: 2rem auto;
+        max-width: 210mm;
+        min-height: 297mm;
+        padding: 20mm;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .cv-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 1rem;
+    }
+    
+    .cv-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 2rem;
+        border: 4px solid var(--primary);
+    }
+    
+    .cv-contact-info {
+        flex: 1;
+    }
+    
+    .cv-contact-qr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 1rem;
+    }
+    
+    .qr-code-img {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 5px;
+        background: white;
+    }
+    
+    .qr-label {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+    
+    .cv-name {
+        color: var(--primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .cv-profession {
+        font-size: 1.3rem;
+        color: #666;
+        margin: 0 0 1rem 0;
+    }
+    
+    .cv-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .cv-contact-item {
+        display: flex;
+        align-items: center;
+    }
+    
+    .cv-contact-item i {
+        color: var(--primary);
+        margin-right: 0.5rem;
+        width: 16px;
+    }
+    
+    .cv-section {
+        margin-bottom: 2rem;
+    }
+    
+    .cv-section-title {
+        color: var(--primary);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 0.5rem;
+    }
+    
+    .cv-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .cv-item-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .cv-item-title {
+        font-weight: 700;
+        color: #333;
+    }
+    
+    .cv-item-subtitle {
+        color: #666;
+        font-style: italic;
+    }
+    
+    .cv-item-period {
+        color: var(--primary);
+        font-weight: 600;
+        margin-left: auto;
+    }
+    
+    .cv-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .cv-skill {
+        background: var(--primary);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .action-buttons {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    
+    @media print {
+        .action-buttons, .navbar, .footer {
+            display: none !important;
+        }
+        
+        .cv-container {
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: white;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="action-buttons">
+        <button class="btn btn-success me-2" onclick="window.print()">
+            <i class="fas fa-print me-2"></i>Print/Download PDF
+        </button>
+        <a href="{{ url_for('cv_generator') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Kembali ke Generator
+        </a>
+    </div>
+
+    <div class="cv-container">
+        <!-- Header Section -->
+        <div class="cv-header">
+            {% if cv_data.foto %}
+            <img src="data:image/jpeg;base64,{{ cv_data.foto }}" alt="Foto Profil" class="cv-photo">
+            {% endif %}
+            
+            <div class="cv-contact-info">
+                <h1 class="cv-name">{{ cv_data.nama }}</h1>
+                <h2 class="cv-profession">{{ cv_data.profesi }}</h2>
+                
+                <div class="cv-contact">
+                    {% if cv_data.email %}
+                    <div class="cv-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        {{ cv_data.email }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if cv_data.telepon %}
+                    <div class="cv-contact-item">
+                        <i class="fas fa-phone"></i>
+                        {{ cv_data.telepon }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if cv_data.alamat %}
+                    <div class="cv-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ cv_data.alamat }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- QR Code for Contact -->
+            {% if cv_data.qr_code_base64 %}
+            <div class="cv-contact-qr">
+                <img src="data:image/png;base64,{{ cv_data.qr_code_base64 }}" alt="Contact QR Code" class="qr-code-img">
+                <div class="qr-label">Scan untuk Kontak</div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Professional Summary -->
+        {% if cv_data.ringkasan %}
+        <div class="cv-section">
+            <h3 class="cv-section-title">
+                <i class="fas fa-user-tie me-2"></i>Ringkasan Profesional
+            </h3>
+            <p>{{ cv_data.ringkasan }}</p>
+        </div>
+        {% endif %}
+        
+        <!-- Education -->
+        {% if cv_data.pendidikan %}
+        <div class="cv-section">
+            <h3 class="cv-section-title">
+                <i class="fas fa-graduation-cap me-2"></i>Pendidikan
+            </h3>
+            {% for edu in cv_data.pendidikan %}
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <div class="cv-item-title">{{ edu.institusi }}</div>
+                        <div class="cv-item-subtitle">{{ edu.jurusan }}</div>
+                    </div>
+                    <div class="cv-item-period">{{ edu.tahun }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Experience -->
+        {% if cv_data.pengalaman %}
+        <div class="cv-section">
+            <h3 class="cv-section-title">
+                <i class="fas fa-briefcase me-2"></i>Pengalaman Kerja
+            </h3>
+            {% for exp in cv_data.pengalaman %}
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <div class="cv-item-title">{{ exp.posisi }}</div>
+                        <div class="cv-item-subtitle">{{ exp.perusahaan }}</div>
+                    </div>
+                    <div class="cv-item-period">{{ exp.periode }}</div>
+                </div>
+                {% if exp.deskripsi %}
+                <p>{{ exp.deskripsi }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Skills -->
+        {% if cv_data.keahlian %}
+        <div class="cv-section">
+            <h3 class="cv-section-title">
+                <i class="fas fa-cogs me-2"></i>Keahlian
+            </h3>
+            <div class="cv-skills">
+                {% for skill in cv_data.keahlian %}
+                <span class="cv-skill">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// Auto print dialog untuk PDF
+document.addEventListener('DOMContentLoaded', function() {
+    // Optional: Show print dialog automatically
+    // window.print();
+});
+</script>
+{% endblock %}

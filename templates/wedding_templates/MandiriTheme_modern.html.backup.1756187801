@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A1A1A;
+            --secondary: #8B6F47;
+            --accent: #D4AF37;
+            --light: #F8F8F8;
+            --white: #FFFFFF;
+            --text: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Landing Screen */
+        .landing-screen {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
+        }
+
+        .landing-ornament {
+            font-size: 4rem;
+            margin-bottom: 40px;
+            color: var(--accent);
+            z-index: 2;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .landing-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.8rem;
+            margin-bottom: 30px;
+            z-index: 2;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .landing-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            z-index: 2;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .entrance-btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 2;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .entrance-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.show {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--light);
+            padding: 80px 30px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-ornament {
+            color: var(--accent);
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-couple {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .hero-date {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-message {
+            font-size: 1rem;
+            color: var(--text);
+            max-width: 300px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: white;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .quote-box {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border-left: 5px solid var(--accent);
+            position: relative;
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quote-source {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Couple Info Section */
+        .couple-info-section {
+            background: var(--light);
+            padding: 80px 30px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .couple-grid {
+            display: grid;
+            gap: 40px;
+        }
+
+        .couple-item {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .couple-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+        }
+
+        .couple-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .couple-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .couple-details {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .couple-separator {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .separator-heart {
+            color: var(--accent);
+            font-size: 2.5rem;
+            background: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Event Details */
+        .event-section {
+            background: white;
+            padding: 80px 30px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 30px;
+            border-radius: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.05"/></svg>') repeat;
+        }
+
+        .event-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+            z-index: 2;
+            position: relative;
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .event-info {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .location-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+
+        .location-btn:hover {
+            background: #B8941F;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: var(--light);
+            padding: 80px 30px;
+        }
+
+        .rsvp-form {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid #E8E8E8;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent), #B8941F);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Closing Section */
+        .closing-section {
+            background: var(--primary);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+        }
+
+        .closing-ornament {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .closing-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.active {
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .landing-title {
+                font-size: 3rem;
+            }
+            
+            .hero-couple {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .couple-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Screen -->
+        <section class="landing-screen" id="landingScreen">
+            <div class="landing-ornament">
+                <i class="fas fa-rings-wedding"></i>
+            </div>
+            <h1 class="landing-title">{{ invitation.couple_name }}</h1>
+            <p class="landing-subtitle">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </p>
+            <button class="entrance-btn" onclick="enterInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Hero Section -->
+            <section class="hero-section scroll-animate">
+                <div class="hero-ornament">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h1 class="hero-couple">{{ invitation.couple_name }}</h1>
+                <p class="hero-date">
+                    {% if invitation.wedding_date %}
+                        {{ invitation.wedding_date.strftime('%A, %d %B %Y') }}
+                    {% endif %}
+                </p>
+                <p class="hero-message">
+                    Dengan penuh kebahagiaan, kami mengundang Anda untuk berbagi kegembiraan di hari istimewa kami.
+                </p>
+            </section>
+
+            <!-- Quote Section -->
+            <section class="quote-section scroll-animate">
+                <div class="quote-box">
+                    <p class="quote-text">
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
+                    </p>
+                    <p class="quote-source">QS. Ar-Rum: 21</p>
+                </div>
+            </section>
+
+            <!-- Couple Info Section -->
+            <section class="couple-info-section scroll-animate">
+                <h2 class="section-title">Mempelai</h2>
+                <div class="couple-grid">
+                    <div class="couple-item">
+                        <div class="couple-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                        <div class="couple-details">
+                            Putra dari<br>
+                            <strong>{{ invitation.groom_father }}</strong><br>
+                            &<br>
+                            <strong>{{ invitation.groom_mother }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="couple-separator">
+                        <div class="separator-heart">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+
+                    <div class="couple-item">
+                        <div class="couple-icon">
+                            <i class="fas fa-user-crown"></i>
+                        </div>
+                        <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                        <div class="couple-details">
+                            Putri dari<br>
+                            <strong>{{ invitation.bride_father }}</strong><br>
+                            &<br>
+                            <strong>{{ invitation.bride_mother }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Section -->
+            <section class="event-section scroll-animate">
+                <h2 class="section-title">Detail Acara</h2>
+                <div class="event-card">
+                    <div class="event-icon">
+                        <i class="fas fa-calendar-heart"></i>
+                    </div>
+                    <h3 class="event-title">Akad & Resepsi</h3>
+                    <div class="event-info">
+                        {% if invitation.wedding_date %}
+                            <p><strong>{{ invitation.wedding_date.strftime('%A, %d %B %Y') }}</strong></p>
+                        {% endif %}
+                        {% if invitation.wedding_time %}
+                            <p>Pukul {{ invitation.wedding_time }} WIB</p>
+                        {% endif %}
+                        <br>
+                        <p><strong>{{ invitation.venue_name or 'Venue Pernikahan' }}</strong></p>
+                        <p>{{ invitation.venue_address }}</p>
+                    </div>
+                    <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="location-btn">
+                        <i class="fas fa-location-dot me-2"></i>Lihat Lokasi
+                    </a>
+                </div>
+            </section>
+
+            <!-- RSVP Section -->
+            <section class="rsvp-section scroll-animate">
+                <h2 class="section-title">Konfirmasi Kehadiran</h2>
+                <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" name="name" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-input" name="phone" placeholder="Nomor WhatsApp">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-input" name="attendance" required>
+                            <option value="">Konfirmasi Kehadiran</option>
+                            <option value="hadir">Ya, Saya Akan Hadir</option>
+                            <option value="tidak_hadir">Maaf, Saya Tidak Dapat Hadir</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-input" name="guest_count" placeholder="Jumlah Tamu" min="1" value="1">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                    </button>
+                </form>
+            </section>
+
+            <!-- Closing Section -->
+            <section class="closing-section scroll-animate">
+                <div class="closing-ornament">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <p class="closing-text">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.
+                    <br><br>
+                    <strong>{{ invitation.couple_name }}</strong>
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Music Control -->
+    <button class="music-control" id="musicControl" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Background Audio -->
+    {% if invitation.background_music %}
+    <audio id="backgroundAudio" loop>
+        <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+    </audio>
+    {% endif %}
+
+    <script>
+        let musicActive = false;
+
+        function enterInvitation() {
+            document.getElementById('landingScreen').style.display = 'none';
+            document.getElementById('mainContent').classList.add('show');
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+            
+            // Auto play music
+            {% if invitation.background_music %}
+            const audio = document.getElementById('backgroundAudio');
+            audio.play().then(() => {
+                musicActive = true;
+                document.getElementById('musicControl').classList.add('active');
+            }).catch(() => {
+                console.log('Autoplay prevented');
+            });
+            {% endif %}
+        }
+
+        function toggleMusic() {
+            {% if invitation.background_music %}
+            const audio = document.getElementById('backgroundAudio');
+            const control = document.getElementById('musicControl');
+            
+            if (musicActive) {
+                audio.pause();
+                control.classList.remove('active');
+                musicActive = false;
+            } else {
+                audio.play().then(() => {
+                    control.classList.add('active');
+                    musicActive = true;
+                }).catch(console.error);
+            }
+            {% endif %}
+        }
+
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
