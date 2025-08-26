@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #4A7C59;
+            --primary-white: #FFFFFF;
+            --secondary-cream: #F8F9F0;
+            --accent-sage: #87A96B;
+            --text-dark: #2C3E2D;
+            --text-light: #6B7C6B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, var(--secondary-cream) 0%, #FFFFFF 100%);
+            color: var(--text-dark);
+        }
+
+        .invitation-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Leaf Pattern */
+        .leaf-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234A7C59' fill-opacity='0.05'%3E%3Cpath d='M20 20c-2.2 0-4-1.8-4-4 0-1.1.4-2.1 1.2-2.8C18 12.4 19 12 20 12s2 .4 2.8 1.2c.8.7 1.2 1.7 1.2 2.8 0 2.2-1.8 4-4 4z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-sage) 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .leaf-ornament {
+            color: var(--secondary-cream);
+            font-size: 3rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .couple-names-hero {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nature-subtitle {
+            font-family: 'Merriweather', serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 3;
+        }
+
+        .wedding-date-hero {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🌿';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        /* Opening Section */
+        .opening-section {
+            background: var(--secondary-cream);
+            text-align: center;
+        }
+
+        .opening-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+        }
+
+        .nature-quote {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-green);
+            font-style: italic;
+            color: var(--text-dark);
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nature-quote::before {
+            content: '🌱';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Couple Section */
+        .couple-section {
+            background: white;
+        }
+
+        .couple-card {
+            background: var(--secondary-cream);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid #E8F5E8;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-sage) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .couple-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .couple-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Botanical Divider */
+        .botanical-divider {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2rem;
+            color: var(--accent-sage);
+        }
+
+        /* Event Section */
+        .event-section {
+            background: var(--secondary-cream);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #E8F5E8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .date-flower {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-sage));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.3);
+            position: relative;
+        }
+
+        .date-flower::before {
+            content: '🌸';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+        }
+
+        .date-number {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        .venue-name {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .venue-time {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .nature-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .nature-btn:hover {
+            background: var(--accent-sage);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: white;
+        }
+
+        .rsvp-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            border: 2px solid #E8F5E8;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: var(--secondary-cream);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .btn-rsvp {
+            background: var(--primary-green);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .btn-rsvp:hover {
+            background: var(--accent-sage);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--secondary-cream);
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 124, 89, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Floating Music Button */
+        .floating-music {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 1.5s infinite;
+            transition: background 0.3s ease;
+        }
+
+        .floating-music:hover {
+            background: var(--accent-sage);
+        }
+
+        .floating-music i {
+            font-size: 1.8rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-sage));
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-leaves {
+            color: var(--secondary-cream);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cover Page Styles */
+        .cover-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-sage) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            opacity: 0.5;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .couple-initials {
+            font-size: 3.5rem;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .couple-initials i {
+            margin: 0 20px;
+            color: var(--secondary-cream);
+            font-size: 2.5rem;
+        }
+
+        .couple-names {
+            font-size: 3.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wedding-date {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .open-invitation-btn {background: #22C55E;
+            color: #FFFFFF;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .open-invitation-btn:hover {background: #16A34A;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
+        }
+
+        /* Countdown Timer Styles */
+        .countdown-section {background: rgba(34, 197, 94, 0.1);
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .countdown-timer div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Merriweather', serif;
+        }
+
+        .countdown-timer span {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .countdown-timer p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .couple-names-hero {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .couple-name {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 60px 30px;
+            }
+
+            .couple-card, .event-card {
+                padding: 30px 25px;
+            }
+
+            .date-flower {
+                width: 100px;
+                height: 100px;
+            }
+
+            .date-number {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .floating-music {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-music i {
+                font-size: 1.5rem;
+            }
+
+            /* Cover Page Responsive */
+            .cover-page {
+                padding: 20px;
+            }
+            .couple-initials {
+                font-size: 3rem;
+            }
+            .couple-initials i {
+                font-size: 2rem;
+                margin: 0 15px;
+            }
+            .couple-names {
+                font-size: 3rem;
+            }
+            .wedding-date {
+                font-size: 1rem;
+            }
+            .open-invitation-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .countdown-timer span {
+                font-size: 2rem;
+            }
+            .countdown-timer p {
+                font-size: 0.8rem;
+            }
+        }
+    
+/* Gallery Styles */
+.gallery-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    aspect-ratio: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 2rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.close-button:hover {
+    opacity: 0.7;
+}
+
+/* Events Timeline Styles */
+.events-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.events-timeline {
+    margin-top: 50px;
+    position: relative;
+}
+
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.3);
+    transform: translateX(-50%);
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.event-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.event-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.event-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.event-content {
+    flex: 1;
+    max-width: 400px;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.event-details p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.event-details i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.bride-event .event-icon {
+    background: rgba(255, 182, 193, 0.3);
+}
+
+.groom-event .event-icon {
+    background: rgba(173, 216, 230, 0.3);
+}
+
+@media (max-width: 768px) {
+    .events-timeline::before {
+        left: 30px;
+    }
+    
+    .event-item {
+        flex-direction: row !important;
+        padding-left: 60px;
+    }
+    
+    .event-icon {
+        position: absolute;
+        left: 0;
+        margin: 0;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+
+/* Address Button Styles */
+.address-container {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.address-text {
+    margin-bottom: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.direct-maps-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+}
+
+.direct-maps-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.maps-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin-top: 0.5rem;
+}
+
+.maps-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.venue-address-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.venue-address-section h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+
+
+/* Address Display Styles */
+.venue-info {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.venue-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.venue-address {
+    color: #4a5568;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.venue-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin-top: 0.5rem;
+}
+
+.venue-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+}
+
+.venue-link i {
+    margin-right: 0.5rem;
+}
+
+.event-details {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.event-datetime {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.event-date {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.event-time {
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+</style>
+</head>
+<body>
+    {% if invitation.background_music %}
+    <audio id="backgroundMusic" preload="auto" loop>
+        <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+    </audio>
+    {% else %}
+    <audio id="backgroundMusic" preload="auto" loop>
+        <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+    </audio>
+    {% endif %}
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="cover-page">
+        <div class="cover-content">
+            <div class="couple-initials">
+                <span>{{ invitation.bride_name[0] if invitation.bride_name else 'B' }}</span>
+                <i class="fas fa-heart"></i>
+                <span>{{ invitation.groom_name[0] if invitation.groom_name else 'G' }}</span>
+            </div>
+            <h1 class="couple-names">{{ invitation.couple_name }}</h1>
+            <p class="wedding-date">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date.__class__.__name__ == 'datetime' else invitation.wedding_date }}
+                {% else %}
+                    Segera
+                {% endif %}
+            </p>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div class="invitation-container" id="mainContent" style="display: none;">
+        <div class="leaf-pattern"></div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="leaf-ornament">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="nature-subtitle">A Garden Wedding Celebration</div>
+            <h1 class="couple-names-hero">{{ invitation.couple_name }}</h1>
+            <div class="wedding-date-hero">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="content-section countdown-section fade-in">
+            <h2 class="section-title">Menuju Hari Bahagia</h2>
+            <div class="countdown-timer" id="countdown">
+                <div>
+                    <span id="days">0</span>
+                    <p>Hari</p>
+                </div>
+                <div>
+                    <span id="hours">0</span>
+                    <p>Jam</p>
+                </div>
+                <div>
+                    <span id="minutes">0</span>
+                    <p>Menit</p>
+                </div>
+                <div>
+                    <span id="seconds">0</span>
+                    <p>Detik</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opening Section -->
+        <section class="content-section opening-section fade-in">
+            <h2 class="section-title">Natural Love</h2>
+            <p class="opening-text">
+                Seperti bunga yang mekar di taman, cinta kami tumbuh dengan indah dan alami. Kami mengundang Anda untuk menyaksikan perjalanan cinta kami yang akan bersatu dalam ikatan suci pernikahan.
+            </p>
+
+            <div class="nature-quote">
+                <p>"Cinta adalah bunga yang tumbuh paling indah ketika dipupuk dengan ketulusan dan disiram dengan kebahagiaan."</p>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section class="content-section couple-section fade-in">
+            <h2 class="section-title">Mempelai</h2>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="nature-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                    <div class="couple-parents">
+                        Putri dari<br>
+                        <strong>{{ invitation.bride_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.bride_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="botanical-divider">
+                <i class="fas fa-seedling"></i>
+            </div>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="nature-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                    <div class="couple-parents">
+                        Putra dari<br>
+                        <strong>{{ invitation.groom_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.groom_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        
+
+        <!-- Gallery Section -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        <section class="gallery-section fade-in">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-grid">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item" onclick="openModal('{{ url_for('static', filename='prewedding_photos/' + photo) }}')">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" alt="Prewedding Photo">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Photo Modal -->
+        <div class="modal fade" id="photoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-index-1" 
+                                data-bs-dismiss="modal" style="z-index: 1050; filter: invert(1);"></button>
+                        <img id="modalImage" src="" alt="Gallery Photo" class="w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- RSVP Section -->
+        
+    <!-- Multi-Venue Wedding Events -->
+    <section id="wedding-events" class="section wedding-events-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Acara Pernikahan</h2>
+                <p class="section-subtitle">Bergabunglah dengan kami merayakan hari bahagia</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <!-- Akad Nikah -->
+                {% if invitation.akad_venue_address or invitation.akad_venue_name or invitation.akad_date %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-mosque me-2"></i>Akad Nikah
+                        </div>
+                        
+                        {% if invitation.akad_date or invitation.akad_time %}
+                        <div class="event-datetime">
+                            {% if invitation.akad_date %}
+                                <div class="event-date">
+                                    {{ invitation.akad_date.strftime('%A, %d %B %Y') if invitation.akad_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.akad_time %}
+                                <div class="event-time">{{ invitation.akad_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.akad_venue_name %}
+                                <div class="venue-name">{{ invitation.akad_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.akad_venue_address %}
+                                {% if invitation.akad_venue_address.startswith('http') %}
+                                    <a href="{{ invitation.akad_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marker-alt"></i>Lihat Lokasi Akad
+                                    </a>
+                                {% else %}
+                                    <div class="venue-address">{{ invitation.akad_venue_address }}</div>
+                                    <a href="https://maps.google.com/?q={{ invitation.akad_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marked-alt"></i>Lihat Lokasi Akad
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Resepsi -->
+                {% if invitation.resepsi_venue_address or invitation.resepsi_venue_name or invitation.resepsi_date %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-utensils me-2"></i>Resepsi
+                        </div>
+                        
+                        {% if invitation.resepsi_date or invitation.resepsi_time %}
+                        <div class="event-datetime">
+                            {% if invitation.resepsi_date %}
+                                <div class="event-date">
+                                    {{ invitation.resepsi_date.strftime('%A, %d %B %Y') if invitation.resepsi_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.resepsi_time %}
+                                <div class="event-time">{{ invitation.resepsi_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.resepsi_venue_name %}
+                                <div class="venue-name">{{ invitation.resepsi_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.resepsi_venue_address %}
+                                {% if invitation.resepsi_venue_address.startswith('http') %}
+                                    <a href="{{ invitation.resepsi_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marker-alt"></i>Lihat Lokasi Resepsi
+                                    </a>
+                                {% else %}
+                                    <div class="venue-address">{{ invitation.resepsi_venue_address }}</div>
+                                    <a href="https://maps.google.com/?q={{ invitation.resepsi_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marked-alt"></i>Lihat Lokasi Resepsi
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Family Events (Optional) -->
+            {% if invitation.bride_event_venue_address or invitation.groom_event_venue_address %}
+            <div class="row justify-content-center mt-4">
+                <div class="col-12">
+                    <h4 class="text-center mb-4">Acara Keluarga</h4>
+                </div>
+                
+                <!-- Bride Family Event -->
+                {% if invitation.bride_event_venue_address or invitation.bride_event_venue_name %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-female me-2"></i>Keluarga Mempelai Wanita
+                        </div>
+                        
+                        {% if invitation.bride_event_date or invitation.bride_event_time %}
+                        <div class="event-datetime">
+                            {% if invitation.bride_event_date %}
+                                <div class="event-date">
+                                    {{ invitation.bride_event_date.strftime('%A, %d %B %Y') if invitation.bride_event_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.bride_event_time %}
+                                <div class="event-time">{{ invitation.bride_event_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.bride_event_venue_name %}
+                                <div class="venue-name">{{ invitation.bride_event_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.bride_event_venue_address %}
+                                {% if invitation.bride_event_venue_address.startswith('http') %}
+                                    <a href="{{ invitation.bride_event_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marker-alt"></i>Lihat Lokasi
+                                    </a>
+                                {% else %}
+                                    <div class="venue-address">{{ invitation.bride_event_venue_address }}</div>
+                                    <a href="https://maps.google.com/?q={{ invitation.bride_event_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marked-alt"></i>Lihat Lokasi
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Groom Family Event -->
+                {% if invitation.groom_event_venue_address or invitation.groom_event_venue_name %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-male me-2"></i>Keluarga Mempelai Pria
+                        </div>
+                        
+                        {% if invitation.groom_event_date or invitation.groom_event_time %}
+                        <div class="event-datetime">
+                            {% if invitation.groom_event_date %}
+                                <div class="event-date">
+                                    {{ invitation.groom_event_date.strftime('%A, %d %B %Y') if invitation.groom_event_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.groom_event_time %}
+                                <div class="event-time">{{ invitation.groom_event_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.groom_event_venue_name %}
+                                <div class="venue-name">{{ invitation.groom_event_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.groom_event_venue_address %}
+                                {% if invitation.groom_event_venue_address.startswith('http') %}
+                                    <a href="{{ invitation.groom_event_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marker-alt"></i>Lihat Lokasi
+                                    </a>
+                                {% else %}
+                                    <div class="venue-address">{{ invitation.groom_event_venue_address }}</div>
+                                    <a href="https://maps.google.com/?q={{ invitation.groom_event_venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marked-alt"></i>Lihat Lokasi
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <!-- Fallback for Single Event -->
+            {% if not (invitation.akad_venue_address or invitation.resepsi_venue_address) and (invitation.venue_address or invitation.venue_name) %}
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-heart me-2"></i>Acara Pernikahan
+                        </div>
+                        
+                        {% if invitation.wedding_date or invitation.wedding_time %}
+                        <div class="event-datetime">
+                            {% if invitation.wedding_date %}
+                                <div class="event-date">
+                                    {{ invitation.wedding_date.strftime('%A, %d %B %Y') if invitation.wedding_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.wedding_time %}
+                                <div class="event-time">{{ invitation.wedding_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.venue_name %}
+                                <div class="venue-name">{{ invitation.venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.venue_address %}
+                                {% if invitation.venue_address.startswith('http') %}
+                                    <a href="{{ invitation.venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marker-alt"></i>Lihat Lokasi di Maps
+                                    </a>
+                                {% else %}
+                                    <div class="venue-address">{{ invitation.venue_address }}</div>
+                                    <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="venue-link">
+                                        <i class="fas fa-map-marked-alt"></i>Lihat Lokasi
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    
+<section class="content-section rsvp-section fade-in">
+            <h2 class="section-title">Konfirmasi Kehadiran</h2>
+            <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form">
+                <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                <select class="form-control" name="attendance" required>
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Ya, Saya Akan Hadir</option>
+                    <option value="tidak_hadir">Maaf, Saya Tidak Dapat Hadir</option>
+                </select>
+                <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" max="5" value="1">
+                <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                <button type="submit" class="btn btn-rsvp">
+                    <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                </button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer-section">
+            <div class="footer-leaves">
+                <i class="fas fa-spa"></i>
+            </div>
+            <p style="line-height: 1.8; opacity: 0.95;">
+                Seperti taman yang indah, kehadiran Anda akan melengkapi kebahagiaan hari istimewa kami. Terima kasih atas doa dan dukungan yang telah diberikan.
+                <br><br>
+                <strong>{{ invitation.couple_name }}</strong>
+            </p>
+        </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicToggle">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Audio Player -->
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Photo Modal Function
+        function openModal(imageSrc) {
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            const photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+            photoModal.show();
+        }
+
+        // Cover Page Functionality
+        function openInvitation() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            
+            // Play music when invitation is opened
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            if (backgroundMusic) {
+                backgroundMusic.play().catch(error => {
+                    console.log("Autoplay was prevented or error occurred:", error);
+                });
+            }
+        }
+
+        // Music Toggle Functionality
+        const musicToggle = document.getElementById('musicToggle');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isMusicPlaying = false;
+
+        // Ensure music toggle is visible if music is available
+        if (backgroundMusic) {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicIcon.classList.add('fa-beat');
+                musicToggle.style.animationPlayState = 'running';
+                musicToggle.style.display = 'flex';
+            }).catch(error => {
+                console.log("Autoplay prevented:", error);
+                // Show the play button if autoplay fails but music is intended to play
+                if (backgroundMusic.src) {
+                    musicToggle.style.display = 'flex';
+                }
+            });
+
+            musicToggle.addEventListener('click', () => {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play().catch(e => {
+                        console.log("Audio error:", e);
+                        // Coba dengan file default jika musik utama gagal
+                        backgroundMusic.src = "{{ url_for('static', filename='music/default_wedding.mp3') }}";
+                        backgroundMusic.play().catch(err => console.log("Default music also failed:", err));
+                    });
+                    musicIcon.classList.add('fa-beat'); // Add animation class
+                    musicToggle.style.animationPlayState = 'running';
+                } else {
+                    backgroundMusic.pause();
+                    musicIcon.classList.remove('fa-beat'); // Remove animation class
+                    musicToggle.style.animationPlayState = 'paused';
+                }
+            });
+
+            backgroundMusic.addEventListener('play', () => {
+                isMusicPlaying = true;
+                musicIcon.classList.add('fa-beat');
+                musicToggle.style.animationPlayState = 'running';
+                if (!backgroundMusic.paused) { // Ensure button is visible when playing
+                    musicToggle.style.display = 'flex';
+                }
+            });
+
+            backgroundMusic.addEventListener('pause', () => {
+                isMusicPlaying = false;
+                musicIcon.classList.remove('fa-beat');
+                musicToggle.style.animationPlayState = 'paused';
+            });
+        } else {
+            // If no music source, hide the toggle
+            musicToggle.style.display = 'none';
+        }
+
+        // Countdown Timer
+        const weddingDate = new Date("{{ invitation.wedding_date.strftime('%Y-%m-%d %H:%M:%S') if invitation.wedding_date.__class__.__name__ == 'datetime' else '' }}").getTime();
+        
+        // If wedding_date is not a datetime object or is empty, use a default date for countdown calculation
+        const targetDate = (typeof weddingDate !== 'undefined' && !isNaN(weddingDate)) ? weddingDate : new Date().getTime() + (24 * 60 * 60 * 1000); // Default to 24 hours from now if no valid date
+
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "<h1>Happy Wedding!</h1>";
+            }
+        }, 1000);
+    </script>
+
+    <!-- Photo Gallery Section -->
+    {% if prewedding_photos %}
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Our Moments</h2>
+                <p class="section-subtitle">Beautiful memories we want to share</p>
+            </div>
+            <div class="gallery-grid">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item" onclick="openModal('{{ url_for('static', filename='prewedding_photos/' + photo) }}')">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" alt="Prewedding Photo">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div class="modal" id="photoModal">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Gallery Photo">
+        </div>
+    </div>
+    {% endif %}
+
+
+<script>
+// Gallery Modal Functions
+function openModal(imageSrc) {
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modal.style.display = 'block';
+    modalImage.src = imageSrc;
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('photoModal');
+    modal.style.display = 'none';
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside the image
+document.getElementById('photoModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>

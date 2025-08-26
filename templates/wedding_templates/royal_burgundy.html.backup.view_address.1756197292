@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.couple_name }} - Royal Wedding</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Cover Page Styles */
+        .cover-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            color: white;
+        }
+
+        .cover-content {
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .couple-initials {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .couple-initials .fas {
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .couple-names {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wedding-date {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .open-invitation-btn {background: #BE185D;
+            border: 2px solid white;
+            color: #FFFFFF;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .open-invitation-btn:hover {background: #9D174D;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Countdown Styles */
+        .countdown-section {background: rgba(190, 24, 93, 0.1);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {background: rgba(255,255,255,0.9);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            min-width: 120px;
+        }
+
+        .countdown-number {color: #9D174D;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .countdown-label {color: #9D174D;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        :root {
+            --burgundy: #800020;
+            --dark-burgundy: #5D0011;
+            --light-burgundy: #A0233E;
+            --gold: #FFD700;
+            --dark-gold: #DAA520;
+            --cream: #FFF8DC;
+            --ivory: #FFFFF0;
+            --dark: #2C1810;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--dark-burgundy) 100%);
+            color: var(--ivory);
+            overflow-x: hidden;
+        }
+
+        .royal-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Animated Background */
+        .royal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, var(--burgundy) 0%, var(--dark-burgundy) 100%);
+        }
+
+        .royal-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="royal" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="%23FFD700" opacity="0.3"/><path d="M25,15 L30,20 L25,25 L20,20 Z" fill="%23FFD700" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23royal)"/></svg>');
+            opacity: 0.3;
+            animation: patternMove 30s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+        }
+
+        .royal-crown {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            animation: crownGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes crownGlow {
+            from { 
+                text-shadow: 0 0 20px var(--gold), 0 0 30px var(--gold), 0 0 40px var(--gold);
+                transform: scale(1);
+            }
+            to { 
+                text-shadow: 0 0 30px var(--gold), 0 0 40px var(--gold), 0 0 50px var(--gold);
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: royalFadeIn 1.5s ease-out 0.5s forwards;
+        }
+
+        .hero-names {
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--ivory);
+            margin: 40px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            position: relative;
+            opacity: 0;
+            animation: royalFadeIn 1.5s ease-out 1s forwards;
+        }
+
+        .hero-names::before,
+        .hero-names::after {
+            content: '♔';
+            position: absolute;
+            font-size: 3rem;
+            color: var(--gold);
+            top: 50%;
+            transform: translateY(-50%);
+            text-shadow: 0 0 20px var(--gold);
+        }
+
+        .hero-names::before {
+            left: -80px;
+        }
+
+        .hero-names::after {
+            right: -80px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 30px;
+            font-style: italic;
+            opacity: 0;
+            animation: royalFadeIn 1.5s ease-out 1.5s forwards;
+        }
+
+        .hero-date {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 500;
+            opacity: 0;
+            animation: royalFadeIn 1.5s ease-out 2s forwards;
+        }
+
+        @keyframes royalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Royal Divider */
+        .royal-divider {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .divider-content {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            font-size: 2rem;
+        }
+
+        .divider-line {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 20px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            margin: 100px 0;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--gold));
+            border-radius: 32px;
+            z-index: -1;
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 60px 40px 40px;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
+            border-radius: 30px 30px 0 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--burgundy);
+            font-style: italic;
+        }
+
+        /* Couple Cards */
+        .couple-container {
+            padding: 60px 40px;
+        }
+
+        .couple-card {
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(128, 0, 32, 0.2);
+            border: 3px solid var(--gold);
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--gold), var(--burgundy));
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .royal-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--burgundy), var(--dark-burgundy));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 4rem;
+            color: var(--gold);
+            border: 5px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .couple-name {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .couple-title {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .couple-parents {
+            color: var(--dark);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Event Details */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 60px 40px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, var(--burgundy), var(--dark-burgundy));
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            color: var(--ivory);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: eventShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes eventShimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .event-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--burgundy);
+            font-size: 2rem;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .event-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .event-info {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* RSVP Section */
+        .rsvp-form {
+            padding: 60px;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
+            border-radius: 25px;
+            margin: 40px;
+            border: 3px solid var(--gold);
+            box-shadow: inset 0 0 30px rgba(128, 0, 32, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            font-size: 1rem;
+            background: var(--ivory);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 0 15px rgba(128, 0, 32, 0.3);
+        }
+
+        .btn-royal {
+            background: linear-gradient(135deg, var(--burgundy), var(--dark-burgundy));
+            border: 3px solid var(--gold);
+            color: var(--ivory);
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .btn-royal:hover {
+            background: linear-gradient(135deg, var(--light-burgundy), var(--burgundy));
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(128, 0, 32, 0.4);
+            color: var(--ivory);
+        }
+
+        /* Footer */
+        .royal-footer {
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin-top: 100px;
+        }
+
+        .footer-message {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: var(--cream);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-style: italic;
+        }
+
+        .footer-names {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-shadow: 0 0 20px var(--gold);
+        }
+
+        .footer-ornament {
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 30px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-names {
+                font-size: 3rem;
+            }
+
+            .hero-names::before,
+            .hero-names::after {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                margin: 50px 20px;
+            }
+
+            .rsvp-form {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--burgundy), var(--dark-burgundy));
+            color: var(--gold);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+    
+/* Gallery Styles */
+.gallery-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    aspect-ratio: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 2rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.close-button:hover {
+    opacity: 0.7;
+}
+
+/* Events Timeline Styles */
+.events-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.events-timeline {
+    margin-top: 50px;
+    position: relative;
+}
+
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.3);
+    transform: translateX(-50%);
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.event-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.event-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.event-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.event-content {
+    flex: 1;
+    max-width: 400px;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.event-details p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.event-details i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.bride-event .event-icon {
+    background: rgba(255, 182, 193, 0.3);
+}
+
+.groom-event .event-icon {
+    background: rgba(173, 216, 230, 0.3);
+}
+
+@media (max-width: 768px) {
+    .events-timeline::before {
+        left: 30px;
+    }
+    
+    .event-item {
+        flex-direction: row !important;
+        padding-left: 60px;
+    }
+    
+    .event-icon {
+        position: absolute;
+        left: 0;
+        margin: 0;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="cover-page">
+        <div class="cover-content">
+            <div class="couple-initials">
+                <span>{{ invitation.bride_name[0] if invitation.bride_name else 'B' }}</span>
+                <i class="fas fa-heart"></i>
+                <span>{{ invitation.groom_name[0] if invitation.groom_name else 'G' }}</span>
+            </div>
+            <h1 class="couple-names">{{ invitation.couple_name }}</h1>
+            <p class="wedding-date">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date.__class__.__name__ == 'datetime' else invitation.wedding_date }}
+                {% else %}
+                    Segera
+                {% endif %}
+            </p>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div class="royal-bg">
+        <div class="royal-pattern"></div>
+    </div>
+
+    <!-- Background Music -->
+    {% if invitation.background_music %}
+    <audio id="bgMusic" loop>
+        <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+    </audio>
+    <button class="music-control" onclick="toggleMusic()">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </button>
+    {% endif %}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container" id="mainContent" style="display: none;"><div class="container">
+            <div class="royal-crown">♔</div>
+            <h1 class="hero-title royal-font">Royal Wedding Invitation</h1>
+            <h2 class="hero-names royal-font">{{ invitation.couple_name }}</h2>
+            <p class="hero-subtitle">Request the honor of your presence</p>
+            {% if invitation.wedding_date %}
+            <div class="hero-date royal-font">{{ invitation.wedding_date.strftime('%B %d, %Y') }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <h2 class="section-title">Menuju Hari Bahagia</h2>
+            {% if invitation.wedding_date %}
+            <div class="countdown-timer" id="countdownTimer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Detik</span>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+
+    </section>
+
+    <!-- Royal Divider -->
+    <div class="royal-divider">
+        <div class="divider-content">
+            <div class="divider-line"></div>
+            <i class="fas fa-crown"></i>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
+    <!-- Couple Section -->
+    <div class="container">
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title royal-font">The Royal Couple</h2>
+                <p class="section-subtitle">United in love, bound by destiny</p>
+            </div>
+            <div class="couple-container">
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <div class="couple-card">
+                            <div class="royal-avatar">
+                                <i class="fas fa-female"></i>
+                            </div>
+                            <h3 class="couple-name royal-font">
+                                {% if invitation.bride_title %}{{ invitation.bride_title }} {% endif %}{{ invitation.bride_name }}
+                            </h3>
+                            <div class="couple-title">The Bride</div>
+                            <div class="couple-parents">
+                                <strong>Beloved daughter of</strong><br>
+                                {{ invitation.bride_father }}<br>
+                                & {{ invitation.bride_mother }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="couple-card">
+                            <div class="royal-avatar">
+                                <i class="fas fa-male"></i>
+                            </div>
+                            <h3 class="couple-name royal-font">
+                                {% if invitation.groom_title %}{{ invitation.groom_title }} {% endif %}{{ invitation.groom_name }}
+                            </h3>
+                            <div class="couple-title">The Groom</div>
+                            <div class="couple-parents">
+                                <strong>Beloved son of</strong><br>
+                                {{ invitation.groom_father }}<br>
+                                & {{ invitation.groom_mother }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details -->
+    <div class="container">
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title royal-font">Royal Ceremony</h2>
+                <p class="section-subtitle">Join us in celebration</p>
+            </div>
+            <div class="event-grid">
+                <div class="event-card">
+                    <div class="event-icon">
+                        <i class="fas fa-calendar-crown"></i>
+                    </div>
+                    <h3 class="event-title royal-font">Date</h3>
+                    <div class="event-info">
+                        {% if invitation.wedding_date %}
+                            {{ invitation.wedding_date.strftime('%A') }}<br>
+                            {{ invitation.wedding_date.strftime('%B %d, %Y') }}
+                        {% else %}
+                            To be announced
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="event-title royal-font">Time</h3>
+                    <div class="event-info">
+                        {% if invitation.wedding_time %}
+                            {{ invitation.wedding_time }} WIB
+                        {% else %}
+                            To be announced
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-icon">
+                        <i class="fas fa-castle"></i>
+                    </div>
+                    <h3 class="event-title royal-font">Venue</h3>
+                    <div class="event-info">
+                        {% if invitation.venue_name %}{{ invitation.venue_name }}<br>{% endif %}
+                        {{ invitation.venue_address }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Message -->
+    {% if invitation.custom_message %}
+    <div class="container">
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title royal-font">Royal Message</h2>
+            </div>
+            <div style="padding: 60px; text-align: center;">
+                <p style="font-size: 1.5rem; line-height: 1.8; color: var(--dark); font-style: italic;">
+                    "{{ invitation.custom_message }}"
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- RSVP Section -->
+    <div class="container">
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title royal-font">Royal RSVP</h2>
+                <p class="section-subtitle">Please honor us with your response</p>
+            </div>
+            <div class="rsvp-form">
+                <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label royal-font">Full Name</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label royal-font">Phone Number</label>
+                                <input type="tel" name="phone" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label royal-font">Attendance</label>
+                                <select name="attendance" class="form-control" required>
+                                    <option value="">Select Response</option>
+                                    <option value="hadir">Will Attend</option>
+                                    <option value="tidak_hadir">Cannot Attend</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label royal-font">Number of Guests</label>
+                                <input type="number" name="guest_count" class="form-control" min="1" value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label royal-font">Royal Wishes</label>
+                        <textarea name="wishes" class="form-control" rows="4" placeholder="Your blessings and wishes for the royal couple..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-royal">
+                        <i class="fas fa-crown me-2"></i>Send Royal RSVP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="royal-footer">
+        <div class="container">
+            <div class="footer-ornament">♔ ♔ ♔</div>
+            <p class="footer-message">
+                Your presence is the greatest gift of all.<br>
+                We look forward to celebrating this royal union with you.
+            </p>
+            <div class="footer-names royal-font">{{ invitation.couple_name }}</div>
+            <div class="footer-ornament">♔</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Music Control
+        let isPlaying = false;
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+
+        function toggleMusic() {
+            if (bgMusic) {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicIcon.className = 'fas fa-volume-mute';
+                } else {
+                    bgMusic.play();
+                    musicIcon.className = 'fas fa-music';
+                }
+                isPlaying = !isPlaying;
+            }
+        }
+
+        if (bgMusic) {
+            bgMusic.volume = 0.3;
+            
+            // Try autoplay on load
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-music';
+                console.log('Music autoplaying');
+            }).catch(() => {
+                console.log('Autoplay blocked, waiting for user interaction');
+            });
+
+            // Auto-play attempt after any user interaction
+            const startMusic = () => {
+                if (!isPlaying && bgMusic.src) {
+                    bgMusic.play().then(() => {
+                        isPlaying = true;
+                        musicIcon.className = 'fas fa-music';
+                        console.log('Music started after user interaction');
+                    }).catch(console.error);
+                }
+            };
+
+            // Try on multiple interaction types
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('touchstart', startMusic, { once: true });
+            document.addEventListener('scroll', startMusic, { once: true });
+
+            // Handle audio events
+            bgMusic.addEventListener('play', () => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-music';
+            });
+
+            bgMusic.addEventListener('pause', () => {
+                isPlaying = false;
+                musicIcon.className = 'fas fa-volume-mute';
+            });
+
+            bgMusic.addEventListener('loadeddata', function() {
+                console.log('Audio loaded successfully');
+                if (!isPlaying) {
+                    bgMusic.play().catch(() => {});
+                }
+            });
+        }
+
+        // Royal animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animations to royal elements
+        document.querySelectorAll('.content-section, .couple-card, .event-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(50px)';
+            element.style.transition = 'all 0.8s ease-out';
+            observer.observe(element);
+        });
+
+        // Royal sparkle effect on hover
+        document.querySelectorAll('.royal-avatar, .event-icon').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) rotate(10deg)';
+            });
+
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</div>
+<script>
+
+        // Open invitation function
+        function openInvitation() {
+            const coverPage = document.getElementById('coverPage');
+            const mainContent = document.getElementById('mainContent');
+            const music = document.getElementById('backgroundMusic');
+
+            coverPage.style.transition = 'opacity 1s ease-out';
+            coverPage.style.opacity = '0';
+
+            setTimeout(() => {
+                coverPage.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '0';
+
+                setTimeout(() => {
+                    mainContent.style.transition = 'opacity 1s ease-in';
+                    mainContent.style.opacity = '1';
+                }, 100);
+
+                // Play background music
+                if (music) {
+                    music.play().catch(e => console.log('Audio play failed:', e));
+                }
+
+                // Start countdown if wedding date exists
+                {% if invitation.wedding_date %}
+                startCountdown();
+                {% endif %}
+            }, 1000);
+        }
+
+        // Countdown function
+        {% if invitation.wedding_date %}
+        function startCountdown() {
+            const weddingDate = new Date("{{ invitation.wedding_date.strftime('%Y-%m-%d') if invitation.wedding_date.__class__.__name__ == 'datetime' else invitation.wedding_date }}").getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById('days').innerText = days.toString().padStart(2, '0');
+                    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+                } else {
+                    document.getElementById('countdownTimer').innerHTML = 
+                        '<div class="text-center"><h3 style="color: #667eea;">Hari Bahagia Telah Tiba! 🎉</h3></div>';
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        {% endif %}
+
+</script>
+
+    <!-- Photo Gallery Section -->
+    {% if prewedding_photos %}
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Our Moments</h2>
+                <p class="section-subtitle">Beautiful memories we want to share</p>
+            </div>
+            <div class="gallery-grid">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item" onclick="openModal('{{ url_for('static', filename='prewedding_photos/' + photo) }}')">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" alt="Prewedding Photo">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div class="modal" id="photoModal">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Gallery Photo">
+        </div>
+    </div>
+    {% endif %}
+
+
+<script>
+// Gallery Modal Functions
+function openModal(imageSrc) {
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modal.style.display = 'block';
+    modalImage.src = imageSrc;
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('photoModal');
+    modal.style.display = 'none';
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside the image
+document.getElementById('photoModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
