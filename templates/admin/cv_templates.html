@@ -1,0 +1,230 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Kelola Template CV - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Kelola Template CV</h1>
+    <div class="btn-group">
+        <a href="{{ url_for('generate_all_cv_thumbnails') }}" class="btn btn-success" 
+           onclick="return confirm('Generate thumbnails untuk semua template CV? Proses ini memerlukan waktu beberapa menit.')">
+            <i class="fas fa-images me-2"></i>Generate All Thumbnails
+        </a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTemplateModal">
+            <i class="fas fa-plus me-2"></i>Tambah Template
+        </button>
+    </div>
+</div>
+
+<!-- Templates Table -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Daftar Template CV</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama Template</th>
+                        <th>Kategori</th>
+                        <th>Color Scheme</th>
+                        <th>Premium</th>
+                        <th>File</th>
+                        <th>Preview</th>
+                        <th>Dibuat</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for template in templates %}
+                    <tr>
+                        <td>{{ template.id }}</td>
+                        <td>
+                            <strong>{{ template.name }}</strong>
+                            {% if template.description %}
+                                <br><small class="text-muted">{{ template.description }}</small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge badge-info">{{ template.category or 'General' }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-secondary">{{ template.color_scheme or 'Default' }}</span>
+                        </td>
+                        <td>
+                            {% if template.is_premium %}
+                                <span class="badge badge-warning">
+                                    <i class="fas fa-crown me-1"></i>Premium
+                                </span>
+                            {% else %}
+                                <span class="badge badge-success">Free</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if template.template_file %}
+                                <a href="{{ url_for('download_template', template_type='cv', filename=template.template_file) }}" 
+                                   class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <i class="fas fa-download me-1"></i>Download
+                                </a>
+                            {% else %}
+                                <span class="text-muted">No file</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if template.preview_image %}
+                                <img src="{{ url_for('static', filename='images/templates/' + template.preview_image) }}" 
+                                     alt="Preview" class="img-thumbnail" style="max-width: 80px; max-height: 60px;">
+                            {% else %}
+                                <span class="text-muted">No preview</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ template.created_at }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('generate_cv_template_thumbnail', template_id=template.id) }}" 
+                                   class="btn btn-sm btn-warning" title="Generate Thumbnail"
+                                   onclick="return confirm('Generate thumbnail untuk template ini?')">
+                                    <i class="fas fa-camera"></i>
+                                </a>
+                                <button class="btn btn-sm btn-info" onclick="editTemplate({{ template.id }})" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteTemplate({{ template.id }})" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Template Modal -->
+<div class="modal fade" id="addTemplateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Template CV Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama Template *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Kategori</label>
+                                <select class="form-control" id="category" name="category">
+                                    <option value="modern">Modern</option>
+                                    <option value="classic">Classic</option>
+                                    <option value="creative">Creative</option>
+                                    <option value="professional">Professional</option>
+                                    <option value="minimalist">Minimalist</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="color_scheme" class="form-label">Color Scheme</label>
+                                <select class="form-control" id="color_scheme" name="color_scheme">
+                                    <option value="blue">Blue</option>
+                                    <option value="green">Green</option>
+                                    <option value="red">Red</option>
+                                    <option value="purple">Purple</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="light">Light</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="animations" class="form-label">Animations</label>
+                                <input type="text" class="form-control" id="animations" name="animations" 
+                                       placeholder="e.g., fade, slide, bounce">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="template_file" class="form-label">Template File (HTML) *</label>
+                                <input type="file" class="form-control" id="template_file" name="template_file" 
+                                       accept=".html,.htm" required>
+                                <small class="form-text text-muted">Upload file HTML template CV</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="preview_image" class="form-label">Preview Image</label>
+                                <input type="file" class="form-control" id="preview_image" name="preview_image" 
+                                       accept=".jpg,.jpeg,.png,.gif">
+                                <small class="form-text text-muted">Upload gambar preview template</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="is_premium" name="is_premium" value="1">
+                            <label class="form-check-label" for="is_premium">
+                                <i class="fas fa-crown me-1 text-warning"></i>Template Premium
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Simpan Template
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function editTemplate(templateId) {
+    // Placeholder for edit functionality
+    alert('Fitur edit template akan segera tersedia');
+}
+
+function deleteTemplate(templateId) {
+    if (confirm('Apakah Anda yakin ingin menghapus template ini?')) {
+        // Placeholder for delete functionality
+        alert('Fitur hapus template akan segera tersedia');
+    }
+}
+
+// Initialize DataTable
+$(document).ready(function() {
+    $('#dataTable').DataTable({
+        "pageLength": 10,
+        "responsive": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json"
+        }
+    });
+});
+</script>
+{% endblock %}
