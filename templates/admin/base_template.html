@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #F8BBD9;
+            --primary-gold: #FFD700;
+            --secondary-cream: #FFF8E7;
+            --accent-rose: #E91E63;
+            --text-dark: #4A4A4A;
+            --text-light: #8E8E8E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, var(--secondary-cream) 0%, #FFFFFF 100%);
+            color: var(--text-dark);
+        }
+
+        .invitation-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Floral Border */
+        .floral-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid var(--primary-pink);
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floral-border::before {
+            content: '🌸';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .floral-border::after {
+            content: '🌸';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-rose) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10zm0-15c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .hero-ornament {
+            color: var(--primary-gold);
+            font-size: 3rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .couple-names-hero {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wedding-date-hero {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 60px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '❀';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+        }
+
+        /* Opening Section */
+        .opening-section {
+            background: var(--secondary-cream);
+            text-align: center;
+        }
+
+        .opening-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .love-quote {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-pink);
+            font-style: italic;
+            color: var(--text-dark);
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .love-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--primary-pink);
+            background: white;
+            padding: 0 10px;
+        }
+
+        /* Couple Section */
+        .couple-section {
+            background: white;
+        }
+
+        .couple-card {
+            background: var(--secondary-cream);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary-pink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-pink) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .couple-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .couple-ornament {
+            color: var(--accent-rose);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .couple-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Heart Divider */
+        .heart-divider {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2rem;
+            color: var(--accent-rose);
+        }
+
+        /* Event Section - Multi Venue Support */
+        .event-section {
+            background: var(--secondary-cream);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid var(--primary-pink);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .date-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-rose));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .date-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .venue-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .venue-time {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .maps-btn {
+            background: var(--accent-rose);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .maps-btn:hover {
+            background: #AD1457;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Photo Gallery Section */
+        .gallery-section {
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: default;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-overlay {
+            display: none !important;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: white;
+        }
+
+        .rsvp-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            border: 2px solid var(--primary-pink);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: var(--secondary-cream);
+            transition: all 0.3s ease;
+            min-height: 48px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-rose);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .btn-rsvp {
+            background: var(--accent-rose);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            min-height: 48px;
+        }
+
+        .btn-rsvp:hover {
+            background: #AD1457;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-rose));
+            color: white;
+            text-align: center;
+            padding: 50px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-hearts {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Fullscreen Optimization */
+        @media screen and (max-width: 768px) {
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+            
+            .invitation-container {
+                width: 100vw;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+            
+            .hero-section {
+                padding: 60px 30px;
+            }
+            
+            .couple-names-hero {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .couple-name {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 50px 30px;
+            }
+
+            .couple-card, .event-card {
+                padding: 30px 20px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+
+        /* Desktop fullscreen */
+        @media screen and (min-width: 769px) {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .invitation-container {
+                max-width: 100%;
+                width: 100vw;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="floral-border"></div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-ornament">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="couple-names-hero">
+                {% if invitation.couple_name %}
+                    {{ invitation.couple_name }}
+                {% else %}
+                    {{ invitation.bride_name }} & {{ invitation.groom_name }}
+                {% endif %}
+            </h1>
+            <div class="wedding-date-hero">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Opening Section -->
+        <section class="content-section opening-section fade-in">
+            <h2 class="section-title">Undangan Pernikahan</h2>
+            <p class="opening-text">
+                Dengan penuh kebahagiaan dan rasa syukur, kami mengundang Anda untuk hadir dan berbagi kegembiraan di hari istimewa kami.
+            </p>
+            
+            {% if invitation.message %}
+            <div class="love-quote">
+                <p>{{ invitation.message }}</p>
+            </div>
+            {% else %}
+            <div class="love-quote">
+                <p>Cinta sejati bukanlah tentang menemukan seseorang yang sempurna, tetapi tentang melihat orang yang tidak sempurna secara sempurna.</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Couple Section -->
+        <section class="content-section couple-section fade-in">
+            <h2 class="section-title">Mempelai</h2>
+            
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="couple-ornament">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                    <div class="couple-parents">
+                        Putri dari<br>
+                        <strong>{{ invitation.bride_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.bride_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heart-divider">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="couple-ornament">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                    <div class="couple-parents">
+                        Putra dari<br>
+                        <strong>{{ invitation.groom_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.groom_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Multi-Venue Events Section -->
+        <section class="content-section event-section fade-in">
+            <h2 class="section-title">Waktu & Tempat</h2>
+            
+            <!-- Single Event (Legacy) -->
+            {% if invitation.wedding_date and invitation.venue_name and not (invitation.akad_date or invitation.resepsi_date) %}
+            <div class="event-card">
+                <div class="date-circle">
+                    <div class="date-number">{{ invitation.wedding_date.strftime('%d') }}</div>
+                    <div class="date-month">{{ invitation.wedding_date.strftime('%b %Y') }}</div>
+                </div>
+                <h3 class="venue-name">{{ invitation.venue_name }}</h3>
+                <p class="venue-address">{{ invitation.venue_address }}</p>
+                {% if invitation.wedding_time %}
+                <p class="venue-time">
+                    <i class="far fa-clock me-2"></i>
+                    Pukul {{ invitation.wedding_time }} WIB
+                </p>
+                {% endif %}
+                {% if invitation.venue_address %}
+                <a href="{{ invitation.venue_address if invitation.venue_address.startswith('http') else 'https://maps.google.com/?q=' + invitation.venue_address }}" 
+                   target="_blank" class="maps-btn">
+                    <i class="fas fa-map-marker-alt me-2"></i>Lihat Alamat
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Multi-Venue Events -->
+            {% if invitation.akad_date or invitation.resepsi_date %}
+                <!-- Akad Nikah -->
+                {% if invitation.akad_date %}
+                <div class="event-card">
+                    <h3 class="venue-name">Akad Nikah</h3>
+                    <div class="date-circle">
+                        <div class="date-number">{{ invitation.akad_date.strftime('%d') }}</div>
+                        <div class="date-month">{{ invitation.akad_date.strftime('%b %Y') }}</div>
+                    </div>
+                    {% if invitation.akad_venue_name %}
+                        <h4 class="venue-name">{{ invitation.akad_venue_name }}</h4>
+                    {% endif %}
+                    {% if invitation.akad_venue_address %}
+                        <p class="venue-address">{{ invitation.akad_venue_address }}</p>
+                    {% endif %}
+                    {% if invitation.akad_time %}
+                        <p class="venue-time">
+                            <i class="far fa-clock me-2"></i>
+                            Pukul {{ invitation.akad_time }} WIB
+                        </p>
+                    {% endif %}
+                    {% if invitation.akad_venue_address %}
+                    <a href="{{ invitation.akad_venue_address if invitation.akad_venue_address.startswith('http') else 'https://maps.google.com/?q=' + invitation.akad_venue_address }}" 
+                       target="_blank" class="maps-btn">
+                        <i class="fas fa-map-marker-alt me-2"></i>Lihat Alamat
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Resepsi -->
+                {% if invitation.resepsi_date %}
+                <div class="event-card">
+                    <h3 class="venue-name">Resepsi</h3>
+                    <div class="date-circle">
+                        <div class="date-number">{{ invitation.resepsi_date.strftime('%d') }}</div>
+                        <div class="date-month">{{ invitation.resepsi_date.strftime('%b %Y') }}</div>
+                    </div>
+                    {% if invitation.resepsi_venue_name %}
+                        <h4 class="venue-name">{{ invitation.resepsi_venue_name }}</h4>
+                    {% endif %}
+                    {% if invitation.resepsi_venue_address %}
+                        <p class="venue-address">{{ invitation.resepsi_venue_address }}</p>
+                    {% endif %}
+                    {% if invitation.resepsi_time %}
+                        <p class="venue-time">
+                            <i class="far fa-clock me-2"></i>
+                            Pukul {{ invitation.resepsi_time }} WIB
+                        </p>
+                    {% endif %}
+                    {% if invitation.resepsi_venue_address %}
+                    <a href="{{ invitation.resepsi_venue_address if invitation.resepsi_venue_address.startswith('http') else 'https://maps.google.com/?q=' + invitation.resepsi_venue_address }}" 
+                       target="_blank" class="maps-btn">
+                        <i class="fas fa-map-marker-alt me-2"></i>Lihat Alamat
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Family Events (Optional) -->
+                {% if invitation.bride_event_date %}
+                <div class="event-card">
+                    <h3 class="venue-name">Acara Keluarga Mempelai Wanita</h3>
+                    <div class="date-circle">
+                        <div class="date-number">{{ invitation.bride_event_date.strftime('%d') }}</div>
+                        <div class="date-month">{{ invitation.bride_event_date.strftime('%b %Y') }}</div>
+                    </div>
+                    {% if invitation.bride_event_venue_name %}
+                        <h4 class="venue-name">{{ invitation.bride_event_venue_name }}</h4>
+                    {% endif %}
+                    {% if invitation.bride_event_venue_address %}
+                        <p class="venue-address">{{ invitation.bride_event_venue_address }}</p>
+                    {% endif %}
+                    {% if invitation.bride_event_time %}
+                        <p class="venue-time">
+                            <i class="far fa-clock me-2"></i>
+                            Pukul {{ invitation.bride_event_time }} WIB
+                        </p>
+                    {% endif %}
+                    {% if invitation.bride_event_venue_address %}
+                    <a href="{{ invitation.bride_event_venue_address if invitation.bride_event_venue_address.startswith('http') else 'https://maps.google.com/?q=' + invitation.bride_event_venue_address }}" 
+                       target="_blank" class="maps-btn">
+                        <i class="fas fa-map-marker-alt me-2"></i>Lihat Alamat
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if invitation.groom_event_date %}
+                <div class="event-card">
+                    <h3 class="venue-name">Acara Keluarga Mempelai Pria</h3>
+                    <div class="date-circle">
+                        <div class="date-number">{{ invitation.groom_event_date.strftime('%d') }}</div>
+                        <div class="date-month">{{ invitation.groom_event_date.strftime('%b %Y') }}</div>
+                    </div>
+                    {% if invitation.groom_event_venue_name %}
+                        <h4 class="venue-name">{{ invitation.groom_event_venue_name }}</h4>
+                    {% endif %}
+                    {% if invitation.groom_event_venue_address %}
+                        <p class="venue-address">{{ invitation.groom_event_venue_address }}</p>
+                    {% endif %}
+                    {% if invitation.groom_event_time %}
+                        <p class="venue-time">
+                            <i class="far fa-clock me-2"></i>
+                            Pukul {{ invitation.groom_event_time }} WIB
+                        </p>
+                    {% endif %}
+                    {% if invitation.groom_event_venue_address %}
+                    <a href="{{ invitation.groom_event_venue_address if invitation.groom_event_venue_address.startswith('http') else 'https://maps.google.com/?q=' + invitation.groom_event_venue_address }}" 
+                       target="_blank" class="maps-btn">
+                        <i class="fas fa-map-marker-alt me-2"></i>Lihat Alamat
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endif %}
+        </section>
+
+        <!-- Photo Gallery Section -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        <section class="content-section gallery-section fade-in">
+            <h2 class="section-title">Gallery Foto</h2>
+            <div class="gallery-grid">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" alt="Wedding Photo" loading="lazy">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- RSVP Section -->
+        <section class="content-section rsvp-section fade-in">
+            <h2 class="section-title">Konfirmasi Kehadiran</h2>
+            <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form">
+                <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                <select class="form-control" name="attendance" required>
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Ya, Saya Akan Hadir</option>
+                    <option value="tidak_hadir">Maaf, Saya Tidak Dapat Hadir</option>
+                </select>
+                <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" max="5" value="1">
+                <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                <button type="submit" class="btn btn-rsvp">
+                    <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                </button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer-section">
+            <div class="footer-hearts">
+                <i class="fas fa-heart"></i>
+            </div>
+            <p style="line-height: 1.8; opacity: 0.95;">
+                Terima kasih atas doa dan kehadiran Anda yang akan menjadikan hari bahagia kami semakin berkesan.
+                <br><br>
+                <strong>
+                    {% if invitation.couple_name %}
+                        {{ invitation.couple_name }}
+                    {% else %}
+                        {{ invitation.bride_name }} & {{ invitation.groom_name }}
+                    {% endif %}
+                </strong>
+            </p>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mobile fullscreen optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile viewport height fix
+            function setViewportHeight() {
+                document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+            }
+            
+            setViewportHeight();
+            window.addEventListener('resize', setViewportHeight);
+            window.addEventListener('orientationchange', setViewportHeight);
+            
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Prevent zoom on form focus (iOS)
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.style.fontSize === '' || parseFloat(input.style.fontSize) < 16) {
+                    input.style.fontSize = '16px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

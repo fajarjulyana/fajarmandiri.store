@@ -1,0 +1,3936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&family=Great+Vibes:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Cover Page Styles */
+        .cover-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            color: white;
+        }
+
+        .cover-content {
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .couple-initials {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .couple-initials .fas {
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .couple-names {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wedding-date {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .open-invitation-btn {background: #DC2626;
+            border: 2px solid white;
+            color: #FFFFFF;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .open-invitation-btn:hover {background: #B91C1C;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Countdown Styles */
+        .countdown-section {background: rgba(220, 38, 38, 0.1);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {background: rgba(255,255,255,0.9);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            min-width: 120px;
+        }
+
+        .countdown-number {color: #B91C1C;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .countdown-label {color: #B91C1C;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        :root {
+            --primary-pink: #F8BBD9;
+            --primary-gold: #FFD700;
+            --secondary-cream: #FFF8E7;
+            --accent-rose: #E91E63;
+            --text-dark: #4A4A4A;
+            --text-light: #8E8E8E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, var(--secondary-cream) 0%, #FFFFFF 100%);
+            color: var(--text-dark);
+        }
+
+        .invitation-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Floral Border */
+        .floral-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid var(--primary-pink);
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floral-border::before {
+            content: '🌸';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .floral-border::after {
+            content: '🌸';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-rose) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10zm0-15c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .hero-ornament {
+            color: var(--primary-gold);
+            font-size: 3rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .couple-names-hero {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wedding-date-hero {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 60px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '❀';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+        }
+
+        /* Opening Section */
+        .opening-section {
+            background: var(--secondary-cream);
+            text-align: center;
+        }
+
+        .opening-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .love-quote {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-pink);
+            font-style: italic;
+            color: var(--text-dark);
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .love-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--primary-pink);
+            background: white;
+            padding: 0 10px;
+        }
+
+        /* Couple Section */
+        .couple-section {
+            background: white;
+        }
+
+        .couple-card {
+            background: var(--secondary-cream);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary-pink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .couple-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-pink) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .couple-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .couple-ornament {
+            color: var(--accent-rose);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .couple-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .couple-parents {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Heart Divider */
+        .heart-divider {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2rem;
+            color: var(--accent-rose);
+        }
+
+        /* Event Section */
+        .event-section {
+            background: var(--secondary-cream);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid var(--primary-pink);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .date-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-rose));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .date-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .venue-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .venue-time {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .maps-btn {
+            background: var(--accent-rose);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .maps-btn:hover {
+            background: #AD1457;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: white;
+        }
+
+        .rsvp-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            border: 2px solid var(--primary-pink);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: var(--secondary-cream);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-rose);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .btn-rsvp {
+            background: var(--accent-rose);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-rsvp:hover {
+            background: #AD1457;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-rose));
+            color: white;
+            text-align: center;
+            padding: 50px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-hearts {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        
+        .floating-music {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-music:hover {
+            transform: scale(1.1);
+            background: var(--primary-pink);
+        }
+
+        .floating-music.playing {
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .couple-names-hero {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .couple-name {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 50px 30px;
+            }
+
+            .couple-card, .event-card {
+                padding: 30px 20px;
+            }
+
+            
+        }
+    
+
+
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+
+
+
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(233, 30, 99, 0.3);
+    border-color: var(--accent-rose);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(233, 30, 99, 0.8), rgba(248, 187, 217, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    animation: pulse 2s infinite;
+}
+
+/* Gallery Pagination */
+.gallery-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.pagination-btn {
+    background: var(--accent-rose);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-btn:hover {
+    background: #AD1457;
+    transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#pageInfo {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Enhanced Photo Modal */
+.photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.modal-image-container {
+    max-width: 90vw;
+    max-height: 80vh;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.modal-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 1.2rem;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 1.5rem;
+}
+
+.modal-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.modal-prev {
+    left: 30px;
+}
+
+.modal-next {
+    right: 30px;
+}
+
+.modal-info {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+}
+
+/* Gallery Animation */
+.fade-in-gallery {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in-gallery.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Gallery Optimizations */
+@media (max-width: 768px) {
+    
+    
+    .modal-image-container {
+        max-width: 95vw;
+        max-height: 70vh;
+    }
+    
+    .modal-nav {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-prev {
+        left: 15px;
+    }
+    
+    .modal-next {
+        right: 15px;
+    }
+    
+    .modal-close {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .gallery-pagination {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .gallery-overlay i {
+        font-size: 2rem;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.close-button:hover {
+    opacity: 0.7;
+}
+
+/* Events Timeline Styles */
+.events-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.events-timeline {
+    margin-top: 50px;
+    position: relative;
+}
+
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.3);
+    transform: translateX(-50%);
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.event-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.event-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.event-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.event-content {
+    flex: 1;
+    max-width: 400px;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.event-details p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.event-details i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.bride-event .event-icon {
+    background: rgba(255, 182, 193, 0.3);
+}
+
+.groom-event .event-icon {
+    background: rgba(173, 216, 230, 0.3);
+}
+
+@media (max-width: 768px) {
+    .events-timeline::before {
+        left: 30px;
+    }
+    
+    .event-item {
+        flex-direction: row !important;
+        padding-left: 60px;
+    }
+    
+    .event-icon {
+        position: absolute;
+        left: 0;
+        margin: 0;
+    }
+    
+    
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Address Display Styles */
+.venue-info {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.venue-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.venue-address {
+    color: #4a5568;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.venue-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin-top: 0.5rem;
+}
+
+.venue-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+}
+
+.venue-link i {
+    margin-right: 0.5rem;
+}
+
+.event-details {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.event-datetime {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.event-date {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.event-time {
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+    /* Mobile Fullscreen Optimization */
+    @media screen and (max-width: 768px) {
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        .invitation-container,
+        .wedding-container {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        /* Remove photo links for existing galleries */
+        
+        
+        .gallery-item img {
+            pointer-events: none;
+        }
+        
+        .gallery-overlay {
+            display: none !important;
+        }
+        
+        /* Mobile viewport fixes */
+        .content-section {
+            padding: 30px 20px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+        
+        .couple-names-hero {
+            font-size: 2.2rem;
+        }
+        
+        .couple-name {
+            font-size: 1.8rem;
+        }
+        
+        /* Touch-friendly buttons */
+        .btn, .maps-btn, .btn-rsvp {
+            min-height: 48px;
+            padding: 12px 24px;
+        }
+        
+        /* Form optimization */
+        .form-control {
+            min-height: 48px;
+            font-size: 16px; /* Prevent zoom on iOS */
+        }
+        
+        /* Remove modal functionality for photos */
+        .modal {
+            display: none !important;
+        }
+    }
+    
+    /* Desktop fullscreen */
+    @media screen and (min-width: 769px) {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .invitation-container,
+        .wedding-container {
+            max-width: 100%;
+            width: 100vw;
+            margin: 0;
+        }
+        
+        /* Keep gallery functionality on desktop but remove links */
+        
+        
+        .gallery-item img {
+            pointer-events: none;
+        }
+        
+        .gallery-overlay {
+            display: none !important;
+        }
+    }
+    
+    /* Universal photo gallery fixes */
+    .gallery-item[onclick] {
+        cursor: default !important;
+    }
+    
+    .gallery-item img[onclick] {
+        pointer-events: none !important;
+    }
+
+/* Address Link Styles */
+.venue-address-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin: 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.venue-address-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+    background: linear-gradient(135deg, #3367d6, #2d7d32);
+}
+
+.venue-address-link i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+/* Responsive address links */
+@media (max-width: 768px) {
+    .venue-address-link {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        display: block;
+        text-align: center;
+        margin: 15px auto;
+        max-width: 280px;
+    }
+}
+
+/* Comprehensive Address Link Styles */
+.venue-address-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin: 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+    text-align: center;
+}
+
+.venue-address-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+    background: linear-gradient(135deg, #3367d6, #2d7d32);
+}
+
+.venue-address-link i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.venue-address {
+    margin-bottom: 10px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.maps-btn {
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin: 10px 0;
+}
+
+.maps-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+    background: linear-gradient(135deg, #3367d6, #2d7d32);
+}
+
+/* Event address styles */
+.event-address {
+    margin-bottom: 15px;
+}
+
+.event-address .venue-address {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Responsive address links */
+@media (max-width: 768px) {
+    .venue-address-link,
+    .maps-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        display: block;
+        text-align: center;
+        margin: 15px auto;
+        max-width: 280px;
+    }
+}
+
+
+
+/* Enhanced Responsive Gallery Styles */
+
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Responsive Gallery Grid */
+
+
+/* Gallery Item Styling */
+
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 15px;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Gallery Animation */
+.gallery-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.gallery-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1200px) {
+    
+    
+    .gallery-container {
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    
+    
+    
+}
+
+/* Mobile Optimizations */
+@media (max-width: 767px) {
+    
+    
+    .gallery-container {
+        padding: 0 15px;
+    }
+    
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 12px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 12px;
+    }
+    
+    .gallery-overlay i {
+        font-size: 1.5rem;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 10px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 10px;
+    }
+    
+    .gallery-title {
+        font-size: 1.6rem;
+    }
+    
+    
+}
+
+/* Ultra small screens */
+@media (max-width: 360px) {
+    .gallery-container {
+        padding: 0 10px;
+    }
+    
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 8px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 8px;
+    }
+}
+
+/* Enhanced Modal for Gallery */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+}
+
+.gallery-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery-modal-image {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.gallery-modal-close:hover {
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+}
+
+/* Gallery Loading State */
+.gallery-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.gallery-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: gallery-spin 1s linear infinite;
+}
+
+@keyframes gallery-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disable photo interactions for all templates */
+
+
+.gallery-item img {
+    pointer-events: none !important;
+}
+
+.gallery-overlay {
+    display: none !important;
+}
+
+/* Remove all onclick handlers */
+.gallery-item[onclick] {
+    cursor: default !important;
+}
+
+.gallery-item img[onclick] {
+    pointer-events: none !important;
+}
+
+/* Ensure no modal functionality */
+.modal, .photo-modal, #photoModal {
+    display: none !important;
+}
+
+
+
+/* Enhanced Gallery Styles - No Crop, Aspect Ratio Aware */
+.gallery-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Portrait Photos Section */
+.gallery-portrait-section {
+    margin-bottom: 50px;
+}
+
+.gallery-portrait-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+    font-weight: 500;
+}
+
+.gallery-portrait-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Landscape Photos Section */
+.gallery-landscape-section {
+    margin-bottom: 30px;
+}
+
+.gallery-landscape-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+    font-weight: 500;
+}
+
+.gallery-landscape-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Portrait Item Styling */
+.gallery-portrait-item {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8f9fa;
+}
+
+.gallery-portrait-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-portrait-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.gallery-portrait-item:hover img {
+    transform: scale(1.02);
+}
+
+/* Landscape Item Styling */
+.gallery-landscape-item {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8f9fa;
+}
+
+.gallery-landscape-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-landscape-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.gallery-landscape-item:hover img {
+    transform: scale(1.02);
+}
+
+/* Animation */
+.gallery-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.gallery-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1200px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+    }
+    
+    .gallery-portrait-item {
+        width: 280px;
+        height: 380px;
+    }
+    
+    .gallery-landscape-item {
+        width: 400px;
+        height: 280px;
+    }
+    
+    .gallery-container {
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .gallery-portrait-item {
+        width: 220px;
+        height: 300px;
+    }
+    
+    .gallery-landscape-item {
+        width: 300px;
+        height: 220px;
+    }
+    
+    .gallery-section {
+        padding: 50px 0;
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 767px) {
+    .gallery-section {
+        padding: 40px 0;
+    }
+    
+    .gallery-container {
+        padding: 0 15px;
+    }
+    
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .gallery-portrait-item {
+        width: 160px;
+        height: 220px;
+        border-radius: 12px;
+    }
+    
+    .gallery-landscape-item {
+        width: 280px;
+        height: 200px;
+        border-radius: 12px;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+    
+    .gallery-portrait-title,
+    .gallery-landscape-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-portrait-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .gallery-portrait-item {
+        width: 140px;
+        height: 200px;
+        border-radius: 10px;
+    }
+    
+    .gallery-landscape-item {
+        width: 260px;
+        height: 180px;
+        border-radius: 10px;
+    }
+    
+    .gallery-title {
+        font-size: 1.6rem;
+    }
+    
+    .gallery-section {
+        padding: 30px 0;
+    }
+}
+
+/* Ultra small screens */
+@media (max-width: 360px) {
+    .gallery-container {
+        padding: 0 10px;
+    }
+    
+    .gallery-portrait-item {
+        width: 120px;
+        height: 180px;
+        border-radius: 8px;
+    }
+    
+    .gallery-landscape-item {
+        width: 240px;
+        height: 160px;
+        border-radius: 8px;
+    }
+}
+
+/* Loading State */
+.gallery-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.gallery-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: gallery-spin 1s linear infinite;
+}
+
+@keyframes gallery-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Gallery Photo Display Fix */
+.gallery-section {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.gallery-portrait-grid,
+.gallery-landscape-grid {
+    display: grid !important;
+}
+
+.gallery-portrait-item,
+.gallery-landscape-item {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.gallery-portrait-item img,
+.gallery-landscape-item img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+</style>
+
+    <style>
+    /* Auto Fullscreen Optimization */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        min-height: 100vh !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    .container, .invitation-container, .wedding-container {
+        max-width: 100% !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Mobile Fullscreen */
+    @media screen and (max-width: 768px) {
+        body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .main-content, .wedding-content {
+            width: 100vw;
+            min-height: 100vh;
+        }
+        
+        /* Hide mobile browser UI */
+        .cover-page, .landing-screen {
+            height: 100vh !important;
+            height: calc(var(--vh, 1vh) * 100) !important;
+        }
+    }
+
+    /* Desktop Fullscreen */
+    @media screen and (min-width: 769px) {
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100% !important;
+            width: 100vw !important;
+        }
+    }
+
+    /* PWA Fullscreen */
+    @media all and (display-mode: fullscreen) {
+        body {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+
+    /* iOS Safari specific */
+    body {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+/* Comprehensive Address Link Styles */
+.venue-address-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin: 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+    text-align: center;
+}
+
+.venue-address-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+    background: linear-gradient(135deg, #3367d6, #2d7d32);
+}
+
+.venue-address-link i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.venue-address {
+    margin-bottom: 10px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.maps-btn {
+    background: linear-gradient(135deg, #4285f4, #34a853);
+    color: white !important;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    margin: 10px 0;
+}
+
+.maps-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    color: white !important;
+    text-decoration: none;
+    background: linear-gradient(135deg, #3367d6, #2d7d32);
+}
+
+/* Event address styles */
+.event-address {
+    margin-bottom: 15px;
+}
+
+.event-address .venue-address {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Responsive address links */
+@media (max-width: 768px) {
+    .venue-address-link,
+    .maps-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        display: block;
+        text-align: center;
+        margin: 15px auto;
+        max-width: 280px;
+    }
+}
+
+
+
+/* Enhanced Responsive Gallery Styles */
+
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Responsive Gallery Grid */
+
+
+/* Gallery Item Styling */
+
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 15px;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Gallery Animation */
+.gallery-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.gallery-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1200px) {
+    
+    
+    .gallery-container {
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    
+    
+    
+}
+
+/* Mobile Optimizations */
+@media (max-width: 767px) {
+    
+    
+    .gallery-container {
+        padding: 0 15px;
+    }
+    
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 12px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 12px;
+    }
+    
+    .gallery-overlay i {
+        font-size: 1.5rem;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 10px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 10px;
+    }
+    
+    .gallery-title {
+        font-size: 1.6rem;
+    }
+    
+    
+}
+
+/* Ultra small screens */
+@media (max-width: 360px) {
+    .gallery-container {
+        padding: 0 10px;
+    }
+    
+    
+    
+    
+    
+    .gallery-item img {
+        border-radius: 8px;
+    }
+    
+    .gallery-overlay {
+        border-radius: 8px;
+    }
+}
+
+/* Enhanced Modal for Gallery */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+}
+
+.gallery-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery-modal-image {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.gallery-modal-close:hover {
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+}
+
+/* Gallery Loading State */
+.gallery-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.gallery-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: gallery-spin 1s linear infinite;
+}
+
+@keyframes gallery-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disable photo interactions for all templates */
+
+
+.gallery-item img {
+    pointer-events: none !important;
+}
+
+.gallery-overlay {
+    display: none !important;
+}
+
+/* Remove all onclick handlers */
+.gallery-item[onclick] {
+    cursor: default !important;
+}
+
+.gallery-item img[onclick] {
+    pointer-events: none !important;
+}
+
+/* Ensure no modal functionality */
+.modal, .photo-modal, #photoModal {
+    display: none !important;
+}
+
+
+
+/* Enhanced Gallery Styles - No Crop, Aspect Ratio Aware */
+.gallery-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Portrait Photos Section */
+.gallery-portrait-section {
+    margin-bottom: 50px;
+}
+
+.gallery-portrait-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+    font-weight: 500;
+}
+
+.gallery-portrait-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Landscape Photos Section */
+.gallery-landscape-section {
+    margin-bottom: 30px;
+}
+
+.gallery-landscape-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+    font-weight: 500;
+}
+
+.gallery-landscape-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Portrait Item Styling */
+.gallery-portrait-item {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8f9fa;
+}
+
+.gallery-portrait-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-portrait-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.gallery-portrait-item:hover img {
+    transform: scale(1.02);
+}
+
+/* Landscape Item Styling */
+.gallery-landscape-item {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8f9fa;
+}
+
+.gallery-landscape-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-landscape-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.gallery-landscape-item:hover img {
+    transform: scale(1.02);
+}
+
+/* Animation */
+.gallery-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.gallery-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1200px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+    }
+    
+    .gallery-portrait-item {
+        width: 280px;
+        height: 380px;
+    }
+    
+    .gallery-landscape-item {
+        width: 400px;
+        height: 280px;
+    }
+    
+    .gallery-container {
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .gallery-portrait-item {
+        width: 220px;
+        height: 300px;
+    }
+    
+    .gallery-landscape-item {
+        width: 300px;
+        height: 220px;
+    }
+    
+    .gallery-section {
+        padding: 50px 0;
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 767px) {
+    .gallery-section {
+        padding: 40px 0;
+    }
+    
+    .gallery-container {
+        padding: 0 15px;
+    }
+    
+    .gallery-portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .gallery-portrait-item {
+        width: 160px;
+        height: 220px;
+        border-radius: 12px;
+    }
+    
+    .gallery-landscape-item {
+        width: 280px;
+        height: 200px;
+        border-radius: 12px;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+    
+    .gallery-portrait-title,
+    .gallery-landscape-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-portrait-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .gallery-landscape-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .gallery-portrait-item {
+        width: 140px;
+        height: 200px;
+        border-radius: 10px;
+    }
+    
+    .gallery-landscape-item {
+        width: 260px;
+        height: 180px;
+        border-radius: 10px;
+    }
+    
+    .gallery-title {
+        font-size: 1.6rem;
+    }
+    
+    .gallery-section {
+        padding: 30px 0;
+    }
+}
+
+/* Ultra small screens */
+@media (max-width: 360px) {
+    .gallery-container {
+        padding: 0 10px;
+    }
+    
+    .gallery-portrait-item {
+        width: 120px;
+        height: 180px;
+        border-radius: 8px;
+    }
+    
+    .gallery-landscape-item {
+        width: 240px;
+        height: 160px;
+        border-radius: 8px;
+    }
+}
+
+/* Loading State */
+.gallery-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.gallery-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: gallery-spin 1s linear infinite;
+}
+
+@keyframes gallery-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Gallery Photo Display Fix */
+.gallery-section {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.gallery-portrait-grid,
+.gallery-landscape-grid {
+    display: grid !important;
+}
+
+.gallery-portrait-item,
+.gallery-landscape-item {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.gallery-portrait-item img,
+.gallery-landscape-item img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+</style>
+    
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="cover-page">
+        <div class="cover-content">
+            <div class="couple-initials">
+                <span>{{ invitation.bride_name[0] if invitation.bride_name else 'B' }}</span>
+                <i class="fas fa-heart"></i>
+                <span>{{ invitation.groom_name[0] if invitation.groom_name else 'G' }}</span>
+            </div>
+            <h1 class="couple-names">{{ invitation.couple_name }}</h1>
+            <p class="wedding-date">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') if invitation.wedding_date.__class__.__name__ == 'datetime' else invitation.wedding_date }}
+                {% else %}
+                    Segera
+                {% endif %}
+            </p>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="display: none;"><div class="invitation-container">
+        <div class="floral-border"></div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-ornament">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="couple-names-hero">{{ invitation.couple_name }}</h1>
+            <div class="wedding-date-hero">
+                {% if invitation.wedding_date %}
+                    {{ invitation.wedding_date.strftime('%d %B %Y') }}
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <h2 class="section-title">Menuju Hari Bahagia</h2>
+            {% if invitation.wedding_date %}
+            <div class="countdown-timer" id="countdownTimer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Detik</span>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Opening Section -->
+        <section class="content-section opening-section fade-in">
+            <h2 class="section-title">Undangan Pernikahan</h2>
+            <p class="opening-text">
+                Dengan penuh kebahagiaan dan rasa syukur, kami mengundang Anda untuk hadir dan berbagi kegembiraan di hari istimewa kami.
+            </p>
+
+            <div class="love-quote">
+                <p>Cinta sejati bukanlah tentang menemukan seseorang yang sempurna, tetapi tentang melihat orang yang tidak sempurna secara sempurna.</p>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section class="content-section couple-section fade-in">
+            <h2 class="section-title">Mempelai</h2>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="couple-ornament">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.bride_name }}</h3>
+                    <div class="couple-parents">
+                        Putri dari<br>
+                        <strong>{{ invitation.bride_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.bride_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heart-divider">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <div class="couple-card">
+                <div class="couple-content">
+                    <div class="couple-ornament">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3 class="couple-name">{{ invitation.groom_name }}</h3>
+                    <div class="couple-parents">
+                        Putra dari<br>
+                        <strong>{{ invitation.groom_father }}</strong><br>
+                        &<br>
+                        <strong>{{ invitation.groom_mother }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+
+        <!-- RSVP Section -->
+        
+    <!-- Multi-Venue Wedding Events -->
+    <section id="wedding-events" class="section wedding-events-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Acara Pernikahan</h2>
+                <p class="section-subtitle">Bergabunglah dengan kami merayakan hari bahagia</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <!-- Akad Nikah -->
+                {% if invitation.akad_venue_address or invitation.akad_venue_name or invitation.akad_date %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-mosque me-2"></i>Akad Nikah
+                        </div>
+                        
+                        {% if invitation.akad_date or invitation.akad_time %}
+                        <div class="event-datetime">
+                            {% if invitation.akad_date %}
+                                <div class="event-date">
+                                    {{ invitation.akad_date.strftime('%A, %d %B %Y') if invitation.akad_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.akad_time %}
+                                <div class="event-time">{{ invitation.akad_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.akad_venue_name %}
+                                <div class="venue-name">{{ invitation.akad_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.akad_venue_address %}
+                                {% if invitation.akad_venue_address.startswith('http') %}
+                                    
+                                {% else %}
+                                    {% if invitation.akad_venue_address %}
+    {% if invitation.akad_venue_address.startswith('http') %}
+        <a href="{{ invitation.akad_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Akad
+        </a>
+    {% else %}
+        <div class="venue-address">{{ invitation.akad_venue_address }}</div>
+        <a href="https://maps.google.com/?q={{ invitation.akad_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Akad
+        </a>
+    {% endif %}
+{% endif %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Resepsi -->
+                {% if invitation.resepsi_venue_address or invitation.resepsi_venue_name or invitation.resepsi_date %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-utensils me-2"></i>Resepsi
+                        </div>
+                        
+                        {% if invitation.resepsi_date or invitation.resepsi_time %}
+                        <div class="event-datetime">
+                            {% if invitation.resepsi_date %}
+                                <div class="event-date">
+                                    {{ invitation.resepsi_date.strftime('%A, %d %B %Y') if invitation.resepsi_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.resepsi_time %}
+                                <div class="event-time">{{ invitation.resepsi_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.resepsi_venue_name %}
+                                <div class="venue-name">{{ invitation.resepsi_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.resepsi_venue_address %}
+                                {% if invitation.resepsi_venue_address.startswith('http') %}
+                                    
+                                {% else %}
+                                    {% if invitation.resepsi_venue_address %}
+    {% if invitation.resepsi_venue_address.startswith('http') %}
+        <a href="{{ invitation.resepsi_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Resepsi
+        </a>
+    {% else %}
+        <div class="venue-address">{{ invitation.resepsi_venue_address }}</div>
+        <a href="https://maps.google.com/?q={{ invitation.resepsi_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Resepsi
+        </a>
+    {% endif %}
+{% endif %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Family Events (Optional) -->
+            {% if invitation.bride_event_venue_address or invitation.groom_event_venue_address %}
+            <div class="row justify-content-center mt-4">
+                <div class="col-12">
+                    <h4 class="text-center mb-4">Acara Keluarga</h4>
+                </div>
+                
+                <!-- Bride Family Event -->
+                {% if invitation.bride_event_venue_address or invitation.bride_event_venue_name %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-female me-2"></i>Keluarga Mempelai Wanita
+                        </div>
+                        
+                        {% if invitation.bride_event_date or invitation.bride_event_time %}
+                        <div class="event-datetime">
+                            {% if invitation.bride_event_date %}
+                                <div class="event-date">
+                                    {{ invitation.bride_event_date.strftime('%A, %d %B %Y') if invitation.bride_event_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.bride_event_time %}
+                                <div class="event-time">{{ invitation.bride_event_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.bride_event_venue_name %}
+                                <div class="venue-name">{{ invitation.bride_event_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.bride_event_venue_address %}
+                                {% if invitation.bride_event_venue_address.startswith('http') %}
+                                    
+                                {% else %}
+                                    {% if invitation.bride_event_venue_address %}
+    {% if invitation.bride_event_venue_address.startswith('http') %}
+        <a href="{{ invitation.bride_event_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Acara Keluarga Mempelai Wanita
+        </a>
+    {% else %}
+        <div class="venue-address">{{ invitation.bride_event_venue_address }}</div>
+        <a href="https://maps.google.com/?q={{ invitation.bride_event_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Acara Keluarga Mempelai Wanita
+        </a>
+    {% endif %}
+{% endif %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Groom Family Event -->
+                {% if invitation.groom_event_venue_address or invitation.groom_event_venue_name %}
+                <div class="col-md-6 col-lg-5 mb-4">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-male me-2"></i>Keluarga Mempelai Pria
+                        </div>
+                        
+                        {% if invitation.groom_event_date or invitation.groom_event_time %}
+                        <div class="event-datetime">
+                            {% if invitation.groom_event_date %}
+                                <div class="event-date">
+                                    {{ invitation.groom_event_date.strftime('%A, %d %B %Y') if invitation.groom_event_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.groom_event_time %}
+                                <div class="event-time">{{ invitation.groom_event_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.groom_event_venue_name %}
+                                <div class="venue-name">{{ invitation.groom_event_venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.groom_event_venue_address %}
+                                {% if invitation.groom_event_venue_address.startswith('http') %}
+                                    
+                                {% else %}
+                                    {% if invitation.groom_event_venue_address %}
+    {% if invitation.groom_event_venue_address.startswith('http') %}
+        <a href="{{ invitation.groom_event_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Acara Keluarga Mempelai Pria
+        </a>
+    {% else %}
+        <div class="venue-address">{{ invitation.groom_event_venue_address }}</div>
+        <a href="https://maps.google.com/?q={{ invitation.groom_event_venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi Acara Keluarga Mempelai Pria
+        </a>
+    {% endif %}
+{% endif %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <!-- Fallback for Single Event -->
+            {% if not (invitation.akad_venue_address or invitation.resepsi_venue_address) and (invitation.venue_address or invitation.venue_name) %}
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="event-details">
+                        <div class="event-title">
+                            <i class="fas fa-heart me-2"></i>Acara Pernikahan
+                        </div>
+                        
+                        {% if invitation.wedding_date or invitation.wedding_time %}
+                        <div class="event-datetime">
+                            {% if invitation.wedding_date %}
+                                <div class="event-date">
+                                    {{ invitation.wedding_date.strftime('%A, %d %B %Y') if invitation.wedding_date else '' }}
+                                </div>
+                            {% endif %}
+                            {% if invitation.wedding_time %}
+                                <div class="event-time">{{ invitation.wedding_time }} WIB</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="venue-info">
+                            {% if invitation.venue_name %}
+                                <div class="venue-name">{{ invitation.venue_name }}</div>
+                            {% endif %}
+                            
+                            {% if invitation.venue_address %}
+                                {% if invitation.venue_address.startswith('http') %}
+                                    
+                                {% else %}
+                                    {% if invitation.venue_address %}
+    {% if invitation.venue_address.startswith('http') %}
+        <a href="{{ invitation.venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>{{ invitation.venue_address }}
+        </a>
+    {% else %}
+        <a href="https://maps.google.com/?q={{ invitation.venue_address }}" target="_blank" class="venue-address-link">
+            <i class="fas fa-map-marker-alt me-2"></i>{{ invitation.venue_address }}
+        </a>
+    {% endif %}
+{% endif %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    
+<section class="content-section rsvp-section fade-in">
+            <h2 class="section-title">Konfirmasi Kehadiran</h2>
+            <form method="POST" action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}" class="rsvp-form">
+                <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                <input type="tel" class="form-control" name="phone" placeholder="Nomor WhatsApp">
+                <select class="form-control" name="attendance" required>
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Ya, Saya Akan Hadir</option>
+                    <option value="tidak_hadir">Maaf, Saya Tidak Dapat Hadir</option>
+                </select>
+                <input type="number" class="form-control" name="guest_count" placeholder="Jumlah Tamu" min="1" max="5" value="1">
+                <textarea class="form-control" name="wishes" rows="4" placeholder="Ucapan & Doa untuk Mempelai"></textarea>
+                <button type="submit" class="btn btn-rsvp">
+                    <i class="fas fa-paper-plane me-2"></i>Kirim Konfirmasi
+                </button>
+            </form>
+        </section>
+
+        <!-- Gallery Section -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        
+        <!-- Enhanced Responsive Gallery Section -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        
+        <!-- Enhanced Gallery Section - Sorted by Aspect Ratio -->
+        {% if prewedding_photos and prewedding_photos|length > 0 %}
+        <section class="gallery-section">
+            <div class="gallery-container">
+                <div class="gallery-header">
+                    <h2 class="gallery-title">Galeri</h2>
+                </div>
+                
+                <!-- Portrait Photos -->
+                <div class="gallery-portrait-section">
+                    <h3 class="gallery-portrait-title">Foto Portrait</h3>
+                    <div class="gallery-portrait-grid">
+                        <!-- Portrait photos will be sorted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Landscape Photos -->
+                <div class="gallery-landscape-section">
+                    <h3 class="gallery-landscape-title">Foto Landscape</h3>
+                    <div class="gallery-landscape-grid">
+                        <!-- Landscape photos will be sorted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Original items for sorting (will be moved by JS) -->
+                <div style="display: none;">
+                    {% for photo in prewedding_photos %}
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" 
+                             alt="Galeri Foto {{ loop.index }}" 
+                             loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% endif %}
+
+        <!-- Enhanced Photo Modal -->
+        <div class="photo-modal" id="photoModal">
+            <div class="modal-backdrop" onclick="closePhotoModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closePhotoModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="modal-nav modal-prev" onclick="previousPhoto()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="modal-nav modal-next" onclick="nextPhoto()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="Gallery Photo">
+                </div>
+                <div class="modal-info">
+                    <span id="photoCounter">1 / {{ prewedding_photos|length if prewedding_photos else 0 }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <section class="footer-section">
+            <div class="footer-hearts">
+                <i class="fas fa-heart"></i>
+            </div>
+            <p style="line-height: 1.8; opacity: 0.95;">
+                Terima kasih atas doa dan kehadiran Anda yang akan menjadikan hari bahagia kami semakin berkesan.
+                <br><br>
+                <strong>{{ invitation.couple_name }}</strong>
+            </p>
+        </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicToggle">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="backgroundMusic" loop preload="auto">
+        {% if invitation.background_music %}
+            <source src="{{ url_for('static', filename='music/' + invitation.background_music) }}" type="audio/mpeg">
+        {% else %}
+            <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+        {% endif %}
+        <source src="{{ url_for('static', filename='music/default_wedding.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Music functionality
+        let isPlaying = false;
+        const audio = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+
+        if (audio && musicToggle) {
+            audio.volume = 0.3;
+
+            // Try autoplay on load
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+                musicToggle.classList.add('playing');
+                console.log('Music autoplaying');
+            }).catch(() => {
+                console.log('Autoplay blocked, waiting for user interaction');
+            });
+
+            musicToggle.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicIcon.className = 'fas fa-music';
+                    musicToggle.classList.remove('playing');
+                } else {
+                    audio.play().catch(console.error);
+                    musicIcon.className = 'fas fa-pause';
+                    musicToggle.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Auto-play attempt after any user interaction
+            const startMusic = () => {
+                if (!isPlaying && audio.src) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        musicIcon.className = 'fas fa-pause';
+                        musicToggle.classList.add('playing');
+                        console.log('Music started after user interaction');
+                    }).catch(console.error);
+                }
+            };
+
+            // Try on multiple interaction types
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('touchstart', startMusic, { once: true });
+            document.addEventListener('scroll', startMusic, { once: true });
+
+            // Handle audio events
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+                musicToggle.classList.add('playing');
+            });
+
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                musicIcon.className = 'fas fa-music';
+                musicToggle.classList.remove('playing');
+            });
+
+            audio.addEventListener('loadeddata', function() {
+                console.log('Audio loaded successfully');
+                if (!isPlaying) {
+                    audio.play().catch(() => {});
+                }
+            });
+        }
+
+        // Enhanced Gallery Variables
+        let currentPhotoIndex = 0;
+        let currentPage = 0;
+        const photosPerPage = 10;
+        let allPhotos = [];
+
+        // Initialize Gallery
+        function initializeGallery() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            allPhotos = Array.from(galleryItems).map(item => {
+                const img = item.querySelector('img');
+                return img.src;
+            });
+
+            // Show initial photos with animation
+            showPhotosPage(0);
+            
+            // Animate gallery items
+            setTimeout(() => {
+                galleryItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 100);
+                });
+            }, 200);
+        }
+
+        // Enhanced Photo Modal Functions
+        function openPhotoModal(imageSrc, photoIndex = 0) {
+            currentPhotoIndex = photoIndex;
+            const modal = document.getElementById('photoModal');
+            const modalImage = document.getElementById('modalImage');
+            const photoCounter = document.getElementById('photoCounter');
+            
+            modal.style.display = 'block';
+            modalImage.src = imageSrc;
+            
+            if (photoCounter) {
+                photoCounter.textContent = `${currentPhotoIndex + 1} / ${allPhotos.length}`;
+            }
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotoModal() {
+            const modal = document.getElementById('photoModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextPhoto() {
+            if (currentPhotoIndex < allPhotos.length - 1) {
+                currentPhotoIndex++;
+                const modalImage = document.getElementById('modalImage');
+                const photoCounter = document.getElementById('photoCounter');
+                
+                modalImage.style.opacity = '0';
+                setTimeout(() => {
+                    modalImage.src = allPhotos[currentPhotoIndex];
+                    modalImage.style.opacity = '1';
+                    if (photoCounter) {
+                        photoCounter.textContent = `${currentPhotoIndex + 1} / ${allPhotos.length}`;
+                    }
+                }, 150);
+            }
+        }
+
+        function previousPhoto() {
+            if (currentPhotoIndex > 0) {
+                currentPhotoIndex--;
+                const modalImage = document.getElementById('modalImage');
+                const photoCounter = document.getElementById('photoCounter');
+                
+                modalImage.style.opacity = '0';
+                setTimeout(() => {
+                    modalImage.src = allPhotos[currentPhotoIndex];
+                    modalImage.style.opacity = '1';
+                    if (photoCounter) {
+                        photoCounter.textContent = `${currentPhotoIndex + 1} / ${allPhotos.length}`;
+                    }
+                }, 150);
+            }
+        }
+
+        // Gallery Pagination Functions
+        function showPhotosPage(page) {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const startIndex = page * photosPerPage;
+            const endIndex = startIndex + photosPerPage;
+
+            galleryItems.forEach((item, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    item.style.display = 'block';
+                    item.style.animation = `fadeInUp 0.6s ease ${(index - startIndex) * 0.1}s both`;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update pagination info
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (pageInfo) {
+                const totalPhotos = galleryItems.length;
+                const displayStart = startIndex + 1;
+                const displayEnd = Math.min(endIndex, totalPhotos);
+                pageInfo.textContent = `${displayStart} - ${displayEnd} dari ${totalPhotos}`;
+            }
+            
+            if (prevBtn) prevBtn.disabled = page === 0;
+            if (nextBtn) nextBtn.disabled = endIndex >= galleryItems.length;
+        }
+
+        function showNextPhotos() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const maxPage = Math.ceil(galleryItems.length / photosPerPage) - 1;
+            
+            if (currentPage < maxPage) {
+                currentPage++;
+                showPhotosPage(currentPage);
+            }
+        }
+
+        function showPreviousPhotos() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPhotosPage(currentPage);
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('photoModal');
+            if (modal && modal.style.display === 'block') {
+                switch(e.key) {
+                    case 'Escape':
+                        closePhotoModal();
+                        break;
+                    case 'ArrowRight':
+                        nextPhoto();
+                        break;
+                    case 'ArrowLeft':
+                        previousPhoto();
+                        break;
+                }
+            }
+        });
+
+        // Initialize gallery on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery();
+        });
+    </script>
+</div>
+<script>
+
+        // Open invitation function
+        function openInvitation() {
+            const coverPage = document.getElementById('coverPage');
+            const mainContent = document.getElementById('mainContent');
+            const music = document.getElementById('backgroundMusic');
+
+            coverPage.style.transition = 'opacity 1s ease-out';
+            coverPage.style.opacity = '0';
+
+            setTimeout(() => {
+                coverPage.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '0';
+
+                setTimeout(() => {
+                    mainContent.style.transition = 'opacity 1s ease-in';
+                    mainContent.style.opacity = '1';
+                }, 100);
+
+                // Play background music
+                if (music) {
+                    music.play().catch(e => console.log('Audio play failed:', e));
+                }
+
+                // Start countdown if wedding date exists
+                {% if invitation.wedding_date %}
+                startCountdown();
+                {% endif %}
+            }, 1000);
+        }
+
+        // Countdown function
+        {% if invitation.wedding_date %}
+        function startCountdown() {
+            const weddingDate = new Date("{{ invitation.wedding_date.strftime('%Y-%m-%d') if invitation.wedding_date.__class__.__name__ == 'datetime' else invitation.wedding_date }}").getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById('days').innerText = days.toString().padStart(2, '0');
+                    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+                } else {
+                    document.getElementById('countdownTimer').innerHTML = 
+                        '<div class="text-center"><h3 style="color: #667eea;">Hari Bahagia Telah Tiba! 🎉</h3></div>';
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        {% endif %}
+
+</script>
+
+        <!-- Photo Gallery Section -->
+    {% if prewedding_photos and prewedding_photos|length > 0 %}
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <h2 class="gallery-title">Galeri</h2>
+            </div>
+            
+            <!-- Portrait Photos -->
+            <div class="gallery-portrait-section">
+                <h3 class="gallery-portrait-title">Foto Portrait</h3>
+                <div class="gallery-portrait-grid">
+                    <!-- Portrait photos will be sorted here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Landscape Photos -->
+            <div class="gallery-landscape-section">
+                <h3 class="gallery-landscape-title">Foto Landscape</h3>
+                <div class="gallery-landscape-grid">
+                    <!-- Landscape photos will be sorted here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Original items for sorting -->
+            <div class="original-gallery-items" style="display: none;">
+                {% for photo in prewedding_photos %}
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='prewedding_photos/' + photo) }}" 
+                         alt="Galeri Foto {{ loop.index }}" 
+                         loading="lazy">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery sorting script -->
+    <script src="{{ url_for('static', filename='js/gallery-sort.js') }}"></script>
+    {% endif %}
+        <!-- Photo Modal -->
+    <div class="modal" id="photoModal">
+        <span class="close-button" >&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Gallery Photo">
+        </div>
+    </div>
+
+<script>
+// Gallery Modal Functions
+function openModal(imageSrc) {
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modal.style.display = 'block';
+    modalImage.src = imageSrc;
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('photoModal');
+    modal.style.display = 'none';
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside the image
+document.getElementById('photoModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+
+    <script>
+    // Mobile fullscreen optimization
+    document.addEventListener('DOMContentLoaded', function() {
+        // Remove all photo gallery click events
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.removeAttribute('onclick');
+            item.style.cursor = 'default';
+            const img = item.querySelector('img');
+            if (img) {
+                img.removeAttribute('onclick');
+                img.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Remove modal functionality
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            modal.style.display = 'none';
+        });
+        
+        // Hide overlay buttons
+        const overlays = document.querySelectorAll('.gallery-overlay');
+        overlays.forEach(overlay => {
+            overlay.style.display = 'none';
+        });
+        
+        // Mobile viewport height fix
+        function setViewportHeight() {
+            document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+        }
+        
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        window.addEventListener('orientationchange', setViewportHeight);
+        
+        // Prevent zoom on form focus (iOS)
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            if (input.style.fontSize === '' || parseFloat(input.style.fontSize) < 16) {
+                input.style.fontSize = '16px';
+            }
+        });
+    });
+    
+    // Override photo modal functions
+    function openModal() { return false; }
+    function closeModal() { return false; }
+    function openPhotoModal() { return false; }
+    </script>
+
+    <script>
+    // Auto Fullscreen Optimization
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set viewport for mobile
+        let viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+        } else {
+            const meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+            document.head.appendChild(meta);
+        }
+
+        // Mobile optimizations
+        function mobileOptimizations() {
+            // Set viewport height
+            function setVH() {
+                document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+            }
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(setVH, 500);
+            });
+
+            // Hide address bar
+            setTimeout(() => {
+                window.scrollTo(0, 1);
+                setTimeout(() => window.scrollTo(0, 0), 100);
+            }, 100);
+
+            // Prevent zoom on form inputs (iOS)
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (!input.style.fontSize || parseFloat(input.style.fontSize) < 16) {
+                    input.style.fontSize = '16px';
+                }
+            });
+        }
+
+        // Auto fullscreen request
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(() => {});
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen().catch(() => {});
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen().catch(() => {});
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen().catch(() => {});
+            }
+        }
+
+        // Initialize
+        mobileOptimizations();
+
+        // Request fullscreen on first interaction
+        let fullscreenRequested = false;
+        const onFirstInteraction = () => {
+            if (!fullscreenRequested) {
+                requestFullscreen();
+                fullscreenRequested = true;
+            }
+        };
+
+        document.addEventListener('click', onFirstInteraction, { once: true });
+        document.addEventListener('touchstart', onFirstInteraction, { once: true });
+
+        // iOS Safari specific
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            // Add apple meta tags
+            const appleMeta1 = document.createElement('meta');
+            appleMeta1.name = 'apple-mobile-web-app-capable';
+            appleMeta1.content = 'yes';
+            document.head.appendChild(appleMeta1);
+
+            const appleMeta2 = document.createElement('meta');
+            appleMeta2.name = 'apple-mobile-web-app-status-bar-style';
+            appleMeta2.content = 'black-translucent';
+            document.head.appendChild(appleMeta2);
+
+            // Prevent bounce scrolling
+            document.addEventListener('touchmove', (e) => {
+                if (!e.target.closest('textarea, input, select, [data-scroll="true"]')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+    });
+    </script>
+    
+
+
+<script>
+// Enhanced Gallery Animations and Responsive Behavior
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize gallery animations
+    initializeGalleryAnimations();
+    
+    // Remove all photo modal functionality
+    disablePhotoModals();
+    
+    // Setup responsive behavior
+    setupResponsiveBehavior();
+});
+
+function initializeGalleryAnimations() {
+    // Setup intersection observer for gallery animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe gallery items
+    document.querySelectorAll('.gallery-fade-in').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Stagger animation for gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('gallery-fade-in');
+    });
+}
+
+function disablePhotoModals() {
+    // Remove all photo gallery click events and modal functionality
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+        item.removeAttribute('onclick');
+        item.style.cursor = 'default';
+        const img = item.querySelector('img');
+        if (img) {
+            img.removeAttribute('onclick');
+            img.style.pointerEvents = 'none';
+        }
+    });
+    
+    // Hide all modals
+    const modals = document.querySelectorAll('.modal, .photo-modal, #photoModal');
+    modals.forEach(modal => {
+        modal.style.display = 'none';
+        modal.remove();
+    });
+    
+    // Hide overlay buttons
+    const overlays = document.querySelectorAll('.gallery-overlay');
+    overlays.forEach(overlay => {
+        overlay.style.display = 'none';
+    });
+}
+
+function setupResponsiveBehavior() {
+    // Mobile viewport height fix
+    function setViewportHeight() {
+        document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(setViewportHeight, 500);
+    });
+    
+    // Optimize for touch devices
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+    }
+    
+    // Prevent zoom on form focus (iOS)
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        if (!input.style.fontSize || parseFloat(input.style.fontSize) < 16) {
+            input.style.fontSize = '16px';
+        }
+    });
+}
+
+// Override any existing photo modal functions
+function openModal() { return false; }
+function closeModal() { return false; }
+function openPhotoModal() { return false; }
+function closePhotoModal() { return false; }
+</script>
+
+
+
+<script>
+// Gallery Photo Sorting and Animation
+document.addEventListener('DOMContentLoaded', function() {
+    initializeGallerySorting();
+    initializeGalleryAnimations();
+});
+
+function initializeGallerySorting() {
+    // Sort photos by aspect ratio (portrait vs landscape)
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const portraitContainer = document.querySelector('.gallery-portrait-grid');
+    const landscapeContainer = document.querySelector('.gallery-landscape-grid');
+    
+    if (!portraitContainer || !landscapeContainer) return;
+    
+    galleryItems.forEach(function(item) {
+        const img = item.querySelector('img');
+        if (!img) return;
+        
+        img.onload = function() {
+            const aspectRatio = this.naturalWidth / this.naturalHeight;
+            
+            // Clone the item for new containers
+            const newItem = item.cloneNode(true);
+            
+            if (aspectRatio < 1) {
+                // Portrait
+                newItem.className = 'gallery-portrait-item gallery-fade-in';
+                portraitContainer.appendChild(newItem);
+            } else {
+                // Landscape or square
+                newItem.className = 'gallery-landscape-item gallery-fade-in';
+                landscapeContainer.appendChild(newItem);
+            }
+            
+            // Remove original item
+            item.remove();
+        };
+        
+        // If image is already loaded
+        if (img.complete) {
+            img.onload();
+        }
+    });
+}
+
+function initializeGalleryAnimations() {
+    // Setup intersection observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe gallery items with delay
+    setTimeout(() => {
+        document.querySelectorAll('.gallery-fade-in').forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(el);
+        });
+    }, 500);
+}
+
+// Mobile viewport height fix
+function setViewportHeight() {
+    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+
+setViewportHeight();
+window.addEventListener('resize', setViewportHeight);
+window.addEventListener('orientationchange', () => {
+    setTimeout(setViewportHeight, 500);
+});
+</script>
+
+</body>
+</html>
