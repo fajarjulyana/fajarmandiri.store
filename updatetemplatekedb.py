@@ -3,36 +3,25 @@ from datetime import datetime
 
 DB_PATH = "fajarmandiri.db"
 
-# Daftar semua template
+# Hanya 4 template sekarang
 all_templates = [
-    ("MandiriTheme Elegant", "MandiriTheme_elegant.html"),
-    ("Emerald Gold", "emerald_gold.html"),
-    ("Modern Minimalist", "modern_minimalist.html"),
-    ("Burgundy Gold", "burgundy_gold.html"),
-    ("Garden Romance", "garden_romance.html"),
-    ("Royal Blue Gold", "royal_blue_gold.html"),
+    ("Black Luxury Gold", "black_luxury_gold.html"),
+    ("Blue Luxury Gold", "blue_luxury_gold.html"),
+    ("Red Luxury Gold", "red_luxury_gold.html"),
     ("Elegant Cream", "elegant_cream.html"),
 ]
 
 def get_color_scheme(name: str) -> str:
     """Deteksi color scheme dari nama template"""
     name_lower = name.lower()
-    if "gold" in name_lower:
-        return "Gold"
-    elif "burgundy" in name_lower:
-        return "Burgundy"
-    elif "emerald" in name_lower:
-        return "Emerald"
+    if "black" in name_lower:
+        return "Black Gold"
     elif "blue" in name_lower:
-        return "Royal Blue"
+        return "Blue Gold"
+    elif "red" in name_lower:
+        return "Red Gold"
     elif "cream" in name_lower:
         return "Cream"
-    elif "minimalist" in name_lower:
-        return "Minimalist"
-    elif "romance" in name_lower:
-        return "Romance"
-    elif "elegant" in name_lower:
-        return "Elegant"
     return "Custom"
 
 def reset_wedding_templates():
@@ -42,13 +31,19 @@ def reset_wedding_templates():
     # Hapus semua data lama
     cursor.execute("DELETE FROM wedding_templates")
 
-    # Siapkan data baru
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     data_to_insert = []
+
     for name, filename in all_templates:
-        premium = 1 if ("gold" in filename.lower() or "luxury" in filename.lower()) else 0
-        price = 500000 if premium else 0
-        category = "Premium" if premium else "Standard"
+        if filename == "elegant_cream.html":
+            premium = 0
+            price = 0
+            category = "Gratis"
+        else:
+            premium = 1
+            price = 35000
+            category = "Premium"
+
         color_scheme = get_color_scheme(name)
         preview_image = f"images/previews/{filename.replace('.html', '.jpg')}"
 
@@ -78,7 +73,7 @@ def reset_wedding_templates():
 
     conn.commit()
     conn.close()
-    print(" Semua template berhasil diperbarui ke database!")
+    print("Semua template (4) berhasil diperbarui ke database!")
 
 if __name__ == "__main__":
     reset_wedding_templates()
