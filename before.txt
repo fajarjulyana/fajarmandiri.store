@@ -1,0 +1,12 @@
+==============================
+FajarMandiri.store – Wedding Invitation System
+Version 1.2
+Before Installation
+==============================
+
+- Semua file (foto prewedding, musik) di-upload ke folder:
+  static/music/
+  static/prewedding_photos/
+- Error muncul pada halaman template wedding:
+  NameError: name 'template_wedding' is not defined
+- Load assets HTML terkadang gagal karena path yang salah

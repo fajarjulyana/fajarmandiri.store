@@ -1,0 +1,27 @@
+==============================
+FajarMandiri.store – Wedding Invitation System
+Version 1.2
+After Installation
+==============================
+
+- Semua file uploaded disimpan di folder uploads/:
+  uploads/music/
+  uploads/prewedding_photos/
+- Template wedding berhasil di-load tanpa error
+- Semua referensi file di HTML/template sudah disesuaikan dengan folder baru
+- Tidak ada perubahan pada database schema, sehingga aman untuk upgrade
+
+INSTRUKSI INSTALASI / UPGRADE:
+1. Backup folder project dan database:
+   cp -r /path/to/project /path/to/project_backup
+   cp fajarmandiri.db fajarmandiri.db.bak
+
+2. Pastikan folder uploads/ dibuat:
+   mkdir -p uploads/music
+   mkdir -p uploads/prewedding_photos
+   chmod 755 uploads
+
+3. Restart Flask server:
+   flask run
+
+4. Test upload file dan buka template wedding, pastikan tidak ada error
