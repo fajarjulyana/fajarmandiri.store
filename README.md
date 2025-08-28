@@ -429,10 +429,14 @@ Digital Platform for Wedding & Professional Services
 📍 **Address**: Jakarta, Indonesia  
 
 ### 👨‍💼 **Team**
-- **CEO**: Your Name - Strategic Direction
+- **CEO**: Fajar Julyana - Strategic Direction
 - **CTO**: Tech Lead - Platform Development  
 - **Design Lead**: UI/UX Expert - User Experience
 - **Marketing**: Growth Specialist - User Acquisition
+
+### masih banyak bugs
+- chat belum berfungsi dengan baik karena tidak tersimpan ke databsae serta dummie terus ada
+- ui sering bermasalah dan kurang user friendly
 
 ---
 
