@@ -5,13 +5,15 @@ import os, glob
 from pathlib import Path
 
 block_cipher = None
-base_dir = Path(__file__).parent
+base_dir = Path(".").resolve()
 
 def collect_folder(folder, target):
     files = []
-    for f in glob.glob(os.path.join(folder, '**'), recursive=True):
-        if os.path.isfile(f):
-            files.append((f, os.path.join(target, os.path.relpath(f, folder))))
+    folder_path = os.path.join(base_dir, folder)
+    if os.path.exists(folder_path):
+        for f in glob.glob(os.path.join(folder_path, '**'), recursive=True):
+            if os.path.isfile(f):
+                files.append((f, os.path.join(target, os.path.relpath(f, folder_path))))
     return files
 
 datas = []
@@ -24,7 +26,7 @@ datas += [(str(base_dir / 'cloudflared.exe'), '.')]
 datas += [(str(base_dir / 'cloudflared'), '.')]
 
 a = Analysis(
-    ['app.py'],
+    ['app.pyw'],   # ganti ke app.pyw kalau perlu
     pathex=[],
     binaries=[],
     datas=datas,
@@ -65,7 +67,7 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=False,  # False = tidak ada jendela console
+    console=False,  # False = tanpa console
     icon=str(base_dir / 'icon.ico'),
 )
 
@@ -78,4 +80,11 @@ coll = COLLECT(
     upx=True,
     upx_exclude=[],
     name='FajarMandiriService'
+)
+
+app = BUNDLE(
+    coll,
+    name='FajarMandiriService.exe',
+    icon=str(base_dir / 'icon.ico'),
+    bundle_identifier=None
 )
