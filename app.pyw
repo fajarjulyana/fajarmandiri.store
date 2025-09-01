@@ -30,7 +30,11 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-pr
 # Path universal ke Documents user
 USER_DOCS = os.path.join(os.path.expanduser("~"), "Documents", "FajarMandiriStore")
 
-socketio = SocketIO(app, async_mode="threading", cors_allowed_origins="*")
+socketio = SocketIO(
+    app,
+    async_mode="threading",   # <--- WAJIB, jangan biarkan default
+    cors_allowed_origins="*"
+)
 app.config['UPLOAD_FOLDER'] = USER_DOCS
 app.config['TEMPLATES_FOLDER'] = 'cv_templates'
 app.config['WEDDING_FOLDER'] = 'wedding_templates'
@@ -2716,7 +2720,15 @@ def run_flask():
 
         threading.Thread(target=open_browser, daemon=True).start()
 
-        socketio.run(app, host='0.0.0.0', port=5001, debug=False, use_reloader=False, allow_unsafe_werkzeug=True)
+        socketio.run(
+    app,
+    host="0.0.0.0",
+    port=5001,
+    debug=False,
+    use_reloader=False,
+    allow_unsafe_werkzeug=True
+)
+
     except Exception as e:
         log_error(e)
 
