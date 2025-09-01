@@ -2,25 +2,29 @@
 
 import sys
 from pathlib import Path
+from PyInstaller.utils.hooks import Tree
 
 block_cipher = None
 base_dir = Path(__file__).parent
 
 a = Analysis(
-    ['app.py'],
+    ['app.pyw'],
     pathex=[],
     binaries=[],
     datas=[
-        # sertakan config folder
-        (str(base_dir / 'config' / 'config.yml'), 'config'),
-        (str(base_dir / 'config' / 'cert.pem'), 'config'),
-        (str(base_dir / 'config'), 'config'),  # semua file json dll
+        # sertakan seluruh folder config
+        (Tree(str(base_dir / 'config'), prefix='config')),
+        # sertakan templates
+        (Tree(str(base_dir / 'templates'), prefix='templates')),
+        # sertakan static
+        (Tree(str(base_dir / 'static'), prefix='static')),
+        # sertakan database
+        (str(base_dir / 'fajarmandiri.db'), '.'),
         # icon
         (str(base_dir / 'icon.ico'), '.'),
         # cloudflared binary (Windows/Linux)
         (str(base_dir / 'cloudflared.exe'), '.'),  # Windows
         (str(base_dir / 'cloudflared'), '.'),      # Linux
-        # kasir_app tetap script luar, tidak dibundle
     ],
     hiddenimports=[
         "engineio.async_drivers.threading",
