@@ -47,10 +47,7 @@ datas = [
     ('templates', 'templates'),
     ('static', 'static'),
     ('fajarmandiri.db', '.'),
-    ('icon.ico', '.'),
-    ('config','config'),
-    ('cloudflared.exe','.'),
-    ('cloudflared','.')
+    ('icon.ico', '.')
 ]
 
 a = Analysis(
