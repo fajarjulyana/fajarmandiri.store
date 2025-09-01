@@ -2746,15 +2746,26 @@ def stop_service(icon=None, item=None):
 
 # ---------------- Tray Icon ----------------
 def get_tray_icon():
-    icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon.ico")
-    if os.path.exists(icon_path):
-        return Image.open(icon_path)
+    try:
+        # Jika dibundle ke exe, PyInstaller simpan resource di sys._MEIPASS
+        base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+        icon_path = os.path.join(base_path, "icon.ico")
 
-    # fallback icon
-    image = Image.new("RGB", (64, 64), (0, 0, 0, 0))
-    dc = ImageDraw.Draw(image)
-    dc.ellipse((8, 8, 56, 56), fill="blue")
-    return image
+        if os.path.exists(icon_path):
+            return Image.open(icon_path)
+        else:
+            # fallback: gambar bulat biru
+            image = Image.new("RGB", (64, 64), (0, 0, 0, 0))
+            dc = ImageDraw.Draw(image)
+            dc.ellipse((8, 8, 56, 56), fill="blue")
+            return image
+    except Exception as e:
+        log_error(e)
+        # fallback kalau gagal
+        image = Image.new("RGB", (64, 64), (0, 0, 0, 0))
+        dc = ImageDraw.Draw(image)
+        dc.ellipse((8, 8, 56, 56), fill="blue")
+        return image
 
 menu = Menu(
     MenuItem("Start Service", start_service),
