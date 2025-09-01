@@ -1,0 +1,31 @@
+
+<!-- Admin Dashboard Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Initialize charts if elements exist
+document.addEventListener('DOMContentLoaded', function() {
+    // Stats animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const target = parseInt(counter.innerText);
+        const increment = target / 100;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            counter.innerText = Math.floor(current);
+            
+            if (current >= target) {
+                counter.innerText = target;
+                clearInterval(timer);
+            }
+        }, 20);
+    });
+    
+    // Initialize tooltips
+    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltips.forEach(tooltip => {
+        new bootstrap.Tooltip(tooltip);
+    });
+});
+</script>
