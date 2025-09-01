@@ -30,11 +30,8 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-pr
 # Path universal ke Documents user
 USER_DOCS = os.path.join(os.path.expanduser("~"), "Documents", "FajarMandiriStore")
 
-socketio = SocketIO(
-    app,
-    async_mode="threading",   # <--- WAJIB, jangan biarkan default
-    cors_allowed_origins="*"
-)
+# Penting: hanya ada baris ini untuk socketio
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 app.config['UPLOAD_FOLDER'] = USER_DOCS
 app.config['TEMPLATES_FOLDER'] = 'cv_templates'
 app.config['WEDDING_FOLDER'] = 'wedding_templates'
@@ -2686,9 +2683,6 @@ import socket
 from pystray import Icon, Menu, MenuItem
 from PIL import Image, ImageDraw
 import psutil
-
-# Import app & init_db dari app.py
-from app import app, init_db
 
 server_thread = None
 gui_window = None
