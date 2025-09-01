@@ -1,31 +1,33 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import sys
+import os, glob
 from pathlib import Path
-from PyInstaller.utils.hooks import Tree
 
 block_cipher = None
 base_dir = Path(__file__).parent
 
+def collect_folder(folder, target):
+    files = []
+    for f in glob.glob(os.path.join(folder, '**'), recursive=True):
+        if os.path.isfile(f):
+            files.append((f, os.path.join(target, os.path.relpath(f, folder))))
+    return files
+
+datas = []
+datas += collect_folder('config', 'config')
+datas += collect_folder('templates', 'templates')
+datas += collect_folder('static', 'static')
+datas += [(str(base_dir / 'fajarmandiri.db'), '.')]
+datas += [(str(base_dir / 'icon.ico'), '.')]
+datas += [(str(base_dir / 'cloudflared.exe'), '.')]
+datas += [(str(base_dir / 'cloudflared'), '.')]
+
 a = Analysis(
-    ['app.pyw'],
+    ['app.py'],
     pathex=[],
     binaries=[],
-    datas=[
-        # sertakan seluruh folder config
-        (Tree(str(base_dir / 'config'), prefix='config')),
-        # sertakan templates
-        (Tree(str(base_dir / 'templates'), prefix='templates')),
-        # sertakan static
-        (Tree(str(base_dir / 'static'), prefix='static')),
-        # sertakan database
-        (str(base_dir / 'fajarmandiri.db'), '.'),
-        # icon
-        (str(base_dir / 'icon.ico'), '.'),
-        # cloudflared binary (Windows/Linux)
-        (str(base_dir / 'cloudflared.exe'), '.'),  # Windows
-        (str(base_dir / 'cloudflared'), '.'),      # Linux
-    ],
+    datas=datas,
     hiddenimports=[
         "engineio.async_drivers.threading",
         "socketio.asyncio_namespace",
