@@ -1,0 +1,369 @@
+
+{% extends "base.html" %}
+
+{% block title %}Buat Pesanan - Fajar Mandiri Fotocopy{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-print me-2"></i>Buat Pesanan Cetakan
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <!-- Data Customer -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="whatsapp" class="form-label">WhatsApp <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="whatsapp" name="whatsapp" placeholder="Contoh: 081234567890" required>
+                        </div>
+                        
+                        <!-- Jenis Cetakan -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="jenis_cetakan" class="form-label">Jenis Cetakan <span class="text-danger">*</span></label>
+                                <select class="form-select" id="jenis_cetakan" name="jenis_cetakan" onchange="updateUkuranOptions()" required>
+                                    <option value="">Pilih Jenis Cetakan</option>
+                                    <optgroup label="Fotocopy & Print Dokumen">
+                                        <option value="Fotocopy Hitam Putih">Fotocopy Hitam Putih</option>
+                                        <option value="Fotocopy Warna">Fotocopy Warna</option>
+                                        <option value="Print Dokumen Hitam Putih">Print Dokumen Hitam Putih</option>
+                                        <option value="Print Dokumen Warna">Print Dokumen Warna</option>
+                                    </optgroup>
+                                    <optgroup label="Print Foto">
+                                        <option value="Print Foto 2x3">Print Foto 2x3</option>
+                                        <option value="Print Foto 3x4">Print Foto 3x4</option>
+                                        <option value="Print Foto 4x6">Print Foto 4x6</option>
+                                        <option value="Print Foto 5x7">Print Foto 5x7</option>
+                                        <option value="Print Foto 8x10">Print Foto 8x10</option>
+                                        <option value="Print Foto A4">Print Foto A4</option>
+                                    </optgroup>
+                                    <optgroup label="Kertas Khusus">
+                                        <option value="Print Kertas 75gsm">Print Kertas 75gsm</option>
+                                        <option value="Print Kertas 80gsm">Print Kertas 80gsm</option>
+                                        <option value="Print HVS 70gsm">Print HVS 70gsm</option>
+                                        <option value="Print Art Paper">Print Art Paper</option>
+                                        <option value="Print Glossy Paper">Print Glossy Paper</option>
+                                    </optgroup>
+                                    <optgroup label="Layanan Lainnya">
+                                        <option value="Scanning">Scanning</option>
+                                        <option value="Jilid Spiral">Jilid Spiral</option>
+                                        <option value="Jilid Soft Cover">Jilid Soft Cover</option>
+                                        <option value="Jilid Hard Cover">Jilid Hard Cover</option>
+                                        <option value="Laminating">Laminating</option>
+                                        <option value="Banner">Banner</option>
+                                        <option value="Sticker">Sticker</option>
+                                        <option value="Kartu Nama">Kartu Nama</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ukuran" class="form-label">Ukuran</label>
+                                <select class="form-select" id="ukuran" name="ukuran">
+                                    <option value="">Pilih Ukuran</option>
+                                    <option value="A4">A4 (21 x 29.7 cm)</option>
+                                    <option value="A3">A3 (29.7 x 42 cm)</option>
+                                    <option value="A5">A5 (14.8 x 21 cm)</option>
+                                    <option value="F4">F4 (21.5 x 33 cm)</option>
+                                    <option value="Letter">Letter (21.6 x 27.9 cm)</option>
+                                    <option value="Legal">Legal (21.6 x 35.6 cm)</option>
+                                    <option value="2x3">2x3 cm</option>
+                                    <option value="3x4">3x4 cm</option>
+                                    <option value="4x6">4x6 inch</option>
+                                    <option value="5x7">5x7 inch</option>
+                                    <option value="8x10">8x10 inch</option>
+                                    <option value="Custom">Custom (sebutkan di catatan)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Jumlah dan Warna -->
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="jumlah" class="form-label">Jumlah <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" value="1" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="warna" class="form-label">Pilihan Warna</label>
+                                <select class="form-select" id="warna" name="warna">
+                                    <option value="">Sesuai Jenis Cetakan</option>
+                                    <option value="Hitam Putih">Hitam Putih</option>
+                                    <option value="Warna">Warna</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="kertas" class="form-label">Jenis Kertas</label>
+                                <select class="form-select" id="kertas" name="kertas">
+                                    <option value="">Default</option>
+                                    <option value="HVS 70gsm">HVS 70gsm</option>
+                                    <option value="HVS 75gsm">HVS 75gsm</option>
+                                    <option value="HVS 80gsm">HVS 80gsm</option>
+                                    <option value="Art Paper 120gsm">Art Paper 120gsm</option>
+                                    <option value="Art Paper 150gsm">Art Paper 150gsm</option>
+                                    <option value="Glossy Paper">Glossy Paper</option>
+                                    <option value="Photo Paper">Photo Paper</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Upload File -->
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Upload File</label>
+                            <input type="file" class="form-control" id="file" name="file" 
+                                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.bmp,.tiff,.psd">
+                            <div class="form-text">
+                                Format yang didukung: PDF, DOC, DOCX, JPG, JPEG, PNG, BMP, TIFF, PSD (Max: 50MB)
+                            </div>
+                        </div>
+                        
+                        <!-- Catatan -->
+                        <div class="mb-3">
+                            <label for="catatan" class="form-label">Catatan Tambahan</label>
+                            <textarea class="form-control" id="catatan" name="catatan" rows="4" 
+                                      placeholder="Tuliskan instruksi khusus seperti:&#10;- Orientasi kertas (Portrait/Landscape)&#10;- Kualitas cetak (Draft/Normal/High)&#10;- Finishing khusus&#10;- Deadline pengerjaan&#10;- dll."></textarea>
+                        </div>
+                        
+                        <!-- Info Harga -->
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-info-circle me-2"></i>Informasi Harga</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <small>
+                                        <strong>Fotocopy:</strong><br>
+                                        • Hitam Putih: Rp 100/lembar<br>
+                                        • Warna: Rp 1.000/lembar<br><br>
+                                        <strong>Print Foto:</strong><br>
+                                        • 2x3: Rp 500/foto<br>
+                                        • 3x4: Rp 1.000/foto<br>
+                                        • 4x6: Rp 2.000/foto
+                                    </small>
+                                </div>
+                                <div class="col-md-6">
+                                    <small>
+                                        <strong>Layanan Lain:</strong><br>
+                                        • Laminating A4: Rp 3.000<br>
+                                        • Jilid Spiral: Rp 5.000<br>
+                                        • Scanning: Rp 1.000/lembar<br><br>
+                                        <em>*Harga dapat berubah sewaktu-waktu</em>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Kembali
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Kirim Pesanan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateUkuranOptions() {
+    const jenisSelect = document.getElementById('jenis_cetakan');
+    const ukuranSelect = document.getElementById('ukuran');
+    const warnaSelect = document.getElementById('warna');
+    const kertasSelect = document.getElementById('kertas');
+    
+    // Reset options
+    ukuranSelect.innerHTML = '<option value="">Pilih Ukuran</option>';
+    
+    const jenis = jenisSelect.value;
+    
+    if (jenis.includes('Foto')) {
+        // Photo sizes
+        const fotoSizes = [
+            {value: '2x3', text: '2x3 cm'},
+            {value: '3x4', text: '3x4 cm'},
+            {value: '4x6', text: '4x6 inch'},
+            {value: '5x7', text: '5x7 inch'},
+            {value: '8x10', text: '8x10 inch'},
+            {value: 'A4', text: 'A4 (21 x 29.7 cm)'}
+        ];
+        
+        fotoSizes.forEach(size => {
+            const option = new Option(size.text, size.value);
+            ukuranSelect.add(option);
+        });
+        
+        // Set paper type for photos
+        kertasSelect.value = 'Photo Paper';
+        
+    } else if (jenis.includes('Banner') || jenis.includes('Sticker')) {
+        // Custom sizes for banner/sticker
+        const customSizes = [
+            {value: 'A4', text: 'A4 (21 x 29.7 cm)'},
+            {value: 'A3', text: 'A3 (29.7 x 42 cm)'},
+            {value: 'Custom', text: 'Custom (sebutkan di catatan)'}
+        ];
+        
+        customSizes.forEach(size => {
+            const option = new Option(size.text, size.value);
+            ukuranSelect.add(option);
+        });
+        
+    } else {
+        // Standard document sizes
+        const docSizes = [
+            {value: 'A4', text: 'A4 (21 x 29.7 cm)'},
+            {value: 'A3', text: 'A3 (29.7 x 42 cm)'},
+            {value: 'A5', text: 'A5 (14.8 x 21 cm)'},
+            {value: 'F4', text: 'F4 (21.5 x 33 cm)'},
+            {value: 'Letter', text: 'Letter (21.6 x 27.9 cm)'},
+            {value: 'Legal', text: 'Legal (21.6 x 35.6 cm)'}
+        ];
+        
+        docSizes.forEach(size => {
+            const option = new Option(size.text, size.value);
+            ukuranSelect.add(option);
+        });
+    }
+    
+    // Update color options based on print type
+    if (jenis.includes('Hitam Putih')) {
+        warnaSelect.value = 'Hitam Putih';
+    } else if (jenis.includes('Warna') || jenis.includes('Foto')) {
+        warnaSelect.value = 'Warna';
+    }
+}
+
+// Auto-calculate estimated price
+function calculateEstimate() {
+    const jenis = document.getElementById('jenis_cetakan').value;
+    const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
+    
+    let pricePerUnit = 0;
+    
+    if (jenis.includes('Fotocopy Hitam Putih')) pricePerUnit = 100;
+    else if (jenis.includes('Fotocopy Warna')) pricePerUnit = 1000;
+    else if (jenis.includes('Print Foto 2x3')) pricePerUnit = 500;
+    else if (jenis.includes('Print Foto 3x4')) pricePerUnit = 1000;
+    else if (jenis.includes('Print Foto 4x6')) pricePerUnit = 2000;
+    else if (jenis.includes('Laminating')) pricePerUnit = 3000;
+    else if (jenis.includes('Jilid')) pricePerUnit = 5000;
+    else if (jenis.includes('Scanning')) pricePerUnit = 1000;
+    
+    const total = pricePerUnit * jumlah;
+    
+    if (total > 0) {
+        document.getElementById('estimasi').innerHTML = 
+            `<small class="text-muted">Estimasi: Rp ${total.toLocaleString('id-ID')}</small>`;
+    }
+}
+
+// Add event listeners
+document.getElementById('jenis_cetakan').addEventListener('change', calculateEstimate);
+document.getElementById('jumlah').addEventListener('input', calculateEstimate);
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const fileInput = document.getElementById('file');
+    const jenis = document.getElementById('jenis_cetakan').value;
+    
+    // Check if file is required for certain print types
+    if (!jenis.includes('Scanning') && !fileInput.files.length) {
+        const confirmProceed = confirm('Anda belum upload file. Apakah ingin melanjutkan pesanan?');
+        if (!confirmProceed) {
+            e.preventDefault();
+            return false;
+        }
+    }
+    
+    // File size validation (50MB)
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const maxSize = 50 * 1024 * 1024; // 50MB in bytes
+        
+        if (file.size > maxSize) {
+            alert('Ukuran file terlalu besar. Maksimal 50MB.');
+            e.preventDefault();
+            return false;
+        }
+    }
+});
+</script>
+
+<style>
+.alert-info {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    color: #1976d2;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+optgroup {
+    font-weight: bold;
+    color: #495057;
+}
+
+optgroup option {
+    font-weight: normal;
+    padding-left: 1rem;
+}
+</style>
+{% endblock %}
