@@ -30,7 +30,7 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-pr
 # Path universal ke Documents user
 USER_DOCS = os.path.join(os.path.expanduser("~"), "Documents", "FajarMandiriStore")
 
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, async_mode="threading", cors_allowed_origins="*")
 app.config['UPLOAD_FOLDER'] = USER_DOCS
 app.config['TEMPLATES_FOLDER'] = 'cv_templates'
 app.config['WEDDING_FOLDER'] = 'wedding_templates'
