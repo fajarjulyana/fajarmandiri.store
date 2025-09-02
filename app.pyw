@@ -3222,9 +3222,11 @@ def quit_application(icon=None):
 if __name__ == "__main__":
     # Auto-start MAIN (port 5001) karena ini app.py web server
     start_main()
+    # Tunggu beberapa detik agar web sudah siap
+    time.sleep(5)
     # (opsional) Auto-start KASIR & Tunnel:
     # start_kasir()
-    # start_tunnel()
+     start_tunnel()
 
     # Jalankan tray di thread terpisah supaya server tetap jalan
     threading.Thread(target=run_tray, daemon=True).start()
