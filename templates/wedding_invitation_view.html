@@ -69,11 +69,11 @@
                         <div class="row g-3">
                             {% for photo in prewedding_photos %}
                             <div class="col-md-4">
-                                <img src="{{ url_for('uploaded_file', filename='prewedding_photos/' + photo.filename) }}" 
+                                <img src="{{ url_for('uploaded_file', filename=photo.filename) }}" 
                                      alt="Prewedding Photo {{ loop.index }}"
                                      class="gallery-image"
                                      data-bs-toggle="modal" data-bs-target="#photoModal"
-                                     data-photo="{{ url_for('uploaded_file', filename='prewedding_photos/' + photo.filename) }}">
+                                     data-photo="{{ url_for('uploaded_file', filename=photo.filename) }}">
                             </div>
                             {% endfor %}
                         </div>

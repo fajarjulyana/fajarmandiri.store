@@ -1589,10 +1589,10 @@
               <div class="gallery-portrait-item">
                 <div
                   class="portrait-frame"
-                  onclick="openPhotoModal('{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}')"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
                 >
                   <img
-                    src="{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}"
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
                     alt="Prewedding Photo {{ loop.index }}"
                     loading="lazy"
                   />
@@ -1615,10 +1615,10 @@
               <div class="gallery-landscape-item">
                 <div
                   class="landscape-frame"
-                  onclick="openPhotoModal('{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}')"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
                 >
                   <img
-                    src="{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}"
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
                     alt="Prewedding Photo {{ loop.index }}"
                     loading="lazy"
                   />
@@ -1641,10 +1641,10 @@
               <div class="gallery-mixed-item visible">
                 <div
                   class="mixed-frame"
-                  onclick="openPhotoModal('{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo) }}')"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo) }}')"
                 >
                   <img
-                    src="{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo) }}"
+                    src="{{ url_for('serve_documents', filename=photo) }}"
                     alt="Prewedding Photo {{ loop.index }}"
                     loading="lazy"
                   />
@@ -1660,10 +1660,10 @@
               <div class="gallery-mixed-item visible">
                 <div
                   class="mixed-frame"
-                  onclick="openPhotoModal('{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}')"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
                 >
                   <img
-                    src="{{ url_for('serve_documents', filename='prewedding_photos/' ~ photo.filename) }}"
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
                     alt="Prewedding Photo {{ loop.index }}"
                     loading="lazy"
                   />
