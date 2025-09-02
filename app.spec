@@ -101,6 +101,7 @@ datas = [
     ('fajarmandiri.db', '.'),
     ('icon.ico', '.'),
     ('config', 'config'),
+    ('cloudflared.exe', '.'),
     # Include Documents folder structure for template storage
     ('README.md', '.'),
     ('requirements.txt', '.')
