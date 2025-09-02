@@ -2801,7 +2801,18 @@ CERT_FILE = CONFIG_DIR / "cert.pem"
 CREDENTIALS_FILE = next((p for p in CONFIG_DIR.glob("*.json")), None)  # optional
 
 ICON_FILE = BASE_DIR / "icon.ico"
-CF_BIN = BASE_DIR / ("cloudflared.exe" if platform.system() == "Windows" else "cloudflared")
+
+# Deteksi binary cloudflared
+import shutil
+if platform.system() == "Windows":
+    CF_BIN = BASE_DIR / "cloudflared.exe"
+else:
+    CF_BIN_PATH = shutil.which("cloudflared")
+    if CF_BIN_PATH:
+        CF_BIN = Path(CF_BIN_PATH)
+    else:
+        CF_BIN = BASE_DIR / "cloudflared"
+
 
 # Perintah untuk menjalankan server Kasir jika tidak ada modul Python 'kasir_app'
 # Ubah sesuai kebutuhan Anda (mis. jalankan uvicorn/flask/fastapi, dll)
