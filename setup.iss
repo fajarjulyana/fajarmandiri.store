@@ -52,10 +52,10 @@ Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\dist\config\cert.pem"; Dest
 Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\dist\config\config.yml"; DestDir: "{app}\config"; Flags: ignoreversion
 
 ; Wedding templates ke Documents
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\black_luxury_gold.html"; DestDir: "{userdocs}\FajarMandiriStore\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\blue_luxury_gold.html"; DestDir: "{userdocs}\FajarMandiriStore\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\elegant_cream.html"; DestDir: "{userdocs}\FajarMandiriStore\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\red_luxury_gold.html"; DestDir: "{userdocs}\FajarMandiriStore\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\black_luxury_gold.html"; DestDir: "{app}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\blue_luxury_gold.html"; DestDir: "{app}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\elegant_cream.html"; DestDir: "{app}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\red_luxury_gold.html"; DestDir: "{app}\templates\wedding_templates"; Flags: ignoreversion
 
 ; Thumbnails ke Documents
 Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756240633_template_154_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
