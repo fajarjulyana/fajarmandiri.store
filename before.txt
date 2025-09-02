@@ -1,0 +1,68 @@
+
+VERSI SEBELUMNYA (1.6.0):
+========================
+
+✗ Dropdown profile tidak berfungsi dengan baik
+✗ JavaScript errors: "$ is not defined" 
+✗ Bootstrap dropdown initialization bermasalah
+✗ jQuery loading order tidak optimal
+✗ User profile dropdown tidak responsive
+✗ Tombol keluar tidak konsisten
+✗ Admin dropdown structure bermasalah
+✗ Mobile navigation dropdown error
+✗ DataTables initialization error
+✗ Bootstrap dan jQuery conflict issues
+
+===============================================================================
+                    FAJAR MANDIRI STORE - WINDOWS INSTALLER
+                              Versi 1.6 Revisi 0
+===============================================================================
+
+📦 INFORMASI INSTALLER
+- Nama File: FajarMandiriStore-Setup.exe
+- Platform: Windows 10/11 (64-bit)
+- Packager: Inno Setup Compiler
+- Size: ~50-100MB (estimasi)
+- Status: Production Ready
+
+⚡ CARA INSTALL
+1. Download file FajarMandiriStore-Setup.exe
+2. Run as Administrator
+3. Ikuti wizard instalasi
+4. Aplikasi siap digunakan
+
+🔧 SYSTEM REQUIREMENTS
+- Windows 10/11
+- RAM: 4GB minimum
+- Storage: 2GB free space
+- Internet connection
+- Chrome/Edge browser
+
+✅ FITUR v1.6.0
+- RSVP System diperbaiki dan berfungsi normal
+- Chat scroll issues telah diperbaiki
+- Thumbnail generator diperbaiki sebagian
+- Template serving endpoint diperbaiki
+- Stabilitas aplikasi ditingkatkan
+
+⚠️ KNOWN ISSUES v1.6.0
+- Dropdown profile bermasalah
+- JavaScript jQuery conflicts
+- Bootstrap dropdown tidak responsive
+- User navigation error
+- Mobile dropdown issues
+
+📅 TIMELINE
+- Deploy: 2025 (segera)
+- Updates: Perbaikan berkala
+- Stable: Versi 2.0 (2027)
+
+👤 DEVELOPER
+Fajar Julyana
+WhatsApp: +6281804411937
+Email: fajarjulyana@fajarmandiri.store
+
+🔗 SOURCE CODE
+https://github.com/fajarjulyana/fajarmandiri.store.git
+
+===============================================================================

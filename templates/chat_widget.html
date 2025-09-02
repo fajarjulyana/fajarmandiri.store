@@ -1,0 +1,675 @@
+<!-- Floating Chat Widget -->
+<div id="floating-chat" class="floating-chat-widget">
+    <div class="chat-toggle" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge" id="unread-badge">0</span>
+    </div>
+
+    <div class="chat-window" id="chat-window" style="display: none;">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-comments"></i>
+                <span>Chat Support</span>
+            </div>
+            <div class="chat-controls">
+                <button onclick="minimizeChat()" class="btn-minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button onclick="closeChat()" class="btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages akan dimuat di sini -->
+        </div>
+
+        <div class="chat-input-container">
+            {% if session.user_id or session.admin %}
+                <!-- User/Admin yang sudah login -->
+                <div class="chat-input-group">
+                    <input type="text" id="message-input" placeholder="Ketik pesan..." 
+                           onkeypress="handleEnterKey(event)">
+                    <button onclick="sendMessage()" class="btn-send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            {% else %}
+                <!-- Guest user - perlu input nama dan email -->
+                <div class="guest-info" id="guest-info">
+                    <input type="text" id="guest-name" placeholder="Nama Anda" required>
+                    <input type="email" id="guest-email" placeholder="Email Anda" required>
+                    <button onclick="setGuestInfo()" class="btn-start-chat">Mulai Chat</button>
+                </div>
+                <div class="chat-input-group" id="chat-input-area" style="display: none;">
+                    <input type="text" id="message-input" placeholder="Ketik pesan..." 
+                           onkeypress="handleEnterKey(event)">
+                    <button onclick="sendMessage()" class="btn-send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.floating-chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chat-toggle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chat-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+.chat-toggle i {
+    color: white;
+    font-size: 24px;
+}
+
+.chat-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.chat-window {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.chat-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-minimize, .btn-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.btn-minimize:hover, .btn-close:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 15px;
+    background: #f8f9fa;
+    max-height: 300px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.own {
+    align-items: flex-end;
+}
+
+.message.other {
+    align-items: flex-start;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    word-wrap: break-word;
+}
+
+.message.own .message-bubble {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.message.other .message-bubble {
+    background: white;
+    color: #333;
+    border: 1px solid #e1e8ed;
+}
+
+.message-info {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.message-time {
+    font-size: 11px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.chat-input-container {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #e1e8ed;
+}
+
+.guest-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.guest-info input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.btn-start-chat {
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.chat-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#message-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+#message-input:focus {
+    border-color: #667eea;
+}
+
+.btn-send {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.btn-send:hover {
+    transform: scale(1.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .chat-window {
+        width: 300px;
+        height: 400px;
+    }
+
+    .floating-chat-widget {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script>
+// Chat Widget JavaScript
+let socket;
+let isConnected = false;
+let currentRoom = 'general';
+let guestInfo = null;
+let unreadCount = 0;
+
+// Initialize socket connection
+function initializeChat() {
+    socket = io();
+
+    socket.on('connect', function() {
+        console.log('Connected to chat server');
+        isConnected = true;
+
+        // Join default room
+        socket.emit('join_room', {room: currentRoom});
+
+        // Load chat history
+        loadChatHistory();
+    });
+
+    socket.on('disconnect', function() {
+        console.log('Disconnected from chat server');
+        isConnected = false;
+    });
+
+    socket.on('receive_message', function(data) {
+        displayMessage(data);
+
+        // Update unread count if chat is closed
+        if (document.getElementById('chat-window').style.display === 'none') {
+            unreadCount++;
+            updateUnreadBadge();
+        }
+    });
+
+    socket.on('error', function(data) {
+        console.error('Chat error:', data.message);
+        alert('Error: ' + data.message);
+    });
+}
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    const isVisible = chatWindow.style.display !== 'none';
+
+    if (isVisible) {
+        chatWindow.style.display = 'none';
+    } else {
+        chatWindow.style.display = 'block';
+        unreadCount = 0;
+        updateUnreadBadge();
+
+        // Initialize socket if not connected
+        if (!isConnected) {
+            initializeChat();
+        }
+    }
+}
+
+function minimizeChat() {
+    document.getElementById('chat-window').style.display = 'none';
+}
+
+function closeChat() {
+    document.getElementById('chat-window').style.display = 'none';
+}
+
+function setGuestInfo() {
+    const nameInput = document.getElementById('guest-name');
+    const emailInput = document.getElementById('guest-email');
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    // Validasi input
+    if (!name) {
+        nameInput.focus();
+        nameInput.style.borderColor = '#ff4757';
+        setTimeout(() => nameInput.style.borderColor = '#e1e8ed', 3000);
+        displaySystemMessage('Silakan isi nama Anda');
+        return;
+    }
+
+    if (!email) {
+        emailInput.focus();
+        emailInput.style.borderColor = '#ff4757';
+        setTimeout(() => emailInput.style.borderColor = '#e1e8ed', 3000);
+        displaySystemMessage('Silakan isi email Anda');
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        emailInput.focus();
+        emailInput.style.borderColor = '#ff4757';
+        setTimeout(() => emailInput.style.borderColor = '#e1e8ed', 3000);
+        displaySystemMessage('Format email tidak valid');
+        return;
+    }
+
+    // Set guest info
+    guestInfo = {name: name, email: email};
+
+    // Smooth transition - hide guest form and show chat input
+    const guestInfoDiv = document.getElementById('guest-info');
+    const chatInputArea = document.getElementById('chat-input-area');
+
+    if (guestInfoDiv) {
+        guestInfoDiv.style.opacity = '0';
+        guestInfoDiv.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+            guestInfoDiv.style.display = 'none';
+            if (chatInputArea) {
+                chatInputArea.style.display = 'flex';
+                chatInputArea.style.opacity = '0';
+                chatInputArea.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    chatInputArea.style.opacity = '1';
+                    chatInputArea.style.transform = 'translateY(0)';
+                    // Focus ke input message
+                    const messageInput = document.getElementById('message-input');
+                    if (messageInput) messageInput.focus();
+                }, 50);
+            }
+        }, 300);
+    }
+
+    // Send welcome message
+    setTimeout(() => {
+        displaySystemMessage(`Halo ${name}! Selamat datang di chat support Fajar Mandiri Store. Silakan ketik pesan Anda.`);
+    }, 500);
+}
+
+function sendMessage() {
+    const messageInput = document.getElementById('message-input');
+    const message = messageInput.value.trim();
+
+    if (!message) return;
+
+    if (!isConnected) {
+        alert('Tidak terhubung ke server chat');
+        return;
+    }
+
+    // Determine sender info
+    let senderType, senderName, senderEmail, senderId;
+
+    {% if session.admin %}
+        senderType = 'admin';
+        senderName = '{{ session.admin_username }}';
+        senderEmail = 'admin@fajarmandiri.store';
+        senderId = null;
+    {% elif session.user_id %}
+        senderType = 'user';
+        senderName = '{{ session.user_name }}';
+        senderEmail = '{{ session.user_email }}';
+        senderId = {{ session.user_id }};
+    {% else %}
+        if (!guestInfo) {
+            alert('Silakan isi informasi Anda terlebih dahulu');
+            return;
+        }
+        senderType = 'guest';
+        senderName = guestInfo.name;
+        senderEmail = guestInfo.email;
+        senderId = null;
+    {% endif %}
+
+    // Send message via socket
+    socket.emit('send_message', {
+        message: message,
+        room: currentRoom,
+        sender_type: senderType,
+        sender_name: senderName,
+        sender_email: senderEmail,
+        sender_id: senderId,
+        room_type: 'general',
+        room_id: 'support'
+    });
+
+    messageInput.value = '';
+}
+
+function handleEnterKey(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
+
+function displayMessage(data) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+
+    // Determine if message is from current user
+    let isOwnMessage = false;
+    {% if session.admin %}
+        isOwnMessage = data.sender_type === 'admin';
+    {% elif session.user_id %}
+        isOwnMessage = data.sender_type === 'user' && data.sender_name === '{{ session.user_name }}';
+    {% else %}
+        isOwnMessage = data.sender_type === 'guest' && guestInfo && data.sender_name === guestInfo.name;
+    {% endif %}
+
+    messageDiv.className = `message ${isOwnMessage ? 'own' : 'other'}`;
+
+    let senderLabel = data.sender_name;
+    if (data.sender_type === 'admin') {
+        senderLabel += ' (Admin)';
+    } else if (data.sender_type === 'guest') {
+        senderLabel += ' (Guest)';
+    }
+
+    messageDiv.innerHTML = `
+        <div class="message-info">${senderLabel}</div>
+        <div class="message-bubble">${escapeHtml(data.message)}</div>
+        <div class="message-time">${data.timestamp}</div>
+    `;
+
+    messagesContainer.appendChild(messageDiv);
+
+    // Smooth scroll ke bawah
+    setTimeout(() => {
+        messagesContainer.scrollTo({
+            top: messagesContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 100);
+}
+
+function displaySystemMessage(message) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message system';
+    messageDiv.innerHTML = `
+        <div class="message-bubble" style="background: #f0f0f0; color: #666; text-align: center; font-style: italic;">
+            ${escapeHtml(message)}
+        </div>
+    `;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function loadChatHistory() {
+    fetch('/api/chat/history/general/support')
+        .then(response => response.json())
+        .then(messages => {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = '';
+
+            messages.forEach(msg => {
+                const timestamp = new Date(msg.timestamp).toLocaleTimeString('id-ID', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                displayMessage({
+                    sender_name: msg.sender_name,
+                    sender_type: msg.sender_type,
+                    message: msg.message,
+                    timestamp: timestamp
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error loading chat history:', error);
+        });
+}
+
+function updateUnreadBadge() {
+    const badge = document.getElementById('unread-badge');
+    if (unreadCount > 0) {
+        badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Auto-initialize chat when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Chat widget is ready, but connection will be made when user opens chat
+    console.log('Chat widget loaded');
+
+    // Initialize unread badge
+    updateUnreadBadge();
+});
+
+// Error handling for socket connection
+function handleSocketError(error) {
+    console.error('Socket error:', error);
+    displaySystemMessage('Koneksi chat bermasalah. Silakan refresh halaman.');
+}
+
+// Improved connection handling
+function initializeChat() {
+    if (isConnected) return; // Prevent multiple connections
+
+    try {
+        socket = io({
+            timeout: 10000,
+            forceNew: true
+        });
+
+        socket.on('connect', function() {
+            console.log('Connected to chat server');
+            isConnected = true;
+
+            // Join default room
+            socket.emit('join_room', {room: currentRoom});
+
+            // Load chat history
+            loadChatHistory();
+        });
+
+        socket.on('disconnect', function() {
+            console.log('Disconnected from chat server');
+            isConnected = false;
+        });
+
+        socket.on('connect_error', function(error) {
+            handleSocketError(error);
+        });
+
+        socket.on('receive_message', function(data) {
+            displayMessage(data);
+
+            // Update unread count if chat is closed
+            if (document.getElementById('chat-window').style.display === 'none') {
+                unreadCount++;
+                updateUnreadBadge();
+            }
+        });
+
+        socket.on('error', function(data) {
+            console.error('Chat error:', data.message);
+            displaySystemMessage('Error: ' + data.message);
+        });
+    } catch (error) {
+        console.error('Failed to initialize chat:', error);
+        displaySystemMessage('Gagal menginisialisasi chat. Silakan refresh halaman.');
+    }
+}
+</script>
