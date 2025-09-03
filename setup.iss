@@ -51,17 +51,45 @@ Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\dist\config\7dfdc496-a179-4
 Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\dist\config\cert.pem"; DestDir: "{app}\config"; Flags: ignoreversion
 Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\dist\config\config.yml"; DestDir: "{app}\config"; Flags: ignoreversion
 
-; Wedding templates ke Documents
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\black_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\blue_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\elegant_cream.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\red_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
-
 ; Thumbnails ke Documents
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756240633_template_154_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756240646_template_155_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756240654_template_156_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
-Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756240663_template_157_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885315_template_154_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885582_template_164_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885328_template_155_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885615_template_165_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885340_template_156_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885648_template_166_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885353_template_157_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885680_template_167_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885386_template_158_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885712_template_168_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885418_template_159_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885744_template_169_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885450_template_160_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885777_template_170_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885482_template_161_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885808_template_171_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885514_template_162_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\README.md"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\static\images\wedding_templates\1756885546_template_163_thumbnail.jpg"; DestDir: "{userdocs}\FajarMandiriStore\thumbnails"; Flags: ignoreversion
+
+; Wedding templates ke Documents
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883040_bohemian_chic.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883529_romantic_blush.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883064_classic_elegance.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883550_royal_versailles.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883196_garden_party.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883577_tiffany_blue_elegance.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883218_glamour_luxury.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883596_vintage_classic.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883261_majestic_pearl.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\black_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883307_minimalist_modern.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\blue_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883358_modern_futuristic.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\elegant_cream.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883407_nature_rustic.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\red_luxury_gold.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
+Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\templates\wedding_templates\1756883457_ocean_blue.html"; DestDir: "{userdocs}\templates\wedding_templates"; Flags: ignoreversion
 
 ; Database ke Documents
 Source: "C:\Users\FJ-PC\Downloads\fajarmandiri.store\fajarmandiri.db"; DestDir: "{userdocs}\FajarMandiriStore"; Flags: ignoreversion
