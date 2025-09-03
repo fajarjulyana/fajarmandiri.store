@@ -1,0 +1,203 @@
+
+{% extends "base.html" %}
+
+{% block title %}Tentang Kami - Fajar Mandiri Fotocopy{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ url_for("static", filename="hero.jpg") }}') center/cover;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+    }
+    .service-card {
+        transition: transform 0.3s;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    .service-icon {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        margin-bottom: 1rem;
+    }
+    .btn-primary {
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-4">Tentang Fajar Mandiri Fotocopy</h1>
+                <p class="lead mb-4">Solusi Cetak Berkualitas untuk Semua Kebutuhan Anda dengan Layanan Profesional dan Harga Terjangkau</p>
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('order') }}" class="btn btn-primary btn-lg">Pesan Sekarang</a>
+                    <a href="{{ url_for('status') }}" class="btn btn-outline-light btn-lg">Cek Status</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Mengapa Memilih Kami?</h2>
+                <p class="text-muted">Fajar Mandiri Fotocopy adalah partner terpercaya untuk semua kebutuhan cetak Anda</p>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card service-card h-100 p-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-star service-icon"></i>
+                            <h5 class="card-title">Kualitas Terbaik</h5>
+                            <p class="card-text">Menggunakan teknologi printing terkini untuk hasil cetak yang jernih dan berkualitas tinggi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 p-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-clock service-icon"></i>
+                            <h5 class="card-title">Pelayanan Cepat</h5>
+                            <p class="card-text">Proses pesanan yang efisien dengan sistem online untuk kemudahan Anda</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 p-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-money-bill-wave service-icon"></i>
+                            <h5 class="card-title">Harga Kompetitif</h5>
+                            <p class="card-text">Tarif yang terjangkau tanpa mengurangi kualitas layanan dan hasil cetak</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-cogs me-2"></i>Layanan Kami
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Fotocopy Hitam Putih</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Print Warna & Hitam Putih</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Scanning Dokumen</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Jilid & Laminating</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>CV Generator Online</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-award me-2"></i>Keunggulan Kami
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-thumbs-up text-primary me-2"></i>Teknologi printing modern</li>
+                                <li class="mb-2"><i class="fas fa-thumbs-up text-primary me-2"></i>Sistem pemesanan online</li>
+                                <li class="mb-2"><i class="fas fa-thumbs-up text-primary me-2"></i>Tracking status real-time</li>
+                                <li class="mb-2"><i class="fas fa-thumbs-up text-primary me-2"></i>Tim profesional berpengalaman</li>
+                                <li class="mb-2"><i class="fas fa-thumbs-up text-primary me-2"></i>Kepuasan pelanggan terjamin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-map-marker-alt me-2"></i>Lokasi Kami
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="ratio ratio-4x3 mb-3">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31692.42183830367!2d107.5650036334991!3d-6.824122742895601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e1d6c752a527%3A0x3006ade37bc5cf7f!2sFotocopy%20dan%20Alat%20Tulis%20Kantor!5e0!3m2!1sid!2sid!4v1743517448853!5m2!1sid!2sid" 
+                                        style="border:0;" 
+                                        allowfullscreen="" 
+                                        loading="lazy">
+                                </iframe>
+                            </div>
+                            <p class="mb-2">
+                                <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                <strong>Alamat:</strong><br>
+                                Jl. Pasir Wangi, RT.01/RW.11,<br>
+                                Gudangkahuripan, Kec. Lembang,<br>
+                                Kabupaten Bandung Barat, Jawa Barat 40391
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">
+                                <i class="fas fa-phone me-2"></i>Kontak & Jam Operasional
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6><i class="fas fa-globe text-primary me-2"></i>Website</h6>
+                            <p class="mb-3">
+                                <a href="https://fajarmandiri.store" target="_blank" class="text-decoration-none">
+                                    fajarmandiri.store
+                                </a>
+                            </p>
+                            
+                            <h6><i class="fas fa-clock text-success me-2"></i>Jam Operasional</h6>
+                            <ul class="list-unstyled mb-3">
+                                <li class="mb-1">
+                                    <i class="fas fa-calendar-day me-2"></i>
+                                    <strong>Senin - Sabtu:</strong> 06:00 - 22:00
+                                </li>
+                                <li>
+                                    <i class="fas fa-calendar-day me-2"></i>
+                                    <strong>Minggu:</strong> 10:00 - 22:00
+                                </li>
+                            </ul>
+                            
+                            <div class="d-grid">
+                                <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-success">
+                                    <i class="fab fa-whatsapp me-2"></i>Hubungi via WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{{ url_for('order') }}" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-plus me-2"></i>Buat Pesanan
+                </a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-home me-2"></i>Kembali ke Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

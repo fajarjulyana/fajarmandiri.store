@@ -1,0 +1,2046 @@
+
+{% extends "base.html" %}
+
+{% block title %}Buat Undangan Pernikahan - Fajar Mandiri Store{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="font-heading text-gradient mb-3">
+                    <i class="fas fa-heart me-2"></i>Buat Undangan Pernikahan Digital
+                </h1>
+                <p class="lead text-muted">Ciptakan undangan pernikahan impian Anda dengan mudah dan profesional</p>
+                <div class="divider mx-auto"></div>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps mb-5">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Template</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Data Pasangan</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Detail Acara</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Media</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-label">Finishing</div>
+                </div>
+            </div>
+
+            <!-- Main Form Card -->
+            <div class="card shadow-lg border-0 rounded-xl">
+                <div class="card-body p-0">
+                    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="weddingForm">
+
+                        <!-- Step 1: Template Selection -->
+                        <div class="step-content active" id="step-1">
+                            <div class="step-header">
+                                <h3 class="font-heading text-gradient mb-2">
+                                    <i class="fas fa-palette me-2"></i>Pilih Template Favorit Anda
+                                </h3>
+                                <p class="text-muted mb-4">Pilih desain yang paling sesuai dengan tema pernikahan impian Anda</p>
+                            </div>
+                            <div class="step-body">
+                                <div class="row g-4">
+                                    {% for template in wedding_templates %}
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="template-option">
+                                            <input type="radio" name="template_id" value="{{ template.id }}" id="template_{{ template.id }}" 
+                                                   class="template-radio" {% if loop.first %}checked{% endif %}>
+                                            <label for="template_{{ template.id }}" class="template-card">
+                                                <div class="template-preview">
+                                                    <img src="/thumbnails/wedding_templates/{{ template.preview_image or 'default_preview.jpg' }}" 
+                                                         alt="{{ template.name }}" class="img-fluid"
+                                                         onerror="this.src='/static/images/wedding_templates/default_preview.jpg'"
+                                                    />
+                                                    {% if template.is_premium %}
+                                                    <span class="badge bg-warning premium-badge">
+                                                        <i class="fas fa-crown me-1"></i>Premium
+                                                    </span>
+                                                    {% endif %}
+                                                    <div class="template-overlay">
+                                                        <div class="template-actions">
+                                                            <button type="button" class="btn btn-sm btn-light me-2" onclick="previewTemplate({{ template.id }}, '{{ template.name }}')" data-bs-toggle="modal" data-bs-target="#previewModal">
+                                                                <i class="fas fa-eye me-1"></i>Demo
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-primary" onclick="selectAndContinue({{ template.id }})">
+                                                                <i class="fas fa-check me-1"></i>Gunakan
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="template-info">
+                                                    <h6 class="fw-bold mb-1">{{ template.name }}</h6>
+                                                    <p class="small text-muted mb-2">{{ template.description }}</p>
+                                                    <div class="template-features">
+                                                        <span class="badge bg-light text-dark me-1">{{ template.color_scheme }}</span>
+                                                        <span class="badge bg-light text-dark">{{ template.category }}</span>
+                                                    </div>
+                                                    {% if template.is_premium %}
+                                                    <div class="template-price mt-2">
+                                                        <span class="badge bg-warning">
+                                                            <i class="fas fa-crown me-1"></i>Rp {{ "{:,}".format(template.price) }}
+                                                        </span>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Couple Information -->
+                        <div class="step-content" id="step-2">
+                            <div class="step-header">
+                                <h3 class="font-heading text-gradient mb-2">
+                                    <i class="fas fa-users me-2"></i>Informasi Mempelai
+                                </h3>
+                                <p class="text-muted mb-4">Masukkan data lengkap kedua mempelai dengan benar</p>
+                            </div>
+                            <div class="step-body">
+                                <div class="row">
+                                    <!-- Bride Information -->
+                                    <div class="col-lg-6">
+                                        <div class="form-section">
+                                            <div class="section-title">
+                                                <i class="fas fa-female text-pink me-2"></i>
+                                                <h5 class="mb-0">Mempelai Wanita</h5>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Gelar (Opsional)</label>
+                                                <input type="text" name="bride_title" class="form-control" placeholder="S.Kom, M.M, dll">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Lengkap</label>
+                                                <input type="text" name="bride_name" class="form-control" required placeholder="Nama lengkap mempelai wanita">
+                                                <div class="invalid-feedback">
+                                                    Nama mempelai wanita wajib diisi!
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Ayah</label>
+                                                <input type="text" name="bride_father" class="form-control" required placeholder="Nama ayah mempelai wanita">
+                                                <div class="invalid-feedback">
+                                                    Nama ayah mempelai wanita wajib diisi!
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Ibu</label>
+                                                <input type="text" name="bride_mother" class="form-control" required placeholder="Nama ibu mempelai wanita">
+                                                <div class="invalid-feedback">
+                                                    Nama ibu mempelai wanita wajib diisi!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Groom Information -->
+                                    <div class="col-lg-6">
+                                        <div class="form-section">
+                                            <div class="section-title">
+                                                <i class="fas fa-male text-blue me-2"></i>
+                                                <h5 class="mb-0">Mempelai Pria</h5>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Gelar (Opsional)</label>
+                                                <input type="text" name="groom_title" class="form-control" placeholder="S.T, M.Sc, dll">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Lengkap</label>
+                                                <input type="text" name="groom_name" class="form-control" required placeholder="Nama lengkap mempelai pria">
+                                                <div class="invalid-feedback">
+                                                    Nama mempelai pria wajib diisi!
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Ayah</label>
+                                                <input type="text" name="groom_father" class="form-control" required placeholder="Nama ayah mempelai pria">
+                                                <div class="invalid-feedback">
+                                                    Nama ayah mempelai pria wajib diisi!
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required">Nama Ibu</label>
+                                                <input type="text" name="groom_mother" class="form-control" required placeholder="Nama ibu mempelai pria">
+                                                <div class="invalid-feedback">
+                                                    Nama ibu mempelai pria wajib diisi!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Wedding Details -->
+                        <div class="step-content" id="step-3">
+                            <div class="step-header">
+                                <h3 class="font-heading text-gradient mb-2">
+                                    <i class="fas fa-calendar-heart me-2"></i>Detail Acara Pernikahan
+                                </h3>
+                                <p class="text-muted mb-4">Tentukan waktu dan tempat untuk setiap acara</p>
+                            </div>
+                            <div class="step-body">
+                                
+                                <!-- Event Type Selection -->
+                                <div class="form-section mb-4">
+                                    <div class="section-title">
+                                        <i class="fas fa-list-alt me-2"></i>
+                                        <h6 class="mb-0">Jenis Acara</h6>
+                                    </div>
+                                    <div class="event-type-selection">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-check event-type-option">
+                                                    <input class="form-check-input" type="radio" name="event_type" id="single_event" value="single" checked>
+                                                    <label class="form-check-label card-option" for="single_event">
+                                                        <div class="option-icon">
+                                                            <i class="fas fa-ring text-primary"></i>
+                                                        </div>
+                                                        <div class="option-content">
+                                                            <h6 class="fw-bold mb-1">Satu Acara</h6>
+                                                            <p class="small text-muted mb-0">Akad dan resepsi di tempat dan waktu yang sama</p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check event-type-option">
+                                                    <input class="form-check-input" type="radio" name="event_type" id="separate_events" value="separate">
+                                                    <label class="form-check-label card-option" for="separate_events">
+                                                        <div class="option-icon">
+                                                            <i class="fas fa-calendar-alt text-success"></i>
+                                                        </div>
+                                                        <div class="option-content">
+                                                            <h6 class="fw-bold mb-1">Acara Terpisah</h6>
+                                                            <p class="small text-muted mb-0">Akad dan resepsi di tempat/waktu berbeda</p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Single Event Section -->
+                                <div class="single-event-section" id="singleEventSection">
+                                    <div class="form-section">
+                                        <div class="section-title">
+                                            <i class="fas fa-heart me-2"></i>
+                                            <h6 class="mb-0">Detail Acara Pernikahan</h6>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-calendar-alt me-1"></i>Tanggal Pernikahan
+                                                    </label>
+                                                    <input type="date" name="wedding_date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-clock me-1"></i>Waktu Acara
+                                                    </label>
+                                                    <input type="time" name="wedding_time" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-building me-1"></i>Nama Tempat/Gedung
+                                                    </label>
+                                                    <input type="text" name="venue_name" class="form-control" placeholder="Contoh: Ballroom Hotel Grand">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-map-marker-alt me-1"></i>Alamat Lengkap Venue
+                                                    </label>
+                                                    <input type="text" name="venue_address" class="form-control" placeholder="Alamat lengkap atau link Google Maps (https://maps.app.goo.gl/...)">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-info-circle me-1"></i>
+                                                        Masukkan alamat lengkap atau link Google Maps untuk navigasi yang mudah
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Separate Events Section -->
+                                <div class="separate-events-section d-none" id="separateEventsSection">
+                                    <!-- Akad Nikah -->
+                                    <div class="form-section mb-4">
+                                        <div class="section-title">
+                                            <i class="fas fa-mosque me-2"></i>
+                                            <h6 class="mb-0">Akad Nikah</h6>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-calendar-alt me-1"></i>Tanggal Akad
+                                                    </label>
+                                                    <input type="date" name="akad_date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-clock me-1"></i>Waktu Akad
+                                                    </label>
+                                                    <input type="time" name="akad_time" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-building me-1"></i>Nama Tempat Akad
+                                                    </label>
+                                                    <input type="text" name="akad_venue_name" class="form-control" placeholder="Contoh: Masjid Al-Ikhlas">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-map-marker-alt me-1"></i>Alamat Tempat Akad
+                                                    </label>
+                                                    <input type="text" name="akad_venue_address" class="form-control" placeholder="Alamat lengkap atau link Google Maps">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-info-circle me-1"></i>
+                                                        Link Google Maps contoh: https://maps.app.goo.gl/63m4DkQWedK8dHv29
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resepsi -->
+                                    <div class="form-section">
+                                        <div class="section-title">
+                                            <i class="fas fa-utensils me-2"></i>
+                                            <h6 class="mb-0">Resepsi</h6>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-calendar-alt me-1"></i>Tanggal Resepsi
+                                                    </label>
+                                                    <input type="date" name="resepsi_date" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-clock me-1"></i>Waktu Resepsi
+                                                    </label>
+                                                    <input type="time" name="resepsi_time" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-building me-1"></i>Nama Tempat Resepsi
+                                                    </label>
+                                                    <input type="text" name="resepsi_venue_name" class="form-control" placeholder="Contoh: Ballroom Hotel Grand">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">
+                                                        <i class="fas fa-map-marker-alt me-1"></i>Alamat Tempat Resepsi
+                                                    </label>
+                                                    <input type="text" name="resepsi_venue_address" class="form-control" placeholder="Alamat lengkap atau link Google Maps">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-info-circle me-1"></i>
+                                                        Link Google Maps contoh: https://maps.app.goo.gl/63m4DkQWedK8dHv29
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Optional Family Events -->
+                                    <div class="form-section mt-4">
+                                        <div class="section-title">
+                                            <i class="fas fa-users me-2"></i>
+                                            <h6 class="mb-0">Acara Keluarga (Opsional)</h6>
+                                            <small class="text-muted ms-2">- Acara terpisah untuk masing-masing keluarga</small>
+                                        </div>
+                                        
+                                        <div class="row g-4">
+                                            <!-- Bride Family Event -->
+                                            <div class="col-lg-6">
+                                                <div class="family-event-card">
+                                                    <h6 class="fw-bold mb-3 text-pink">
+                                                        <i class="fas fa-female me-2"></i>Acara Keluarga Mempelai Wanita
+                                                    </h6>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Tanggal Acara</label>
+                                                        <input type="date" name="bride_event_date" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Waktu Acara</label>
+                                                        <input type="time" name="bride_event_time" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Nama Tempat</label>
+                                                        <input type="text" name="bride_event_venue_name" class="form-control" placeholder="Nama tempat acara">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Alamat Tempat</label>
+                                                        <input type="text" name="bride_event_venue_address" class="form-control" placeholder="Alamat atau link Google Maps">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Groom Family Event -->
+                                            <div class="col-lg-6">
+                                                <div class="family-event-card">
+                                                    <h6 class="fw-bold mb-3 text-blue">
+                                                        <i class="fas fa-male me-2"></i>Acara Keluarga Mempelai Pria
+                                                    </h6>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Tanggal Acara</label>
+                                                        <input type="date" name="groom_event_date" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Waktu Acara</label>
+                                                        <input type="time" name="groom_event_time" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Nama Tempat</label>
+                                                        <input type="text" name="groom_event_venue_name" class="form-control" placeholder="Nama tempat acara">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Alamat Tempat</label>
+                                                        <input type="text" name="groom_event_venue_address" class="form-control" placeholder="Alamat atau link Google Maps">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Message -->
+                                <div class="form-section mt-4">
+                                    <div class="section-title">
+                                        <i class="fas fa-comment-dots me-2"></i>
+                                        <h6 class="mb-0">Pesan Khusus untuk Tamu</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="custom_message" class="form-control" rows="4" placeholder="Tulis pesan khusus atau ucapan untuk tamu undangan Anda"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Media Upload -->
+                        <div class="step-content" id="step-4">
+                            <div class="step-header">
+                                <h3 class="font-heading text-gradient mb-2">
+                                    <i class="fas fa-photo-video me-2"></i>Upload Media
+                                </h3>
+                                <p class="text-muted mb-4">Tambahkan musik dan foto untuk mempercantik undangan Anda</p>
+                            </div>
+                            <div class="step-body">
+                                <!-- Background Music -->
+                                <div class="form-section mb-5">
+                                    <div class="section-title">
+                                        <i class="fas fa-music me-2"></i>
+                                        <h6 class="mb-0">Background Music (Opsional)</h6>
+                                        <small class="text-muted ms-2">- Membuat undangan lebih romantis</small>
+                                    </div>
+
+                                    <!-- Music Options -->
+                                    <div class="music-options mb-4">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio">
+                                                    <input class="form-check-input" type="radio" name="music_option" id="no_music" value="none" checked>
+                                                    <label class="form-check-label" for="no_music">
+                                                        <i class="fas fa-volume-mute me-2"></i>Tanpa Musik
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio">
+                                                    <input class="form-check-input" type="radio" name="music_option" id="default_music" value="default">
+                                                    <label class="form-check-label" for="default_music">
+                                                        <i class="fas fa-music me-2"></i>Musik Default
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check custom-radio">
+                                                    <input class="form-check-input" type="radio" name="music_option" id="custom_music" value="custom">
+                                                    <label class="form-check-label" for="custom_music">
+                                                        <i class="fas fa-upload me-2"></i>Upload Musik Sendiri
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Default Music Selection -->
+                                    <div class="default-music-section d-none" id="defaultMusicSection">
+                                        <label class="form-label">Pilih Musik Default:</label>
+                                        <select name="default_background_music" class="form-select">
+                                            <option value="">Pilih musik...</option>
+                                            <option value="wedding_classic.mp3">Wedding Classic - Romantic Piano</option>
+                                            <option value="wedding_modern.mp3">Modern Wedding - Acoustic Guitar</option>
+                                            <option value="wedding_royal.mp3">Royal Wedding - Orchestra</option>
+                                            <option value="wedding_garden.mp3">Garden Wedding - Nature Sounds</option>
+                                            <option value="wedding_beach.mp3">Beach Wedding - Ocean Waves</option>
+                                            <option value="wedding_vintage.mp3">Vintage Romance - Jazz</option>
+                                            <option value="anime_wedding.mp3">Anime Wedding - J-Pop Instrumental</option>
+                                            <option value="wedding_rustic.mp3">Rustic Wedding - Country</option>
+                                            <option value="wedding_deco.mp3">Art Deco - 1920s Style</option>
+                                            <option value="wedding_botanical.mp3">Botanical - Celtic Music</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Custom Music Upload -->
+                                    <div class="custom-music-section d-none" id="customMusicSection">
+                                        <div class="upload-area music-upload">
+                                            <input type="file" name="background_music" id="musicUpload" accept="audio/*" class="upload-input">
+                                            <div class="upload-content">
+                                                <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                                <h6 class="fw-bold">Upload Musik Latar Belakang</h6>
+                                                <p class="text-muted mb-3">Drag & drop file musik atau klik untuk browse</p>
+                                                <p class="small text-muted">Format: MP3, WAV, M4A • Max: 10MB</p>
+                                                <p class="small text-warning">
+                                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                                    Pastikan Anda memiliki hak untuk menggunakan musik ini
+                                                </p>
+                                            </div>
+                                            <div class="upload-success d-none">
+                                                <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                                                <p class="text-success fw-bold">Musik berhasil diupload!</p>
+                                                <div class="music-preview mt-3">
+                                                    <audio controls class="w-100">
+                                                        <source src="" type="audio/mpeg">
+                                                        Browser Anda tidak mendukung audio element.
+                                                    </audio>
+                                                </div>
+                                            </div>
+                                            <div class="upload-progress d-none">
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                                         role="progressbar" style="width: 0%"></div>
+                                                </div>
+                                                <small class="text-muted">Uploading musik...</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pre-wedding Photos -->
+                                <div class="form-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-images me-2"></i>
+                                        <h6 class="mb-0">Foto Pre-wedding (Maksimal 10 Foto)</h6>
+                                        <small class="text-muted">Upload foto dan pilih orientasi untuk tampilan yang optimal</small>
+                                    </div>
+                                    <div class="alert alert-info mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-lightbulb fa-lg me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold mb-1">Tips Galeri Foto:</h6>
+                                                <ul class="mb-0 small">
+                                                    <li><strong>Portrait:</strong> Foto vertikal (tinggi > lebar) - seperti foto model</li>
+                                                    <li><strong>Landscape:</strong> Foto horizontal (lebar > tinggi) - seperti foto pemandangan</li>
+                                                    <li>Pilih orientasi dengan benar untuk tampilan galeri yang optimal</li>
+                                                    <li>Semua foto mempertahankan aspect ratio asli tanpa pemotongan</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid" id="photoGrid">
+                                        {% for i in range(10) %}
+                                        <div class="photo-upload-item" data-index="{{ i }}">
+                                            <input type="file" name="prewedding_photo_{{ i }}" accept="image/*" class="photo-input" id="photo_{{ i }}">
+                                            <div class="photo-placeholder">
+                                                <i class="fas fa-plus fa-2x text-muted mb-2"></i>
+                                                <p class="small text-muted mb-0">Foto {{ i + 1 }}</p>
+                                            </div>
+                                            <div class="photo-preview d-none">
+                                                <img src="" alt="Preview" class="preview-image">
+                                                <div class="photo-settings">
+                                                    <div class="orientation-selector">
+                                                        <label class="form-label small">Orientasi:</label>
+                                                        <select name="photo_orientation_{{ i }}" class="form-select form-select-sm">
+                                                            <option value="">Pilih orientasi</option>
+                                                            <option value="portrait">Portrait (Vertikal)</option>
+                                                            <option value="landscape">Landscape (Horizontal)</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="btn btn-sm btn-danger remove-photo mt-2">
+                                                        <i class="fas fa-trash me-1"></i>Hapus
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="photo-progress d-none">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                                </div>
+                                                <small class="text-muted">Processing...</small>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Format: JPG, PNG • Max: 5MB per foto • Pilih orientasi yang sesuai untuk setiap foto
+                                        </small>
+                                        <div class="mt-2">
+                                            <small class="text-warning">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                                Pastikan untuk memilih orientasi setiap foto yang diupload
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Final Settings -->
+                        <div class="step-content" id="step-5">
+                            <div class="step-header">
+                                <h3 class="font-heading text-gradient mb-2">
+                                    <i class="fas fa-cog me-2"></i>Pengaturan Akhir
+                                </h3>
+                                <p class="text-muted mb-4">Atur kado digital dan pengaturan tambahan</p>
+                            </div>
+                            <div class="step-body">
+                                <!-- Digital Gift -->
+                                <div class="form-section mb-5">
+                                    <div class="section-title">
+                                        <i class="fas fa-gift me-2"></i>
+                                        <h6 class="mb-0">Kado Digital (Opsional)</h6>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Nama Bank/E-Wallet</label>
+                                                <select name="bank_name" class="form-select">
+                                                    <option value="">Pilih Bank/E-Wallet</option>
+                                                    <option value="BCA">BCA</option>
+                                                    <option value="Mandiri">Mandiri</option>
+                                                    <option value="BNI">BNI</option>
+                                                    <option value="BRI">BRI</option>
+                                                    <option value="CIMB">CIMB Niaga</option>
+                                                    <option value="Danamon">Danamon</option>
+                                                    <option value="Jenius">Jenius</option>
+                                                    <option value="OVO">OVO</option>
+                                                    <option value="GoPay">GoPay</option>
+                                                    <option value="Dana">Dana</option>
+                                                    <option value="ShopeePay">ShopeePay</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Nomor Rekening/HP</label>
+                                                <input type="text" name="bank_account" class="form-control" placeholder="1234567890">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Atas Nama</label>
+                                                <input type="text" name="account_holder" class="form-control" placeholder="Nama pemilik rekening">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label">QRIS Code</label>
+                                                <div class="upload-area qris-upload">
+                                                    <input type="file" name="qris_code" accept="image/*" class="upload-input">
+                                                    <div class="upload-content">
+                                                        <i class="fas fa-qrcode fa-2x text-muted mb-2"></i>
+                                                        <p class="fw-bold mb-1">Upload QR Code</p>
+                                                        <p class="small text-muted mb-0">Untuk pembayaran digital</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Settings -->
+                                <div class="form-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-users-cog me-2"></i>
+                                        <h6 class="mb-0">Pengaturan Tambahan</h6>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Batas Maksimal Tamu</label>
+                                                <input type="number" name="guest_limit" class="form-control" value="100" min="1" max="1000">
+                                                <small class="text-muted">Tentukan jumlah maksimal tamu yang dapat hadir</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Support Info -->
+                                <div class="support-info mt-5">
+                                    <div class="alert alert-info">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-headset fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="fw-bold mb-1">Butuh Bantuan?</h6>
+                                                <p class="mb-1">Tim support kami siap membantu Anda 24/7</p>
+                                                <a href="https://wa.me/6281804411937" target="_blank" class="btn btn-sm btn-success">
+                                                    <i class="fab fa-whatsapp me-1"></i>WhatsApp: 081804411937
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="form-navigation">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn btn-outline-secondary btn-prev" id="prevBtn" style="display: none;">
+                                    <i class="fas fa-chevron-left me-1"></i>Sebelumnya
+                                </button>
+                                <div class="step-indicator">
+                                    <span id="currentStep">1</span> dari 5
+                                </div>
+                                <button type="button" class="btn btn-primary btn-next" id="nextBtn">
+                                    Selanjutnya<i class="fas fa-chevron-right ms-1"></i>
+                                </button>
+                                <button type="submit" class="btn btn-success btn-submit" id="submitBtn" style="display: none;">
+                                    <i class="fas fa-magic me-1"></i>Buat Undangan
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-heading text-gradient" id="previewModalLabel">Demo Template</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="templatePreviewContent">
+                    <!-- Template preview will be loaded here -->
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Memuat pratinjau template...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="useTemplateFromModal">Gunakan Template Ini</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <div class="success-icon mb-4">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Undangan Berhasil Dibuat!</h4>
+                <p class="text-muted mb-4">Undangan pernikahan Anda telah siap dan dapat dibagikan kepada tamu</p>
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for('wedding_invitations') }}'">
+                        Lihat Undangan Saya
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --info-color: #3b82f6;
+    --pink-color: #ec4899;
+    --blue-color: #3b82f6;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-pink { color: var(--pink-color) !important; }
+.text-blue { color: var(--blue-color) !important; }
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e5e7eb;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    max-width: 120px;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step.completed .step-number {
+    background: var(--success-color);
+    color: white;
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    font-weight: 500;
+}
+
+.step.active .step-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Form Styling */
+.card {
+    border: none !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.step-content {
+    display: none;
+    padding: 3rem;
+    min-height: 600px;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.step-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.step-header h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-section {
+    background: #f8fafc;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.section-title h5,
+.section-title h6 {
+    margin: 0;
+    color: #374151;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-label.required::after {
+    content: ' *';
+    color: var(--danger-color);
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-control.is-invalid, .form-control.is-valid,
+.form-select.is-invalid, .form-select.is-valid {
+    border-color: #dc3545;
+    padding-right: calc(0.75rem + 1.5px);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-width='2' d='M5.8 3.6h.4v2.5h-.4v-2.5zm.4 5.3a.45.45 0 1 1 0-.9.45.45 0 0 1 0 .9z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.375rem) center;
+    background-size: calc(0.75em + 0.75rem) calc(0.75em + 0.75rem);
+}
+
+.form-select.is-invalid, .form-select.is-valid {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-width='2' d='M5.8 3.6h.4v2.5h-.4v-2.5zm.4 5.3a.45.45 0 1 1 0-.9.45.45 0 0 1 0 .9z'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' viewBox='0 0 24 24'%3e%3cpath d='M8 10l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right calc(0.375em + 0.375rem) center, center right 0.75rem;
+    background-size: calc(0.75em + 0.75rem) calc(0.75em + 0.75rem), calc(0.75em + 0.75rem) calc(0.75em + 0.75rem);
+}
+
+.form-control.is-valid,
+.form-select.is-valid {
+    border-color: #198754;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23198754'%3e%3cpath d='M4.5 8.5L2 6l-.7.7 3.2 3.2c.4.4.9.4 1.3 0L10 4.5.7 2.7 4.5 8.5z'/%3e%3c/svg%3e");
+}
+
+.form-select.is-valid {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23198754'%3e%3cpath d='M4.5 8.5L2 6l-.7.7 3.2 3.2c.4.4.9.4 1.3 0L10 4.5.7 2.7 4.5 8.5z'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' viewBox='0 0 24 24'%3e%3cpath d='M8 10l4 4 4-4'/%3e%3c/svg%3e");
+}
+
+/* Event Type Selection */
+.event-type-option {
+    margin-bottom: 1rem;
+}
+
+.card-option {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-option:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(99, 102, 241, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input:checked + .card-option {
+    border-color: var(--primary-color);
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+.option-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.1);
+    margin-right: 1rem;
+}
+
+.option-icon i {
+    font-size: 1.5rem;
+}
+
+.option-content h6 {
+    color: #374151;
+    margin-bottom: 0.25rem;
+}
+
+.option-content p {
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Family Event Cards */
+.family-event-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 100%;
+}
+
+/* Template Selection */
+.template-radio {
+    display: none;
+}
+
+.template-card {
+    display: block;
+    border: 3px solid #e5e7eb;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    height: 100%;
+}
+
+.template-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: var(--primary-color);
+}
+
+.template-radio:checked + .template-card {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.template-preview {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.template-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.premium-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.template-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(99, 102, 241, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.template-card:hover .template-overlay {
+    opacity: 1;
+}
+
+.template-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn.btn-sm.btn-light {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
+}
+
+.btn.btn-sm.btn-light:hover {
+    background-color: white;
+    border-color: white;
+}
+
+.template-info {
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.template-features .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Upload Areas */
+.upload-area {
+    border: 3px dashed #d1d5db;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--primary-color);
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+.upload-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Photo Grid */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.photo-upload-item {
+    position: relative;
+    aspect-ratio: 1;
+    border: 2px dashed #d1d5db;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.photo-upload-item:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+}
+
+.photo-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1rem;
+}
+
+.photo-preview {
+    position: relative;
+    height: 100%;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-settings {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.orientation-selector {
+    margin-bottom: 8px;
+}
+
+.orientation-selector .form-label {
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.orientation-selector .form-select {
+    font-size: 0.8rem;
+}
+
+.orientation-selector .form-select.is-invalid {
+    border-color: #dc3545;
+}
+
+.orientation-selector .form-select.is-valid {
+    border-color: #198754;
+}
+
+.photo-upload-item .is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.photo-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem;
+}
+
+/* Navigation */
+.form-navigation {
+    background: #f8fafc;
+    padding: 2rem 3rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: #5856eb;
+    border-color: #5856eb;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-success:hover {
+    background: #059669;
+    border-color: #059669;
+    transform: translateY(-2px);
+}
+
+.step-indicator {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+/* Support Info */
+.support-info .alert {
+    border: none;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    border-left: 4px solid var(--info-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .step-content {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+
+    .form-navigation {
+        padding: 1.5rem;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .progress-steps {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .step {
+        flex: none;
+        min-width: 80px;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .template-preview {
+        height: 150px;
+    }
+
+    .form-section {
+        padding: 1.5rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success Animation */
+.success-icon {
+    animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(.97, .97, .97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+</style>
+
+<script>
+// Initialize tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
+// Form validation
+document.getElementById('weddingForm').addEventListener('submit', function(event) {
+    var form = this;
+    var isValid = true;
+
+    // Check required fields - informasi mempelai yang wajib
+    var requiredFields = [
+        'bride_name', 'bride_father', 'bride_mother',
+        'groom_name', 'groom_father', 'groom_mother'
+    ];
+
+    // Venue address is no longer required for any event type
+
+    requiredFields.forEach(function(fieldName) {
+        var field = form.querySelector('[name="' + fieldName + '"]');
+        if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            field.classList.remove('is-invalid');
+            field.classList.add('is-valid');
+        }
+    });
+
+    if (!isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Show error alert
+        var errorAlert = document.createElement('div');
+        errorAlert.className = 'alert alert-danger alert-dismissible fade show';
+        errorAlert.innerHTML = `
+            <strong>Error!</strong> Mohon lengkapi semua field yang wajib diisi.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        var container = document.querySelector('.container');
+        container.insertBefore(errorAlert, container.firstChild);
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+
+    form.classList.add('was-validated');
+});
+
+// Real-time validation
+document.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(field) {
+    field.addEventListener('blur', function() {
+        if (this.value.trim()) {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+        } else {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        }
+    });
+});
+
+// Functions from original script (kept for completeness)
+document.addEventListener('DOMContentLoaded', function() {
+    let currentStepIndex = 0;
+    const totalSteps = 5;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const currentStepSpan = document.getElementById('currentStep');
+    const useTemplateFromModalButton = document.getElementById('useTemplateFromModal');
+    let selectedTemplateIdForModal = null;
+
+    // Event type selection handling
+    const eventTypeRadios = document.querySelectorAll('input[name="event_type"]');
+    const singleEventSection = document.getElementById('singleEventSection');
+    const separateEventsSection = document.getElementById('separateEventsSection');
+
+    eventTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'single') {
+                singleEventSection.classList.remove('d-none');
+                separateEventsSection.classList.add('d-none');
+            } else {
+                singleEventSection.classList.add('d-none');
+                separateEventsSection.classList.remove('d-none');
+            }
+        });
+    });
+
+    // Step Navigation
+    function showStep(stepIndex) {
+        // Hide all steps
+        document.querySelectorAll('.step-content').forEach(step => {
+            step.classList.remove('active');
+        });
+
+        // Show current step
+        document.getElementById(`step-${stepIndex + 1}`).classList.add('active');
+
+        // Update progress
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.classList.remove('active', 'completed');
+            if (index === stepIndex) {
+                step.classList.add('active');
+            } else if (index < stepIndex) {
+                step.classList.add('completed');
+            }
+        });
+
+        // Update navigation buttons
+        prevBtn.style.display = stepIndex === 0 ? 'none' : 'inline-flex';
+        nextBtn.style.display = stepIndex === totalSteps - 1 ? 'none' : 'inline-flex';
+        submitBtn.style.display = stepIndex === totalSteps - 1 ? 'inline-flex' : 'none';
+
+        // Update step indicator
+        currentStepSpan.textContent = stepIndex + 1;
+
+        // Smooth scroll to top
+        document.querySelector('.step-content.active').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+
+    function validateStep(stepIndex) {
+        const stepElement = document.getElementById(`step-${stepIndex + 1}`);
+        const requiredFields = stepElement.querySelectorAll('[required]');
+
+        for (let field of requiredFields) {
+            if (!field.value.trim()) {
+                field.focus();
+                showAlert('Mohon lengkapi semua field yang wajib diisi!', 'warning');
+                return false;
+            }
+        }
+
+        // Additional validation for step 1 (template selection)
+        if (stepIndex === 0) {
+            const selectedTemplate = document.querySelector('input[name="template_id"]:checked');
+            if (!selectedTemplate) {
+                showAlert('Silakan pilih template terlebih dahulu!', 'warning');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Navigation events
+    nextBtn.addEventListener('click', function() {
+        if (validateStep(currentStepIndex)) {
+            if (currentStepIndex < totalSteps - 1) {
+                currentStepIndex++;
+                showStep(currentStepIndex);
+            }
+        }
+    });
+
+    prevBtn.addEventListener('click', function() {
+        if (currentStepIndex > 0) {
+            currentStepIndex--;
+            showStep(currentStepIndex);
+        }
+    });
+
+    // Photo upload with auto-resize
+    function handlePhotoUpload(input, index) {
+        const file = input.files[0];
+        const container = input.closest('.photo-upload-item');
+        const placeholder = container.querySelector('.photo-placeholder');
+        const preview = container.querySelector('.photo-preview');
+        const progress = container.querySelector('.photo-progress');
+
+        console.log(`Processing photo ${index}:`, file?.name, file?.size, 'bytes');
+
+        if (file) {
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File terlalu besar! Maksimal 5MB per foto.');
+                input.value = '';
+                return;
+            }
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('File harus berupa gambar (JPG, PNG, etc.)');
+                input.value = '';
+                return;
+            }
+
+            // Show progress
+            placeholder.classList.add('d-none');
+            progress.classList.remove('d-none');
+
+            // Simulate processing time
+            let progressValue = 0;
+            const progressBar = progress.querySelector('.progress-bar');
+            const progressInterval = setInterval(() => {
+                progressValue += Math.random() * 25 + 10;
+                if (progressValue >= 100) {
+                    progressValue = 100;
+                    clearInterval(progressInterval);
+
+                    // Hide progress, show preview
+                    setTimeout(() => {
+                        progress.classList.add('d-none');
+                        showImagePreview(file, preview);
+                        console.log(`Photo ${index} preview ready`);
+                    }, 300);
+                }
+                progressBar.style.width = progressValue + '%';
+            }, 150);
+        }
+    }
+
+    function showImagePreview(file, previewContainer) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = previewContainer.querySelector('.preview-image');
+            const orientationSelect = previewContainer.querySelector('select[name^="photo_orientation_"]');
+            
+            img.src = e.target.result;
+            previewContainer.classList.remove('d-none');
+            
+            // Auto-suggest orientation when image loads
+            img.onload = function() {
+                if (orientationSelect) {
+                    suggestOrientation(this, orientationSelect);
+                }
+            };
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function resizeImage(file, maxWidth, maxHeight, quality = 0.8) {
+        return new Promise((resolve) => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = function() {
+                // Calculate new dimensions
+                let { width, height } = img;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = (width * maxHeight) / height;
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                // Draw and compress
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob(resolve, 'image/jpeg', quality);
+            };
+
+            img.src = URL.createObjectURL(file);
+        });
+    }
+
+    // Setup photo upload listeners
+    document.querySelectorAll('.photo-input').forEach((input, index) => {
+        input.addEventListener('change', function() {
+            console.log(`Photo ${index} selected:`, this.files[0]?.name);
+            handlePhotoUpload(this, index);
+        });
+    });
+
+    // Remove photo functionality
+    document.querySelectorAll('.remove-photo').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const container = this.closest('.photo-upload-item');
+            const input = container.querySelector('.photo-input');
+            const placeholder = container.querySelector('.photo-placeholder');
+            const preview = container.querySelector('.photo-preview');
+            const orientationSelect = container.querySelector('select[name^="photo_orientation_"]');
+
+            console.log('Removing photo from container:', container.dataset.index);
+            input.value = '';
+            if (orientationSelect) orientationSelect.value = '';
+            preview.classList.add('d-none');
+            placeholder.classList.remove('d-none');
+        });
+    });
+
+    // Auto-suggest orientation based on image dimensions
+    function suggestOrientation(img, selectElement) {
+        try {
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
+            const suggestedOrientation = height > width ? 'portrait' : 'landscape';
+            
+            // Set suggested value but don't force it
+            selectElement.value = suggestedOrientation;
+            
+            // Add visual indicator
+            const option = selectElement.querySelector(`option[value="${suggestedOrientation}"]`);
+            if (option) {
+                option.textContent = option.textContent.replace(' (Disarankan)', '') + ' (Disarankan)';
+            }
+            
+            console.log(`Suggested orientation: ${suggestedOrientation} (${width}x${height})`);
+        } catch (error) {
+            console.log('Could not determine image dimensions:', error);
+        }
+    }
+
+    // Music option handling
+    document.querySelectorAll('input[name="music_option"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const defaultSection = document.getElementById('defaultMusicSection');
+            const customSection = document.getElementById('customMusicSection');
+
+            // Hide all sections first
+            defaultSection.classList.add('d-none');
+            customSection.classList.add('d-none');
+
+            // Show relevant section
+            if (this.value === 'default') {
+                defaultSection.classList.remove('d-none');
+            } else if (this.value === 'custom') {
+                customSection.classList.remove('d-none');
+            }
+        });
+    });
+
+    // Music upload with preview
+    document.getElementById('musicUpload').addEventListener('change', function() {
+        const file = this.files[0];
+        const uploadArea = this.closest('.upload-area');
+        const uploadContent = uploadArea.querySelector('.upload-content');
+        const uploadSuccess = uploadArea.querySelector('.upload-success');
+        const uploadProgress = uploadArea.querySelector('.upload-progress');
+
+        if (file) {
+            // Validate file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File terlalu besar! Maksimal 10MB.');
+                this.value = '';
+                return;
+            }
+
+            // Validate file type
+            const validTypes = ['audio/mpeg', 'audio/wav', 'audio/mp4', 'audio/m4a'];
+            if (!validTypes.includes(file.type)) {
+                alert('Format file tidak didukung! Gunakan MP3, WAV, atau M4A.');
+                this.value = '';
+                return;
+            }
+
+            // Show progress
+            uploadContent.classList.add('d-none');
+            uploadProgress.classList.remove('d-none');
+
+            // Simulate upload progress
+            let progress = 0;
+            const progressBar = uploadProgress.querySelector('.progress-bar');
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+
+                    // Show success with preview
+                    setTimeout(() => {
+                        uploadProgress.classList.add('d-none');
+                        uploadSuccess.classList.remove('d-none');
+
+                        // Create audio preview
+                        const audio = uploadSuccess.querySelector('audio source');
+                        const audioUrl = URL.createObjectURL(file);
+                        audio.src = audioUrl;
+                        uploadSuccess.querySelector('audio').load();
+
+                        // Update success message
+                        uploadSuccess.querySelector('.text-success').textContent = file.name;
+                    }, 500);
+                }
+                progressBar.style.width = progress + '%';
+            }, 100);
+        }
+    });
+
+    // QRIS upload
+    document.querySelector('input[name="qris_code"]').addEventListener('change', function() {
+        const file = this.files[0];
+        const uploadArea = this.closest('.upload-area');
+        const uploadContent = uploadArea.querySelector('.upload-content');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadContent.innerHTML = `
+                    <img src="${e.target.result}" class="img-fluid rounded mb-2" style="max-height: 120px;">
+                    <p class="text-success fw-bold mb-1">QR Code berhasil diupload!</p>
+                    <p class="small text-muted">${file.name}</p>
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Template preview function
+    window.previewTemplate = function(templateId, templateName) {
+        document.getElementById('previewModalLabel').textContent = `Demo: ${templateName}`;
+        document.getElementById('templatePreviewContent').innerHTML = `
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3">Memuat pratinjau template...</p>
+            </div>
+        `;
+        
+        // Load actual template preview
+        const previewUrl = `/wedding/preview-template/${templateId}`;
+        fetch(previewUrl)
+            .then(response => response.text())
+            .then(html => {
+                // Create iframe for better isolation
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '600px';
+                iframe.style.border = 'none';
+                iframe.style.borderRadius = '8px';
+                iframe.srcdoc = html;
+                
+                document.getElementById('templatePreviewContent').innerHTML = '';
+                document.getElementById('templatePreviewContent').appendChild(iframe);
+            })
+            .catch(error => {
+                console.error('Error loading template preview:', error);
+                document.getElementById('templatePreviewContent').innerHTML = `
+                    <div class="text-center py-5">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Gagal memuat preview template. Silakan coba lagi.
+                        </div>
+                    </div>
+                `;
+            });
+        
+        selectedTemplateIdForModal = templateId; // Store the selected template ID
+    };
+
+    // Handle "Use Template" from modal
+    useTemplateFromModalButton.addEventListener('click', function() {
+        if (selectedTemplateIdForModal !== null) {
+            selectAndContinue(selectedTemplateIdForModal);
+            bootstrap.Modal.getInstance(document.getElementById('previewModal')).hide();
+        }
+    });
+
+    // Function to select template and proceed
+    window.selectAndContinue = function(templateId) {
+        document.getElementById(`template_${templateId}`).checked = true;
+        if (validateStep(currentStepIndex)) {
+            if (currentStepIndex < totalSteps - 1) {
+                currentStepIndex++;
+                showStep(currentStepIndex);
+            }
+        }
+    };
+
+    // Form submission
+    document.getElementById('weddingForm').addEventListener('submit', function(e) {
+        // Don't prevent default - let form submit normally
+        // e.preventDefault();
+
+        // Validate all required fields before submitting
+        const requiredFields = [
+            'bride_name', 'bride_father', 'bride_mother',
+            'groom_name', 'groom_father', 'groom_mother'
+        ];
+
+        // Check venue requirements based on event type
+        const eventType = document.querySelector('input[name="event_type"]:checked').value;
+        if (eventType === 'single') {
+            requiredFields.push('venue_address');
+        }
+
+        let isValid = true;
+        requiredFields.forEach(function(fieldName) {
+            const field = document.querySelector('[name="' + fieldName + '"]');
+            if (!field || !field.value.trim()) {
+                if (field) {
+                    field.classList.add('is-invalid');
+                    field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                isValid = false;
+            } else {
+                field.classList.remove('is-invalid');
+                field.classList.add('is-valid');
+            }
+        });
+
+        // Validate photo orientations
+        const uploadedPhotos = document.querySelectorAll('.photo-preview:not(.d-none)');
+        let photoValidationErrors = [];
+        
+        uploadedPhotos.forEach((photoPreview, index) => {
+            const orientationSelect = photoPreview.querySelector('select[name^="photo_orientation_"]');
+            if (orientationSelect && !orientationSelect.value) {
+                orientationSelect.classList.add('is-invalid');
+                const photoNumber = orientationSelect.name.match(/\d+/)[0];
+                photoValidationErrors.push(`Foto ${parseInt(photoNumber) + 1}`);
+                isValid = false;
+            } else if (orientationSelect) {
+                orientationSelect.classList.remove('is-invalid');
+            }
+        });
+
+        if (photoValidationErrors.length > 0) {
+            showAlert(`Pilih orientasi untuk: ${photoValidationErrors.join(', ')}`, 'warning');
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+            showAlert('Mohon lengkapi semua field yang wajib diisi!', 'danger');
+            return false;
+        }
+
+        // Show loading state
+        const submitButton = document.getElementById('submitBtn');
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<span class="loading me-2"></span>Membuat Undangan...';
+        submitButton.disabled = true;
+
+        // Let the form submit naturally
+        return true;
+    });
+
+    // Drag and drop for upload areas
+    document.querySelectorAll('.upload-area').forEach(area => {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            area.addEventListener(eventName, preventDefaults, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            area.addEventListener(eventName, () => area.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            area.addEventListener(eventName, () => area.classList.remove('dragover'), false);
+        });
+
+        area.addEventListener('drop', handleDrop, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function handleDrop(e) {
+        const files = e.dataTransfer.files;
+        const input = this.querySelector('input[type="file"]');
+
+        if (files.length > 0) {
+            input.files = files;
+            input.dispatchEvent(new Event('change'));
+        }
+    }
+
+    // Utility function for showing alerts
+    function showAlert(message, type = 'info') {
+        // Create alert element
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        document.body.appendChild(alertDiv);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
+        }, 5000);
+    }
+
+    // Initialize first step
+    showStep(0);
+});
+</script>
+{% endblock %}

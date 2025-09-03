@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}Undangan Pernikahan Digital - Fajar Mandiri Store{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+            <i class="fas fa-heart me-3"></i>Undangan Pernikahan Digital
+        </h1>
+        <p class="lead text-muted">Kelola semua undangan pernikahan digital Anda dengan mudah</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-plus me-2"></i>Buat Undangan Baru
+            </a>
+            <a href="{{ url_for('my_guest_messages') }}" class="btn btn-success btn-lg me-3">
+                <i class="fas fa-comments me-2"></i>Pesan Tamu
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>Kembali ke Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Invitations List -->
+    {% if invitations %}
+        <div class="row">
+            {% for invitation in invitations %}
+            <div class="col-lg-6 col-xl-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-gradient-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-heart me-2"></i>{{ invitation.couple_name }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="invitation-info mb-3">
+                            <p class="mb-2">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                <strong>Tanggal:</strong> {{ invitation.wedding_date or 'Belum diatur' }}
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-clock text-primary me-2"></i>
+                                <strong>Waktu:</strong> {{ invitation.wedding_time or 'Belum diatur' }}
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <strong>Lokasi:</strong> {{ invitation.venue_name or 'Belum diatur' }}
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <strong>Alamat:</strong> {{ invitation.venue_address }}
+                            </p>
+                        </div>
+
+                        <div class="invitation-status mb-3">
+                            {% if invitation.is_active %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Aktif
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-pause-circle me-1"></i>Nonaktif
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{{ url_for('view_wedding_invitation', link=invitation.invitation_link) }}" 
+                                   class="btn btn-sm btn-primary" target="_blank">
+                                    <i class="fas fa-eye me-1"></i>Lihat
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                                        type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#" onclick="copyInvitationLink('{{ invitation.invitation_link }}')">
+                                            <i class="fas fa-copy me-2"></i>Salin Link
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        {% if invitation.is_active %}
+                                            <a class="dropdown-item text-warning" href="#" onclick="toggleStatus('{{ invitation.id }}')">
+                                                <i class="fas fa-pause me-2"></i>Nonaktifkan
+                                            </a>
+                                        {% else %}
+                                            <a class="dropdown-item text-success" href="#" onclick="toggleStatus('{{ invitation.id }}')">
+                                                <i class="fas fa-play me-2"></i>Aktifkan
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="empty-state py-5">
+                    <i class="fas fa-heart fa-4x text-muted mb-3"></i>
+                    <h4 class="text-muted mb-3">Belum Ada Undangan</h4>
+                    <p class="text-muted mb-4">
+                        Anda belum membuat undangan pernikahan digital. 
+                        Mulai dengan membuat undangan pertama Anda sekarang!
+                    </p>
+                    <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus me-2"></i>Buat Undangan Pertama
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Copy Link Modal -->
+<div class="modal fade" id="copyLinkModal" tabindex="-1" aria-labelledby="copyLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="copyLinkModalLabel">Link Undangan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="invitationLinkInput" readonly>
+                    <button class="btn btn-primary" type="button" onclick="copyToClipboard()">
+                        <i class="fas fa-copy me-1"></i>Salin
+                    </button>
+                </div>
+                <small class="text-muted mt-2 d-block">
+                    Bagikan link ini kepada tamu undangan Anda
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.empty-state {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.invitation-info p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-group .btn {
+    border-radius: 0.375rem;
+}
+
+.btn-group .btn:not(:last-child) {
+    margin-right: 0.25rem;
+}
+</style>
+
+<script>
+function copyInvitationLink(link) {
+    const fullLink = window.location.origin + '/wedding/' + link;
+    document.getElementById('invitationLinkInput').value = fullLink;
+
+    const modal = new bootstrap.Modal(document.getElementById('copyLinkModal'));
+    modal.show();
+}
+
+function copyToClipboard() {
+    const input = document.getElementById('invitationLinkInput');
+    input.select();
+    input.setSelectionRange(0, 99999);
+
+    try {
+        document.execCommand('copy');
+
+        // Show success feedback
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check me-1"></i>Tersalin!';
+        button.classList.remove('btn-primary');
+        button.classList.add('btn-success');
+
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-primary');
+        }, 2000);
+
+    } catch (err) {
+        alert('Gagal menyalin link. Silakan salin manual.');
+    }
+}
+
+function toggleStatus(invitationId) {
+    if (confirm('Apakah Anda yakin ingin mengubah status undangan ini?')) {
+        // Implement status toggle functionality
+        location.reload();
+    }
+}
+</script>
+{% endblock %}
