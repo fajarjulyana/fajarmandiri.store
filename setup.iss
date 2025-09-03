@@ -11,7 +11,7 @@
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
 
 [Setup]
-AppId={{3E01FCF5-7C2B-4605-8867-0FE3A1012BF1}
+AppId={{31EE52EC-F7EE-4253-AAC0-13AC12A96B8D}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -112,87 +112,3 @@ Type: filesandordirs; Name: "{userdocs}\FajarMandiriStore"
 ; FajarMandiri Store v1.7.5 Inno Setup Script
 ; Enhanced DataTables Integration & Performance Release
 
-[Setup]
-AppId={{7B8F9A2C-3D4E-5F6A-8B9C-1E2F3A4B5C6D}
-AppName=Fajar Mandiri Store
-AppVersion=1.7.5
-AppVerName=Fajar Mandiri Store v1.7.5
-AppPublisher=Fajar Julyana
-AppPublisherURL=https://fajarmandiri.store
-AppSupportURL=https://fajarmandiri.store/support
-AppUpdatesURL=https://fajarmandiri.store/updates
-DefaultDirName={autopf}\FajarMandiriStore
-DisableProgramGroupPage=yes
-LicenseFile=LICENSE
-InfoBeforeFile=README.md
-OutputDir=dist
-OutputBaseFilename=FajarMandiriStore-Setup-v1.7.5
-SetupIconFile=icon.ico
-Compression=lzma
-SolidCompression=yes
-WizardStyle=modern
-PrivilegesRequired=admin
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
-
-[Languages]
-Name: "indonesian"; MessagesFile: "compiler:Languages\Indonesian.isl"
-Name: "english"; MessagesFile: "compiler:Default.isl"
-
-[Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
-
-[Files]
-Source: "dist\FajarMandiriStore-v1.7.5.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "templates\*"; DestDir: "{app}\templates"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "static\*"; DestDir: "{app}\static"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "config\*"; DestDir: "{app}\config"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "fajarmandiri.db"; DestDir: "{app}"; Flags: ignoreversion
-Source: "icon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion
-Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
-
-[Icons]
-Name: "{autoprograms}\Fajar Mandiri Store"; Filename: "{app}\FajarMandiriStore-v1.7.5.exe"; IconFilename: "{app}\icon.ico"
-Name: "{autodesktop}\Fajar Mandiri Store"; Filename: "{app}\FajarMandiriStore-v1.7.5.exe"; IconFilename: "{app}\icon.ico"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\Fajar Mandiri Store"; Filename: "{app}\FajarMandiriStore-v1.7.5.exe"; IconFilename: "{app}\icon.ico"; Tasks: quicklaunchicon
-
-[Run]
-Filename: "{app}\FajarMandiriStore-v1.7.5.exe"; Description: "{cm:LaunchProgram,Fajar Mandiri Store}"; Flags: nowait postinstall skipifsilent
-
-[CustomMessages]
-indonesian.WelcomeLabel2=Selamat datang di wizard instalasi [name/ver].%n%nWizard ini akan memandu Anda untuk menginstall Fajar Mandiri Store v1.7.5 dengan fitur DataTables enhancement dan performance improvements.%n%nDisarankan untuk menutup semua aplikasi lain sebelum melanjutkan.
-english.WelcomeLabel2=Welcome to the [name/ver] Setup Wizard.%n%nThis wizard will guide you through the installation of Fajar Mandiri Store v1.7.5 with enhanced DataTables integration and performance improvements.%n%nIt is recommended that you close all other applications before continuing.
-
-[Code]
-function InitializeSetup(): Boolean;
-begin
-  Result := True;
-  MsgBox('Fajar Mandiri Store v1.7.5' + #13#10 + 
-         'Enhanced DataTables Integration & Performance Release' + #13#10 + #13#10 +
-         'New Features:' + #13#10 +
-         '• DataTables integration completely fixed' + #13#10 +
-         '• jQuery compatibility 100% working' + #13#10 +
-         '• Admin panel performance improved 35%' + #13#10 +
-         '• Mobile admin interface optimized' + #13#10 +
-         '• Enhanced error handling system' + #13#10 + #13#10 +
-         'Developer: Fajar Julyana' + #13#10 +
-         'Contact: +6281804411937', mbInformation, MB_OK);
-end;
-
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-  if CurStep = ssPostInstall then
-  begin
-    // Copy templates to Documents folder
-    if FileExists(ExpandConstant('{app}\copy_templates_to_documents.py')) then
-    begin
-      Exec(ExpandConstant('{app}\FajarMandiriStore-v1.7.5.exe'), '--setup-templates', ExpandConstant('{app}'), SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    end;
-  end;
-end;
-
-[UninstallDelete]
-Type: filesandordirs; Name: "{userappdata}\FajarMandiriStore"
-Type: filesandordirs; Name: "{userdocs}\FajarMandiriStore"
