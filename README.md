@@ -28,21 +28,21 @@ Berikut adalah dokumentasi visual lengkap dari aplikasi Fajar Mandiri Store yang
 
 ```
 screenshots/
-├── 01-homepage.png
-├── 02-registration.png
-├── 03-user-dashboard.png
-├── 04-template-gallery.png
-├── 05-wedding-form.png
-├── 06-photo-upload.png
-├── 07-wedding-preview.png
-├── 08-published-wedding.png
-├── 09-cv-generator.png
-├── 10-cv-templates.png
-├── 11-chat-widget.png
-├── 12-admin-dashboard.png
-├── 13-print-service.png
-├── 14-mobile-view.png
-└── 15-desktop-app.png
+├── 01-homepage.JPG
+├── 02-registration.JPG
+├── 03-user-dashboard.JPG
+├── 04-template-gallery.JPG
+├── 05-wedding-form.JPG
+├── 06-photo-upload.JPG
+├── 07-wedding-preview.JPG
+├── 08-published-wedding.JPG
+├── 09-cv-generator.JPG
+├── 10-cv-templates.JPG
+├── 11-chat-widget.JPG
+├── 12-admin-dashboard.JPG
+├── 13-print-service.JPG
+├── 14-mobile-view.JPG
+└── 15-desktop-app.JPG
 ```
 
 ## 📱 Kategorisasi Screenshot
