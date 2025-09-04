@@ -31,12 +31,6 @@
         </div>
     {% endif %}
 
-    {% if invitation.background_music %}
-    <audio id="backgroundMusic" loop autoplay>
-        <source src="{{ url_for('serve_documents_music', filename=invitation.background_music) }}" type="audio/mpeg">
-    </audio>
-    {% endif %}
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
