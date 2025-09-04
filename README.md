@@ -1,6 +1,132 @@
-
-
 # 🌸 Fajar Mandiri Store - Sistem Manajemen Undangan & CV
+
+# 📸 Dokumentasi Screenshot - Fajar Mandiri Store v1.7.5
+
+## 🖼️ Galeri Screenshot Aplikasi
+
+Berikut adalah dokumentasi visual lengkap dari aplikasi Fajar Mandiri Store yang menampilkan berbagai fitur dan antarmuka pengguna.
+
+| No | Nama Screenshot | Screenshot | Deskripsi | Fitur yang Ditampilkan | Status |
+|----|----------------|------------|-----------|----------------------|--------|
+| 1 | **Halaman Utama** | ![Screenshot Halaman Utama](screenshots/01-homepage.JPG) | Tampilan halaman utama dengan hero section dan navigasi utama | Landing page, Hero banner, Menu navigasi, Tombol masuk/daftar | ✅ Stabil |
+| 2 | **Pendaftaran Pengguna** | ![Screenshot Pendaftaran](screenshots/02-registration.JPG) | Form pendaftaran akun pengguna baru dengan validasi | Form registrasi, Validasi input, Integrasi Google OAuth | ✅ Stabil |
+| 3 | **Dashboard Pengguna** | ![Screenshot Dashboard](screenshots/03-user-dashboard.JPG) | Dashboard utama setelah login dengan menu layanan | Profil pengguna, Menu layanan, Aksi cepat, Dropdown profil | ✅ Stabil |
+| 4 | **Galeri Template** | ![Screenshot Template Gallery](screenshots/04-template-gallery.JPG) | Koleksi template undangan pernikahan yang tersedia | 18+ template, Mode preview, Kategori template, Filter pencarian | ✅ Stabil |
+| 5 | **Form Input Undangan** | ![Screenshot Wedding Form](screenshots/05-wedding-form.JPG) | Form input data mempelai dan detail acara pernikahan | Data mempelai, Multi-venue, Pemilih tanggal, Upload foto | ✅ Stabil |
+| 6 | **Upload Foto Prewedding** | ![Screenshot Photo Upload](screenshots/06-photo-upload.JPG) | Interface upload foto prewedding dengan preview | Drag & drop, Multiple upload, Preview gambar, Crop otomatis | ✅ Stabil |
+| 7 | **Preview Undangan** | ![Screenshot Wedding Preview](screenshots/07-wedding-preview.JPG) | Preview undangan sebelum dipublikasikan | Live preview, Responsive mobile, Rendering template | ✅ Stabil |
+| 8 | **Undangan Terpublikasi** | ![Screenshot Published Wedding](screenshots/08-published-wedding.JPG) | Tampilan undangan yang sudah dipublikasikan | Tampilan publik, Tombol share, QR code, RSVP form | ✅ Stabil |
+| 9 | **Generator CV** | ![Screenshot CV Generator](screenshots/09-cv-generator.JPG) | Antarmuka pembuat CV profesional | Pemilihan template, Form input, Preview CV | ⚠️ Dalam Pengembangan |
+| 10 | **Template CV** | ![Screenshot CV Templates](screenshots/10-cv-templates.JPG) | Pilihan template CV yang tersedia | Variasi template, Spesifik industri, Mode preview | ⚠️ Terbatas |
+| 11 | **Widget Chat** | ![Screenshot Chat Widget](screenshots/11-chat-widget.JPG) | Widget chat mengambang dengan pesan real-time | Chat mengambang, Pesan real-time, Chat admin | ✅ Berfungsi |
+| 12 | **Dashboard Admin** | ![Screenshot Admin Dashboard](screenshots/12-admin-dashboard.JPG) | Panel admin untuk manajemen sistem | Manajemen pengguna, Manajemen template, Analitik | ✅ Stabil |
+| 13 | **Layanan Cetak** | ![Screenshot Print Service](screenshots/13-print-service.JPG) | Antarmuka layanan cetak dokumen | Kategori layanan, Daftar harga, Form pesanan | ✅ Stabil |
+| 14 | **Tampilan Mobile** | ![Screenshot Mobile View](screenshots/14-mobile-view.JPG) | Tampilan aplikasi di perangkat mobile | Navigasi mobile, Touch-friendly, Desain responsif | ✅ Dioptimalkan |
+| 15 | **Aplikasi Desktop** | ![Screenshot Desktop App](screenshots/15-desktop-app.JPG) | Aplikasi Windows dengan system tray | Aplikasi desktop, Ikon system tray, Auto-start | ✅ Siap Windows |
+
+## 📂 Struktur Folder Screenshot
+
+```
+screenshots/
+├── 01-homepage.png
+├── 02-registration.png
+├── 03-user-dashboard.png
+├── 04-template-gallery.png
+├── 05-wedding-form.png
+├── 06-photo-upload.png
+├── 07-wedding-preview.png
+├── 08-published-wedding.png
+├── 09-cv-generator.png
+├── 10-cv-templates.png
+├── 11-chat-widget.png
+├── 12-admin-dashboard.png
+├── 13-print-service.png
+├── 14-mobile-view.png
+└── 15-desktop-app.png
+```
+
+## 📱 Kategorisasi Screenshot
+
+### 🎨 **Antarmuka Pengguna & Navigasi** (Screenshot 1-3)
+- Menampilkan halaman utama, pendaftaran, dan dashboard
+- Fitur: Hero section, menu navigasi, profil pengguna, integrasi Google OAuth
+- Status: ✅ Berfungsi penuh dengan perbaikan dropdown profil (v1.7.0)
+
+### 💒 **Sistem Undangan Pernikahan** (Screenshot 4-8)
+- Proses lengkap pembuatan undangan pernikahan
+- Fitur: Galeri template, form input, upload foto, preview, dan publikasi
+- Status: ✅ Sistem stabil dengan 18+ template dan desain responsif
+
+### 📄 **Generator CV (Beta)** (Screenshot 9-10)
+- Antarmuka CV generator yang masih dalam pengembangan
+- Fitur: Pemilihan template dan form input (terbatas)
+- Status: ⚠️ Dalam pengembangan - pembuatan thumbnail masih bermasalah
+
+### 💬 **Sistem Chat (BARU v1.5)** (Screenshot 11)
+- Widget chat mengambang dengan pesan real-time
+- Fitur: Dukungan multi-pengguna, penyimpanan persisten, dashboard admin
+- Status: ✅ Berfungsi dengan Flask-SocketIO, scroll diperbaiki v1.6.0
+
+### 🛠️ **Admin & Layanan** (Screenshot 12-13)
+- Panel admin dan layanan cetak terintegrasi
+- Fitur: Manajemen pengguna, manajemen template, layanan cetak
+- Status: ✅ Tools admin ditingkatkan dengan perbaikan keamanan
+
+### 📱 **Dukungan Multi-Platform** (Screenshot 14-15)
+- Mobile responsif dan aplikasi desktop Windows
+- Fitur: PWA-ready, installer Windows, integrasi system tray
+- Status: ✅ Multi-platform dengan dukungan Linux (v1.5)
+
+## 🔧 Detail Teknis Screenshot
+
+### 📊 **Informasi Versi**
+- **Versi Saat Ini**: v1.7.5 (2025)
+- **Tanggal Screenshot**: Screenshot terbaru dari build produksi
+- **Cakupan Platform**: Windows, Linux, Cloud (Replit), Mobile Web
+- **Resolusi**: Screenshot resolusi tinggi untuk dokumentasi
+
+### 🎯 **Fitur Utama yang Ditampilkan**
+- ✅ **Chat Real-time**: Sistem pesan bertenaga Flask-SocketIO
+- ✅ **Template Engine**: 18+ template undangan pernikahan
+- ✅ **Desain Responsif**: Pendekatan mobile-first dengan Bootstrap 5
+- ✅ **Google OAuth**: Integrasi autentikasi yang mulus
+- ✅ **Manajemen File**: Penyimpanan lokal di folder Documents
+- ⚠️ **Generator CV**: Fungsionalitas terbatas, dalam pengembangan
+- ✅ **Layanan Cetak**: Sistem manajemen pesanan terintegrasi
+
+## 📝 Panduan Screenshot
+
+### 🎨 **Konsistensi Desain**
+- **Skema Warna**: Bootstrap 5 dengan tema kustom
+- **Tipografi**: Ikon FontAwesome 6, font responsif
+- **Layout**: Desain responsif mobile-first
+- **Branding**: Interface bermerek Fajar Mandiri Store
+
+### 📐 **Spesifikasi Teknis**
+- **Resolusi**: 1920x1080 desktop, 375x812 mobile
+- **Format**: PNG dengan kompresi teroptimasi
+- **Browser**: Chrome/Edge untuk rendering konsisten
+- **Aksesibilitas**: Interface sesuai WCAG 2.1
+
+### 📝 **Cara Menambah Screenshot**
+1. Ambil screenshot dengan resolusi yang sesuai
+2. Simpan dengan nama file sesuai nomor urut (contoh: `01-homepage.png`)
+3. Upload ke folder `screenshots/`
+4. Pastikan kualitas gambar dan visibility fitur yang jelas
+5. Update deskripsi jika diperlukan
+
+---
+
+**📸 Dokumentasi Screenshot v1.7.5**  
+*Dokumentasi visual lengkap untuk Fajar Mandiri Store*
+
+**🎯 Status**: Siap Produksi dengan beberapa fitur dalam pengembangan  
+**📱 Platform**: Windows, Linux, Cloud, Mobile Web  
+**🔄 Terakhir Diperbarui**: Januari 2025  
+
+[![📸 Screenshots](https://img.shields.io/badge/Screenshots-15%20Tersedia-blue?style=for-the-badge)](https://fajarmandiri.store)
+[![🎨 UI/UX](https://img.shields.io/badge/UI%2FUX-Responsif-green?style=for-the-badge)](https://fajarmandiri.store)
+[![📱 Mobile](https://img.shields.io/badge/Mobile-Dioptimalkan-orange?style=for-the-badge)](https://fajarmandiri.store)
 
 **Platform digital terpercaya untuk membuat undangan pernikahan dan CV profesional dengan sistem manajemen pesanan cetak terintegrasi dan chat realtime.**
 ## 🪟 **Instalasi Windows Installer**
