@@ -1,0 +1,229 @@
+
+{% extends "base.html" %}
+
+{% block title %}Kelola Template Wedding - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Kelola Template Wedding</h1>
+                <div class="btn-group">
+                    <a href="{{ url_for('download_base_template') }}" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>Download Base Template
+                    </a>
+                    <a href="{{ url_for('admin_theme_guide') }}" class="btn btn-info" target="_blank">
+                        <i class="fas fa-book me-2"></i>Development Guide
+                    </a>
+                    <a href="{{ url_for('generate_all_thumbnails') }}" class="btn btn-warning" 
+                       onclick="return confirm('Generate thumbnails untuk semua template? Proses ini mungkin memakan waktu.')">
+                        <i class="fas fa-magic me-2"></i>Generate All Thumbnails
+                    </a>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTemplateModal">
+                        <i class="fas fa-plus me-2"></i>Tambah Template
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates Grid -->
+    <div class="row">
+        {% for template in templates %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-img-top position-relative" style="height: 200px; overflow: hidden;">
+                    {% if template.preview_image %}
+                        <img src="/thumbnails/wedding_templates/{{ template.preview_image }}" 
+                            class="w-100 h-100" style="object-fit: cover;" alt="{{ template.name }}">
+                    {% else %}
+                        <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                    {% endif %}
+                    {% if template.is_premium %}
+                        <span class="badge bg-warning position-absolute top-0 end-0 m-2">Premium</span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ template.name }}</h5>
+                    <p class="card-text text-muted small">{{ template.description }}</p>
+                    <div class="mb-2">
+                        <span class="badge bg-secondary">{{ template.category }}</span>
+                        <span class="badge bg-info">{{ template.color_scheme }}</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{{ url_for('admin_demo_template', template_id=template.id) }}" 
+                       target="_blank" class="btn btn-sm btn-primary">
+                        <i class="fas fa-eye me-1"></i>Demo
+                    </a>
+                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" 
+                            data-bs-target="#updateThumbnailModal{{ template.id }}">
+                        <i class="fas fa-image me-1"></i>Update Thumbnail
+                    </button>
+                    <a href="{{ url_for('generate_template_thumbnail', template_id=template.id) }}" 
+                       class="btn btn-sm btn-outline-warning"
+                       onclick="return confirm('Generate thumbnail otomatis untuk template ini?')">
+                        <i class="fas fa-magic me-1"></i>Auto Generate
+                    </a>
+                    <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i>Hapus
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Thumbnail Modal -->
+        <div class="modal fade" id="updateThumbnailModal{{ template.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Thumbnail - {{ template.name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <input type="hidden" name="action" value="update_thumbnail">
+                            <input type="hidden" name="template_id" value="{{ template.id }}">
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Thumbnail Saat Ini</label>
+                                <div class="text-center mb-3">
+                                    {% if template.preview_image %}
+                                        <img src="/thumbnails/wedding_templates/{{ template.preview_image }}" 
+                                             class="img-thumbnail" style="max-height: 150px;" alt="Current thumbnail">
+                                    {% else %}
+                                        <div class="bg-light p-4 rounded">
+                                            <i class="fas fa-image fa-3x text-muted"></i>
+                                            <p class="text-muted mt-2">Belum ada thumbnail</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="preview_image{{ template.id }}" class="form-label">Upload Thumbnail Baru</label>
+                                <input type="file" class="form-control" id="preview_image{{ template.id }}" 
+                                       name="preview_image" accept="image/*" required>
+                                <div class="form-text">Format: JPG, PNG, GIF. Ukuran maksimal: 2MB</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Update Thumbnail</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Add Template Modal -->
+<div class="modal fade" id="addTemplateModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Template Wedding</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="add">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nama Template</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Kategori</label>
+                                <select class="form-select" name="category" required>
+                                    <option value="elegant">Elegant</option>
+                                    <option value="modern">Modern</option>
+                                    <option value="luxury">Luxury</option>
+                                    <option value="floral">Floral</option>
+                                    <option value="beach">Beach</option>
+                                    <option value="vintage">Vintage</option>
+                                    <option value="anime">Anime</option>
+                                    <option value="rustic">Rustic</option>
+                                    <option value="artdeco">Art Deco</option>
+                                    <option value="botanical">Botanical</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Color Scheme</label>
+                                <input type="text" class="form-control" name="color_scheme" 
+                                       placeholder="gold-black, blue-white, etc">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Animations</label>
+                                <input type="text" class="form-control" name="animations" 
+                                       placeholder="fadeIn,slideUp">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Ornaments</label>
+                        <input type="text" class="form-control" name="ornaments" 
+                               placeholder="gold_leaves, flower_ornaments, etc">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Template File</label>
+                                <input type="file" class="form-control" name="template_file" accept=".html">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Thumbnail</label>
+                                <input type="file" class="form-control" name="preview_image" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Background Music</label>
+                                <input type="file" class="form-control" name="background_music" accept="audio/*">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_premium" id="is_premium">
+                            <label class="form-check-label" for="is_premium">
+                                Template Premium
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah Template</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Kelola Undangan - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Kelola Undangan Pernikahan</h1>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Semua Undangan Pernikahan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Nama Pasangan</th>
+                            <th>Tanggal Pernikahan</th>
+                            <th>Venue</th>
+                            <th>Link</th>
+                            <th>Jumlah Tamu</th>
+                            <th>Status</th>
+                            <th style="min-width: 200px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invitation in invitations %}
+                        <tr>
+                            <td>{{ invitation.id }}</td>
+                            <td>{{ invitation.user_name }}</td>
+                            <td>{{ invitation.couple_name }}</td>
+                            <td>{{ invitation.wedding_date }}</td>
+                            <td>{{ invitation.venue_name }}</td>
+                            <td>
+                                <a href="{{ url_for('view_wedding_invitation', link=invitation.invitation_link) }}" 
+                                   class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </td>
+                            <td>{{ invitation.guest_count or 0 }}</td>
+                            <td>
+                                <span class="badge bg-{% if invitation.is_active %}success{% else %}secondary{% endif %}">
+                                    {% if invitation.is_active %}Aktif{% else %}Nonaktif{% endif %}
+                                </span>
+                            </td>
+                            <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('view_wedding_invitation', link=invitation.invitation_link) }}" 
+                                               class="btn btn-sm btn-outline-primary" target="_blank">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                            <a href="{{ url_for('admin_edit_invitation', invitation_id=invitation.id) }}" 
+                                               class="btn btn-sm btn-outline-warning">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="{{ url_for('admin_toggle_invitation', invitation_id=invitation.id) }}" 
+                                               class="btn btn-sm btn-outline-{% if invitation.is_active %}secondary{% else %}success{% endif %}">
+                                                {% if invitation.is_active %}
+                                                    <i class="fas fa-pause"></i> Disable
+                                                {% else %}
+                                                    <i class="fas fa-play"></i> Enable
+                                                {% endif %}
+                                            </a>
+                                            <a href="{{ url_for('admin_delete_invitation', invitation_id=invitation.id) }}" 
+                                               class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('Yakin ingin menghapus undangan {{ invitation.couple_name }}?')">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">Belum ada undangan</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

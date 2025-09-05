@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Kelola Pesanan - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-clipboard-list me-2"></i>Kelola Pesanan Cetak
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>WhatsApp</th>
+                                    <th>Jenis Cetakan</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.user_name or 'Guest' }}</td>
+                                    <td>{{ order.nama }}</td>
+                                    <td>{{ order.email }}</td>
+                                    <td>{{ order.whatsapp }}</td>
+                                    <td>{{ order.jenis_cetakan }}</td>
+                                    <td>{{ order.jumlah }}</td>
+                                    <td>
+                                        <span class="badge bg-{% if order.status == 'Completed' %}success{% elif order.status == 'Processing' %}warning{% else %}secondary{% endif %}">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ order.created_at[:10] }}</td>
+                                    <td>
+                                        <form method="POST" action="{{ url_for('update_order_status') }}" class="d-inline">
+                                            <input type="hidden" name="order_id" value="{{ order.id }}">
+                                            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                                <option value="Pending" {% if order.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                                <option value="Processing" {% if order.status == 'Processing' %}selected{% endif %}>Processing</option>
+                                                <option value="Completed" {% if order.status == 'Completed' %}selected{% endif %}>Completed</option>
+                                                <option value="Cancelled" {% if order.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                                            </select>
+                                        </form>
+                                        <a href="{{ url_for('view_order', order_id=order.id) }}" class="btn btn-sm btn-info mt-1">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        {% if order.file_path %}
+                                        <a href="{{ url_for('download_file', order_id=order.id) }}" class="btn btn-sm btn-success mt-1">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Belum ada pesanan</h5>
+                        <p class="text-muted">Pesanan akan muncul di sini ketika customer membuat pesanan.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
