@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Theme Development Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .variable-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .theme-preview {
+            border: 2px solid #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="text-center mb-5">🎨 Wedding Theme Development Guide</h1>
+                
+                <!-- Introduction -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">📋 Introduction</h2>
+                        <p>This guide will help you create custom wedding invitation themes using our base template. The template is designed to be highly customizable while maintaining consistency and responsive design.</p>
+                    </div>
+                </div>
+
+                <!-- Getting Started -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🚀 Getting Started</h2>
+                        <ol>
+                            <li>Download the <code>base_template.html</code> file</li>
+                            <li>Copy it to create your custom theme</li>
+                            <li>Rename the file (e.g., <code>romantic_theme.html</code>)</li>
+                            <li>Start customizing the CSS variables</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- CSS Variables -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🎨 CSS Variables Customization</h2>
+                        <p>The base template uses CSS custom properties for easy theming. Here are the main variables you can customize:</p>
+                        
+                        <div class="variable-list">
+                            <h5>Color Variables:</h5>
+                            <ul>
+                                <li><code>--primary-color</code> - Main accent color</li>
+                                <li><code>--secondary-color</code> - Secondary accent color</li>
+                                <li><code>--accent-color</code> - Background accent color</li>
+                                <li><code>--text-dark</code> - Dark text color</li>
+                                <li><code>--text-light</code> - Light text color</li>
+                            </ul>
+                            
+                            <h5>Typography Variables:</h5>
+                            <ul>
+                                <li><code>--font-primary</code> - Body font</li>
+                                <li><code>--font-script</code> - Script/decorative font</li>
+                                <li><code>--font-serif</code> - Serif font</li>
+                            </ul>
+                            
+                            <h5>Layout Variables:</h5>
+                            <ul>
+                                <li><code>--section-padding</code> - Section spacing</li>
+                                <li><code>--card-radius</code> - Card border radius</li>
+                                <li><code>--button-radius</code> - Button border radius</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Examples -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🌈 Theme Examples</h2>
+                        
+                        <div class="theme-preview">
+                            <h5>Romantic Pink Theme</h5>
+<pre class="code-block"><code>:root {
+    --primary-color: #ff69b4;
+    --secondary-color: #ff1493;
+    --accent-color: #fff0f5;
+    --theme-light: #ffb6c1;
+    --theme-dark: #c71585;
+}</code></pre>
+                        </div>
+
+                        <div class="theme-preview">
+                            <h5>Ocean Blue Theme</h5>
+<pre class="code-block"><code>:root {
+    --primary-color: #20b2aa;
+    --secondary-color: #4682b4;
+    --accent-color: #f0f8ff;
+    --theme-light: #87ceeb;
+    --theme-dark: #2f4f4f;
+}</code></pre>
+                        </div>
+
+                        <div class="theme-preview">
+                            <h5>Vintage Brown Theme</h5>
+<pre class="code-block"><code>:root {
+    --primary-color: #8b4513;
+    --secondary-color: #a0522d;
+    --accent-color: #faf0e6;
+    --theme-light: #deb887;
+    --theme-dark: #654321;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animations -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">✨ Custom Animations</h2>
+                        <p>You can customize the floating elements and animations:</p>
+                        
+<pre class="code-block"><code>// Change floating elements
+const floatingElements = ['🌸', '🌺', '🌻', '🌹', '💐'];
+
+// Add custom animation
+@keyframes customFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Background Customization -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🖼️ Background Customization</h2>
+                        <p>Customize section backgrounds:</p>
+                        
+<pre class="code-block"><code>/* Hero Section with Custom Background */
+.hero-section {
+    background: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)),
+        url('path-to-your-image.jpg') center/cover;
+}
+
+/* Gradient Backgrounds */
+.custom-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Component Customization -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🧩 Component Customization</h2>
+                        <p>Customize individual components:</p>
+                        
+<pre class="code-block"><code>/* Custom Countdown Style */
+.countdown-item {
+    background: linear-gradient(145deg, #your-color1, #your-color2);
+    box-shadow: 0 10px 25px rgba(your-color, 0.3);
+}
+
+/* Custom Button Style */
+.btn-primary {
+    background: linear-gradient(45deg, #your-color1, #your-color2);
+    border: none;
+    box-shadow: 0 4px 15px rgba(your-color, 0.4);
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Mobile Responsiveness -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">📱 Mobile Responsiveness</h2>
+                        <p>The template includes responsive design. Add custom mobile styles:</p>
+                        
+<pre class="code-block"><code>@media (max-width: 768px) {
+    :root {
+        --section-padding: 40px;
+        --ornament-size: 2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .countdown-container {
+        gap: 10px;
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Best Practices -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">💡 Best Practices</h2>
+                        <ul>
+                            <li><strong>Color Contrast:</strong> Ensure good contrast between text and background</li>
+                            <li><strong>Performance:</strong> Optimize images and minimize custom CSS</li>
+                            <li><strong>Accessibility:</strong> Test with screen readers and keyboard navigation</li>
+                            <li><strong>Cross-browser:</strong> Test on multiple browsers</li>
+                            <li><strong>Mobile-first:</strong> Design for mobile devices first</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Testing -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🧪 Testing Your Theme</h2>
+                        <ol>
+                            <li>Create a test wedding invitation with sample data</li>
+                            <li>Test on different screen sizes</li>
+                            <li>Check all animations and interactions</li>
+                            <li>Verify form functionality</li>
+                            <li>Test background music integration</li>
+                            <li>Test RSVP form submission</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Deployment -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h4">🚀 Theme Deployment</h2>
+                        <p>To deploy your custom theme:</p>
+                        <ol>
+                            <li>Save your theme HTML file in the appropriate directory</li>
+                            <li>Add theme preview image to <code>/static/images/wedding_templates/</code></li>
+                            <li>Update the database with theme information</li>
+                            <li>Test thoroughly before making it available to users</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h4">🆘 Support & Resources</h2>
+                        <p>Additional resources for theme development:</p>
+                        <ul>
+                            <li><strong>Google Fonts:</strong> <a href="https://fonts.google.com" target="_blank">fonts.google.com</a></li>
+                            <li><strong>Color Palettes:</strong> <a href="https://coolors.co" target="_blank">coolors.co</a></li>
+                            <li><strong>CSS Animations:</strong> <a href="https://animate.style" target="_blank">animate.style</a></li>
+                            <li><strong>Icons:</strong> <a href="https://fontawesome.com" target="_blank">fontawesome.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
