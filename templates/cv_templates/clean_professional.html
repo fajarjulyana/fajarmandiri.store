@@ -1,0 +1,295 @@
+<!-- Clean Professional CV Template - Like Kristi Laar -->
+<style>
+    .cv-clean-container {
+        max-width: 210mm;
+        min-height: 297mm;
+        margin: 2rem auto;
+        background: white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        padding: 3rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .cv-header-clean {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .cv-photo-clean {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1.5rem auto;
+        display: block;
+        border: 3px solid #3b82f6;
+    }
+    
+    .cv-name-clean {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .cv-profession-clean {
+        font-size: 1.2rem;
+        color: #3b82f6;
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .cv-contact-clean {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+    
+    .cv-contact-item-clean {
+        display: flex;
+        align-items: center;
+    }
+    
+    .cv-contact-item-clean i {
+        color: #3b82f6;
+        margin-right: 0.5rem;
+        width: 16px;
+    }
+    
+    .cv-section-clean {
+        margin-bottom: 2.5rem;
+    }
+    
+    .cv-section-title-clean {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3b82f6;
+    }
+    
+    .cv-summary-clean {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #4b5563;
+        text-align: justify;
+        margin-bottom: 0;
+    }
+    
+    .cv-experience-clean {
+        display: grid;
+        gap: 1.5rem;
+    }
+    
+    .cv-experience-item-clean {
+        padding: 1.5rem;
+        background: #f8fafc;
+        border-radius: 8px;
+        border-left: 4px solid #3b82f6;
+    }
+    
+    .cv-job-header-clean {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .cv-job-info-clean h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 0.3rem 0;
+    }
+    
+    .cv-job-info-clean p {
+        font-size: 0.95rem;
+        color: #3b82f6;
+        margin: 0;
+        font-weight: 500;
+    }
+    
+    .cv-period-clean {
+        font-size: 0.85rem;
+        color: #6b7280;
+        background: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        border: 1px solid #d1d5db;
+    }
+    
+    .cv-description-clean {
+        font-size: 0.9rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    .cv-education-clean {
+        display: grid;
+        gap: 1rem;
+    }
+    
+    .cv-education-item-clean {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .cv-education-info-clean h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 0.3rem 0;
+    }
+    
+    .cv-education-info-clean p {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin: 0;
+    }
+    
+    .cv-year-clean {
+        font-size: 0.85rem;
+        color: #3b82f6;
+        font-weight: 500;
+        background: #eff6ff;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+    }
+    
+    .cv-skills-clean {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.8rem;
+    }
+    
+    .cv-skill-clean {
+        text-align: center;
+        padding: 0.8rem;
+        background: #eff6ff;
+        color: #3b82f6;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        border: 1px solid #dbeafe;
+    }
+    
+    @media print {
+        .cv-clean-container {
+            box-shadow: none;
+            margin: 0;
+        }
+    }
+</style>
+
+<div class="cv-clean-container">
+    <!-- Header -->
+    <div class="cv-header-clean">
+        {% if cv_data.foto %}
+        <img src="data:image/jpeg;base64,{{ cv_data.foto }}" alt="Profile Photo" class="cv-photo-clean">
+        {% endif %}
+        
+        <h1 class="cv-name-clean">{{ cv_data.nama }}</h1>
+        <h2 class="cv-profession-clean">{{ cv_data.profesi }}</h2>
+        
+        <div class="cv-contact-clean">
+            {% if cv_data.email %}
+            <div class="cv-contact-item-clean">
+                <i class="fas fa-envelope"></i>
+                {{ cv_data.email }}
+            </div>
+            {% endif %}
+            {% if cv_data.telepon %}
+            <div class="cv-contact-item-clean">
+                <i class="fas fa-phone"></i>
+                {{ cv_data.telepon }}
+            </div>
+            {% endif %}
+            {% if cv_data.alamat %}
+            <div class="cv-contact-item-clean">
+                <i class="fas fa-map-marker-alt"></i>
+                {{ cv_data.alamat }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Professional Summary -->
+    {% if cv_data.ringkasan %}
+    <div class="cv-section-clean">
+        <h3 class="cv-section-title-clean">About Me</h3>
+        <p class="cv-summary-clean">{{ cv_data.ringkasan }}</p>
+    </div>
+    {% endif %}
+    
+    <!-- Work Experience -->
+    {% if cv_data.pengalaman %}
+    <div class="cv-section-clean">
+        <h3 class="cv-section-title-clean">Experience</h3>
+        <div class="cv-experience-clean">
+            {% for exp in cv_data.pengalaman %}
+            <div class="cv-experience-item-clean">
+                <div class="cv-job-header-clean">
+                    <div class="cv-job-info-clean">
+                        <h4>{{ exp.posisi }}</h4>
+                        <p>{{ exp.perusahaan }}</p>
+                    </div>
+                    <div class="cv-period-clean">{{ exp.periode }}</div>
+                </div>
+                {% if exp.deskripsi %}
+                <p class="cv-description-clean">{{ exp.deskripsi }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Education -->
+    {% if cv_data.pendidikan %}
+    <div class="cv-section-clean">
+        <h3 class="cv-section-title-clean">Education</h3>
+        <div class="cv-education-clean">
+            {% for edu in cv_data.pendidikan %}
+            <div class="cv-education-item-clean">
+                <div class="cv-education-info-clean">
+                    <h4>{{ edu.jurusan }}</h4>
+                    <p>{{ edu.institusi }}</p>
+                </div>
+                <div class="cv-year-clean">{{ edu.tahun }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Skills -->
+    {% if cv_data.keahlian %}
+    <div class="cv-section-clean">
+        <h3 class="cv-section-title-clean">Skills</h3>
+        <div class="cv-skills-clean">
+            {% for skill in cv_data.keahlian %}
+            <div class="cv-skill-clean">{{ skill }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
