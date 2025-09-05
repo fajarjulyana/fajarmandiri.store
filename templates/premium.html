@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Premium Subscription - Fajar Mandiri Store{% endblock %}
+
+{% block extra_css %}
+<style>
+    .pricing-card {
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .pricing-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .pricing-card.recommended {
+        border-color: var(--primary);
+        position: relative;
+    }
+    
+    .recommended-badge {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .price-amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    
+    .price-period {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .feature-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f1f3f4;
+    }
+    
+    .feature-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .discount-badge {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+            <i class="fas fa-crown me-3"></i>Premium Subscription
+        </h1>
+        <p class="lead text-muted">Akses premium dengan semua template wedding dan CV seumur hidup</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Single Premium Plan -->
+        <div class="col-lg-6 col-md-8 mb-4">
+            <div class="card pricing-card recommended">
+                <div class="recommended-badge">
+                    <i class="fas fa-star me-1"></i>Terbaik untuk Semua
+                </div>
+                <div class="card-body text-center p-5">
+                    <h4 class="card-title fw-bold mb-3">Akses Premium</h4>
+                    <div class="mb-4">
+                        <span class="price-amount">Rp 35.000</span>
+                        <span class="price-period">/seumur hidup</span>
+                    </div>
+                    
+                    <ul class="list-unstyled feature-list mb-4">
+                        <li><i class="fas fa-check text-success me-2"></i><strong>5 Undangan Wedding</strong> (Lifetime)</li>
+                        <li><i class="fas fa-check text-success me-2"></i><strong>10 Template CV</strong> (Unlimited)</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Semua template premium</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Download tanpa watermark</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Support prioritas</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Update template terbaru</li>
+                    </ul>
+                    
+                    <form method="POST" action="{{ url_for('create_payment') }}">
+                        <input type="hidden" name="subscription_type" value="premium">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-credit-card me-2"></i>Aktifkan Premium Sekarang
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body text-center p-5">
+                    <h3 class="fw-bold mb-3">Mengapa Pilih Premium?</h3>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                            <h5>Akses Semua Template</h5>
+                            <p class="text-muted">Akses ke semua template premium dan fitur terbaru</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                            <h5>Support Prioritas</h5>
+                            <p class="text-muted">Dapatkan bantuan cepat dari tim support kami</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <i class="fas fa-infinity fa-3x text-success mb-3"></i>
+                            <h5>Berlangganan Seumur Hidup</h5>
+                            <p class="text-muted">Sekali bayar, semua template premium selamanya</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-warning mb-3"></i>
+                            <h5>Kualitas Terjamin</h5>
+                            <p class="text-muted">Template berkualitas tinggi dan selalu update</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bagian beli template individual dihapus karena sudah tidak tersedia -->
+</div>
+{% endblock %}

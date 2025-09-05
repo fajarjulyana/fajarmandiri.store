@@ -1,0 +1,9 @@
+
+User-agent: *
+Allow: /
+Allow: /wedding/*
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /documents/*
+
+Sitemap: /sitemap.xml
