@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Dancing+Script:wght@400;500;600;700&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 30%, #D2B48C 70%, #F5DEB3 100%);
+            min-height: 100vh;
+            color: #3E2723;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Wood texture overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23654321' stroke-width='1' opacity='0.1'%3E%3Cpath d='M0,20 Q10,10 20,20 T40,20'/%3E%3C/g%3E%3C/svg%3E"),
+                radial-gradient(circle at 30% 40%, rgba(139, 69, 19, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(160, 82, 45, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Floating leaves */
+        .nature-leaves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .leaf-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #228B22, #32CD32, #9ACD32);
+            border-radius: 0 100% 0 100%;
+            animation: leaf-fall 12s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes leaf-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .invitation-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(245, 222, 179, 0.9);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(139, 69, 19, 0.3);
+            border: 3px solid rgba(139, 69, 19, 0.2);
+        }
+
+        /* Cover Page */
+        .cover-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 30%, #D2B48C 70%, #F5DEB3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            color: #3E2723;
+        }
+
+        .cover-content {
+            max-width: 400px;
+            padding: 2.5rem;
+            background: rgba(245, 222, 179, 0.95);
+            border: 4px solid rgba(139, 69, 19, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.4);
+            position: relative;
+        }
+
+        .cover-content::before {
+            content: "🌿";
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 1.5rem;
+        }
+
+        .cover-content::after {
+            content: "🌿";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+        }
+
+        .couple-initials {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
+        }
+
+        .couple-initials .fas {
+            font-size: 2rem;
+            animation: nature-pulse 2s ease-in-out infinite;
+            color: #228B22;
+        }
+
+        @keyframes nature-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .couple-names-cover {
+            font-family: 'Caveat', cursive;
+            font-size: 2.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
+            color: #8B4513;
+        }
+
+        .wedding-date-cover {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            color: #5D4037;
+        }
+
+        .open-invitation-btn {
+            background: rgba(139, 69, 19, 0.8);
+            border: 2px solid #8B4513;
+            color: #F5DEB3;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .open-invitation-btn:hover {
+            background: #8B4513;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(139, 69, 19, 0.1), rgba(210, 180, 140, 0.2));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .rustic-frame {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            right: 20px;
+            bottom: 40px;
+            border: 4px solid rgba(139, 69, 19, 0.6);
+            border-radius: 15px;
+            background: rgba(245, 222, 179, 0.1);
+        }
+
+        .wood-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 50%;
+        }
+
+        .corner-tl { top: -15px; left: -15px; }
+        .corner-tr { top: -15px; right: -15px; }
+        .corner-bl { bottom: -15px; left: -15px; }
+        .corner-br { bottom: -15px; right: -15px; }
+
+        .wood-corner::before {
+            content: "🌸";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .wedding-title {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .couple-names {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #3E2723;
+            margin: 20px 0;
+            line-height: 0.9;
+            text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
+        }
+
+        .wedding-date-hero {
+            font-size: 1rem;
+            color: #5D4037;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+
+        /* Content sections */
+        .content-section {
+            padding: 50px 25px;
+            background: rgba(245, 222, 179, 0.9);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #3E2723;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: "🌿";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .section-title::before {
+            left: -40px;
+        }
+
+        .section-title::after {
+            right: -40px;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #8B4513, transparent);
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+
+        .person-card {
+            text-align: center;
+            padding: 35px 20px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .person-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .person-name {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #3E2723;
+            margin-bottom: 15px;
+        }
+
+        .person-title {
+            font-size: 0.9rem;
+            color: #8B4513;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .parents-info {
+            font-size: 1rem;
+            color: #5D4037;
+            line-height: 1.8;
+        }
+
+        /* Events Section */
+        .events-section {
+            background: rgba(139, 69, 19, 0.1);
+            color: #3E2723;
+            padding: 50px 25px;
+            text-align: center;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.9);
+            color: #3E2723;
+            padding: 40px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .event-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+        }
+
+        .event-time {
+            font-size: 1.3rem;
+            color: #5D4037;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .venue-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #3E2723;
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            font-size: 1rem;
+            color: #5D4037;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .maps-btn {
+            background: #8B4513;
+            color: #F5DEB3;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 5px;
+        }
+
+        .maps-btn:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+            color: #F5DEB3;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            padding: 50px 25px;
+            background: rgba(245, 222, 179, 0.8);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+            transition: transform 0.3s ease;
+            border: 3px solid rgba(139, 69, 19, 0.3);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        /* Form Elements */
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Merriweather', serif;
+            background: rgba(255, 255, 255, 0.9);
+            color: #3E2723;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8B4513;
+        }
+
+        .submit-btn {
+            background: #8B4513;
+            color: #F5DEB3;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+            background: #A0522D;
+        }
+
+        /* Gift Section */
+        .gift-section {
+            padding: 50px 25px;
+            background: rgba(210, 180, 140, 0.3);
+            text-align: center;
+        }
+
+        .gift-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .gift-card h4 {
+            color: #3E2723;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .account-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3E2723;
+            background: rgba(245, 222, 179, 0.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid rgba(139, 69, 19, 0.3);
+        }
+
+        /* Countdown */
+        .countdown-section {
+            background: rgba(139, 69, 19, 0.1);
+            padding: 50px 25px;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            min-width: 80px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+        }
+
+        .countdown-number {
+            color: #8B4513;
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            display: block;
+            font-weight: 600;
+        }
+
+        .countdown-label {
+            color: #5D4037;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
+
+        /* Floating Music Button */
+        .floating-music {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F5DEB3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        .floating-music:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        .floating-music.playing {
+            animation: nature-bounce 2s infinite;
+        }
+
+        @keyframes nature-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .invitation-container {
+                max-width: 100%;
+            }
+            
+            .couple-names {
+                font-size: 3rem;
+            }
+            
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nature Leaves Animation -->
+    <div class="nature-leaves" id="natureLeaves"></div>
+
+    <!-- Cover Page -->
+    <div class="cover-page" id="coverPage">
+        <div class="cover-content">
+            <div class="couple-initials">
+                <span>{{ invitation.bride_name[0] }}</span>
+                <i class="fas fa-leaf"></i>
+                <span>{{ invitation.groom_name[0] }}</span>
+            </div>
+            <div class="couple-names-cover">{{ invitation.bride_name }} & {{ invitation.groom_name }}</div>
+            <div class="wedding-date-cover">{{ invitation.wedding_date }}</div>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-tree"></i> Nature Rustic
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Invitation -->
+    <div class="invitation-container" id="mainInvitation" style="display: none;">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="rustic-frame">
+                <div class="wood-corner corner-tl"></div>
+                <div class="wood-corner corner-tr"></div>
+                <div class="wood-corner corner-bl"></div>
+                <div class="wood-corner corner-br"></div>
+            </div>
+            <div class="wedding-title">Nature Rustic Wedding</div>
+            <div class="couple-names">{{ invitation.bride_name }} & {{ invitation.groom_name }}</div>
+            <div class="wedding-date-hero">{{ invitation.wedding_date }}</div>
+        </section>
+
+        <!-- Couple Details -->
+        <section class="content-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">The Nature Couple</h2>
+            
+            <div class="person-card">
+                <div class="person-name">{{ invitation.bride_name }}</div>
+                <div class="person-title">Daughter of</div>
+                <div class="parents-info">
+                    {{ invitation.bride_father }}<br>
+                    & {{ invitation.bride_mother }}
+                </div>
+            </div>
+            
+            <div class="person-card">
+                <div class="person-name">{{ invitation.groom_name }}</div>
+                <div class="person-title">Son of</div>
+                <div class="parents-info">
+                    {{ invitation.groom_father }}<br>
+                    & {{ invitation.groom_mother }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="events-section">
+            <h2 class="section-title">Wedding Events</h2>
+            
+            <div class="event-card">
+                <div class="event-title">Sacred Union</div>
+                <div class="event-time">{{ invitation.akad_time }}</div>
+                <div class="venue-name">{{ invitation.akad_venue }}</div>
+                <div class="venue-address">{{ invitation.akad_address }}</div>
+                <a href="{{ invitation.akad_maps }}" target="_blank" class="maps-btn">
+                    <i class="fas fa-map-marker-alt"></i> View Location
+                </a>
+            </div>
+
+            <div class="event-card">
+                <div class="event-title">Celebration</div>
+                <div class="event-time">{{ invitation.reception_time }}</div>
+                <div class="venue-name">{{ invitation.reception_venue }}</div>
+                <div class="venue-address">{{ invitation.reception_address }}</div>
+                <a href="{{ invitation.reception_maps }}" target="_blank" class="maps-btn">
+                    <i class="fas fa-map-marker-alt"></i> View Location
+                </a>
+            </div>
+        </section>
+
+        <!-- Countdown -->
+        <section class="countdown-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Countdown</h2>
+            <div class="countdown-timer" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Our Memories</h2>
+            <div class="gallery-grid">
+                {% for photo in invitation.photos %}
+                <div class="gallery-item">
+                    <img src="{{ photo.url }}" alt="Wedding Photo {{ loop.index }}">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="content-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">RSVP</h2>
+            <form class="rsvp-form" onsubmit="submitRSVP(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Attendance</label>
+                    <select class="form-input" name="attendance" required>
+                        <option value="">Choose option</option>
+                        <option value="attending">Will Attend</option>
+                        <option value="not-attending">Cannot Attend</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Guests</label>
+                    <select class="form-input" name="guests">
+                        <option value="1">1 Person</option>
+                        <option value="2">2 People</option>
+                        <option value="3">3 People</option>
+                        <option value="4">4 People</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message & Wishes</label>
+                    <textarea class="form-input" name="message" rows="4" placeholder="Share your wishes for the couple..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send RSVP</button>
+            </form>
+        </section>
+
+        <!-- Gift -->
+        <section class="gift-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Wedding Gift</h2>
+            <div class="gift-cards">
+                <div class="gift-card">
+                    <h4>{{ invitation.bank_1_name }}</h4>
+                    <div class="account-number">{{ invitation.bank_1_number }}</div>
+                    <p>{{ invitation.bank_1_holder }}</p>
+                </div>
+                {% if invitation.bank_2_name %}
+                <div class="gift-card">
+                    <h4>{{ invitation.bank_2_name }}</h4>
+                    <div class="account-number">{{ invitation.bank_2_number }}</div>
+                    <p>{{ invitation.bank_2_holder }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Closing -->
+        <section class="content-section" style="text-align: center; background: rgba(139, 69, 19, 0.1);">
+            <div class="section-title">Thank You</div>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                We are blessed by your presence<br>
+                in our natural celebration of love.<br>
+                Your love makes our hearts complete.
+            </p>
+            <div style="font-family: 'Caveat', cursive; font-size: 2rem;">
+                {{ invitation.bride_name }} & {{ invitation.groom_name }}
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicBtn" onclick="toggleMusic()" style="display: none;">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" preload="auto" loop>
+        {% if invitation.music_file %}
+        <source src="{{ invitation.music_file }}" type="audio/mpeg">
+        {% endif %}
+    </audio>
+
+    <script>
+        // Create Nature Leaves
+        function createNatureLeaves() {
+            const container = document.getElementById('natureLeaves');
+            const leafCount = 25;
+            
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf-particle';
+                leaf.style.left = Math.random() * 100 + '%';
+                leaf.style.animationDelay = Math.random() * 12 + 's';
+                leaf.style.animationDuration = (Math.random() * 6 + 12) + 's';
+                container.appendChild(leaf);
+            }
+        }
+
+        // Initialize leaves
+        createNatureLeaves();
+
+        // Cover Page Animation
+        function openInvitation() {
+            const coverPage = document.getElementById('coverPage');
+            const mainInvitation = document.getElementById('mainInvitation');
+            const musicBtn = document.getElementById('musicBtn');
+            
+            coverPage.style.opacity = '0';
+            setTimeout(() => {
+                coverPage.style.display = 'none';
+                mainInvitation.style.display = 'block';
+                musicBtn.style.display = 'flex';
+                startCountdown();
+                setTimeout(() => {
+                    playMusic();
+                }, 1000);
+            }, 500);
+        }
+
+        // Music Control
+        let isPlaying = false;
+        const music = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        }
+
+        function playMusic() {
+            if (music.src) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.className = 'fas fa-pause';
+                    musicBtn.classList.add('playing');
+                }).catch(e => {
+                    console.log('Cannot play music:', e);
+                });
+            }
+        }
+
+        function pauseMusic() {
+            music.pause();
+            isPlaying = false;
+            musicIcon.className = 'fas fa-music';
+            musicBtn.classList.remove('playing');
+        }
+
+        // Countdown Timer
+        function startCountdown() {
+            const weddingDate = new Date('{{ invitation.wedding_date_full }}').getTime();
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('countdown').innerHTML = '<div style="font-size: 1.5rem; color: #8B4513;">Our Nature Wedding Has Begun!</div>';
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+                document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // RSVP Form
+        function submitRSVP(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                name: formData.get('name'),
+                attendance: formData.get('attendance'),
+                guests: formData.get('guests'),
+                message: formData.get('message')
+            };
+            
+            alert('Thank you for your RSVP! We look forward to celebrating in nature with you.');
+            event.target.reset();
+        }
+
+        // Scroll Effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.6s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

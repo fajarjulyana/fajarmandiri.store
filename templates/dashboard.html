@@ -1,0 +1,245 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ session.user_name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-gradient text-white" style="background: var(--gradient-primary);">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="fw-bold mb-2">Selamat datang kembali, {{ session.user_name }}!</h2>
+                            <p class="mb-0">Kelola semua layanan digital Anda dalam satu tempat</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            {% if session.user_picture %}
+                                <img src="{{ session.user_picture }}" class="rounded-circle" width="80" height="80" alt="Avatar">
+                            {% else %}
+                                <i class="fas fa-user-circle" style="font-size: 5rem;"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="text-primary mb-3">
+                        <i class="fas fa-shopping-cart fa-2x"></i>
+                    </div>
+                    <h6 class="fw-bold">Buat Pesanan</h6>
+                    <p class="text-muted small mb-3">Print & fotocopy dokumen</p>
+                    <a href="/order" class="btn btn-primary btn-sm">Pesan Sekarang</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="text-success mb-3">
+                        <i class="fas fa-file-alt fa-2x"></i>
+                    </div>
+                    <h6 class="fw-bold">CV Generator</h6>
+                    <p class="text-muted small mb-3">Buat CV profesional</p>
+                    <a href="{{ url_for('cv_generator') }}" class="btn btn-success btn-sm">Buat CV</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="text-danger mb-3">
+                        <i class="fas fa-heart fa-2x"></i>
+                    </div>
+                    <h6 class="fw-bold">Undangan Digital</h6>
+                    <p class="text-muted small mb-3">Undangan pernikahan online</p>
+                    <a href="{{ url_for('wedding_invitations') }}" class="btn btn-danger btn-sm">Buat Undangan</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="text-info mb-3">
+                        <i class="fas fa-list fa-2x"></i>
+                    </div>
+                    <h6 class="fw-bold">Pesanan Saya</h6>
+                    <p class="text-muted small mb-3">Lihat status pesanan</p>
+                    <a href="/my-orders" class="btn btn-info btn-sm">Lihat Pesanan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Orders -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clipboard-list me-2"></i>Pesanan Terbaru
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Jenis</th>
+                                        <th>Status</th>
+                                        <th>Tanggal</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>#{{ order.id }}</td>
+                                        <td>{{ order.jenis_cetakan }}</td>
+                                        <td>
+                                            {% if order.status == 'Pending' %}
+                                                <span class="badge bg-warning">Pending</span>
+                                            {% elif order.status == 'Processing' %}
+                                                <span class="badge bg-info">Processing</span>
+                                            {% elif order.status == 'Completed' %}
+                                                <span class="badge bg-success">Completed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ order.created_at[:10] }}</td>
+                                        <td>
+                                            <a href="/my-orders" class="btn btn-sm btn-outline-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/my-orders" class="btn btn-primary">Lihat Semua Pesanan</a>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <h6 class="text-muted">Belum ada pesanan</h6>
+                            <p class="text-muted small">Mulai dengan membuat pesanan pertama Anda</p>
+                            <a href="/order" class="btn btn-primary">Buat Pesanan</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Wedding Invitations -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-heart me-2"></i>Undangan Saya
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if invitations %}
+                        {% for invitation in invitations %}
+                        <div class="card border-start border-danger border-4 mb-3">
+                            <div class="card-body p-3">
+                                <h6 class="fw-bold mb-1">{{ invitation.couple_name }}</h6>
+                                <p class="text-muted small mb-2">{{ invitation.wedding_date }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-{{ 'success' if invitation.is_active else 'secondary' }}">
+                                        {{ 'Aktif' if invitation.is_active else 'Nonaktif' }}
+                                    </span>
+                                    <a href="{{ url_for('view_wedding_invitation', link=invitation.invitation_link) }}" 
+                                       class="btn btn-sm btn-outline-danger">Lihat</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="text-center">
+                            <a href="{{ url_for('wedding_invitations') }}" class="btn btn-danger">Kelola Undangan</a>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-heart fa-2x text-muted mb-2"></i>
+                            <h6 class="text-muted">Belum ada undangan</h6>
+                            <p class="text-muted small mb-3">Buat undangan pernikahan digital pertama Anda</p>
+                            <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-danger btn-sm">Buat Undangan</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guest Messages Section -->
+    {% if guest_messages %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-comments me-2"></i>Pesan & Doa dari Tamu
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for message in guest_messages %}
+                        <div class="col-lg-6 mb-3">
+                            <div class="card border-start border-primary border-3">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h6 class="fw-bold mb-0">{{ message.name }}</h6>
+                                        <small class="text-muted">{{ message.created_at[:10] }}</small>
+                                    </div>
+                                    <p class="text-muted small mb-2">Undangan: {{ message.couple_name }}</p>
+                                    
+                                    {% if message.attendance %}
+                                    <div class="mb-2">
+                                        <span class="badge bg-{{ 'success' if message.attendance == 'hadir' else 'warning' if message.attendance == 'tidak_hadir' else 'secondary' }}">
+                                            {{ 'Hadir' if message.attendance == 'hadir' else 'Tidak Hadir' if message.attendance == 'tidak_hadir' else 'Belum Konfirmasi' }}
+                                        </span>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.message %}
+                                    <div class="mb-2">
+                                        <strong>Pesan:</strong>
+                                        <p class="small text-dark mb-0">{{ message.message }}</p>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.wishes %}
+                                    <div>
+                                        <strong>Doa & Harapan:</strong>
+                                        <p class="small text-dark mb-0">{{ message.wishes }}</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('my_guest_messages') }}" class="btn btn-primary">Lihat Semua Pesan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

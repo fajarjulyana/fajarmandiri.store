@@ -1,0 +1,21 @@
+>>> Starting Flask...
+>>> Starting Flask...
+2025-09-01 10:54:01,585 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.118.162:5001
+2025-09-01 10:54:01,585 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-09-01 10:54:02,818 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:02] "GET / HTTP/1.1" 200 -
+2025-09-01 10:54:03,600 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:03] "[36mGET /static/images/wedding_templates/1756240663_template_157_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:03,610 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:03] "[36mGET /static/images/wedding_templates/1756240633_template_154_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:03,752 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:03] "[36mGET /static/images/wedding_templates/1756240646_template_155_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:03,867 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:03] "[33mGET /static/images/templates/1756089986_cv_8_thumbnail.jpg HTTP/1.1[0m" 404 -
+2025-09-01 10:54:04,148 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:04] "[33mGET /static/images/templates/1756089986_cv_18_thumbnail.jpg HTTP/1.1[0m" 404 -
+2025-09-01 10:54:04,506 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:04] "[33mGET /static/images/templates/1756089986_cv_28_thumbnail.jpg HTTP/1.1[0m" 404 -
+2025-09-01 10:54:12,530 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:12] "GET / HTTP/1.1" 200 -
+2025-09-01 10:54:13,160 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[36mGET /static/images/wedding_templates/1756240663_template_157_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:13,164 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[36mGET /static/images/wedding_templates/1756240633_template_154_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:13,420 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[36mGET /static/images/wedding_templates/1756240646_template_155_thumbnail.jpg HTTP/1.1[0m" 304 -
+2025-09-01 10:54:13,421 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[33mGET /static/images/templates/1756089986_cv_8_thumbnail.jpg HTTP/1.1[0m" 404 -
+2025-09-01 10:54:13,585 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[33mGET /static/images/templates/1756089986_cv_18_thumbnail.jpg HTTP/1.1[0m" 404 -
+2025-09-01 10:54:13,586 - werkzeug - INFO - 172.31.118.162 - - [01/Sep/2025 10:54:13] "[33mGET /static/images/templates/1756089986_cv_28_thumbnail.jpg HTTP/1.1[0m" 404 -
