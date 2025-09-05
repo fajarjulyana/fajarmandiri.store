@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ invitation.couple_name }} - Wedding Invitation</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        .template-error { text-align:center; padding:3rem; background:#f8f9fa; margin:2rem; border-radius:15px; border:2px solid #dee2e6; }
+        .error-icon { font-size:4rem; color:#e74c3c; margin-bottom:1rem; }
+    </style>
+</head>
+<body>
+    {% if invitation.template_file %}
+        {# pastikan nama file tidak ada prefix "wedding_" #}
+        {% set clean_file = invitation.template_file.replace('wedding_', '') %}
+        {% set template_path = 'wedding_templates/' + clean_file if not clean_file.startswith('wedding_templates/') else clean_file %}
+        {% include template_path ignore missing with context %}
+    {% else %}
+        <div class="template-error">
+            <div class="error-icon">⚠️</div>
+            <h4>Template Tidak Ditemukan</h4>
+            <p>Template untuk undangan ini belum dikonfigurasi.</p>
+        </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

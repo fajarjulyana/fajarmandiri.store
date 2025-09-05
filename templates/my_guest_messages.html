@@ -1,0 +1,184 @@
+
+{% extends "base.html" %}
+
+{% block title %}Pesan & Doa Tamu - Fajar Mandiri Store{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+            <i class="fas fa-comments me-3"></i>Pesan & Doa dari Tamu
+        </h1>
+        <p class="lead text-muted">Lihat semua pesan dan doa yang disampaikan tamu untuk undangan pernikahan Anda</p>
+    </div>
+
+    <!-- Back Button -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Kembali ke Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Invitation Statistics -->
+    {% if invitation_stats %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>Statistik Undangan
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for stat in invitation_stats %}
+                        <div class="col-lg-6 col-xl-4 mb-3">
+                            <div class="card border-start border-primary border-3">
+                                <div class="card-body p-3">
+                                    <h6 class="fw-bold mb-2">{{ stat.couple_name }}</h6>
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <div class="fw-bold text-primary">{{ stat.total_guests or 0 }}</div>
+                                            <small class="text-muted">Total Tamu</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="fw-bold text-success">{{ stat.attending or 0 }}</div>
+                                            <small class="text-muted">Hadir</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="fw-bold text-info">{{ stat.with_messages or 0 }}</div>
+                                            <small class="text-muted">Pesan</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <a href="{{ url_for('view_wedding_invitation', link=stat.invitation_link) }}" 
+                                           class="btn btn-sm btn-outline-primary" target="_blank">
+                                            <i class="fas fa-eye me-1"></i>Lihat Undangan
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Guest Messages -->
+    {% if guest_messages %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-envelope-open-text me-2"></i>Semua Pesan & Doa Tamu
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for message in guest_messages %}
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100 border-start border-warning border-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h6 class="fw-bold mb-1">{{ message.name }}</h6>
+                                            <small class="text-muted">{{ message.couple_name }}</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <small class="text-muted">{{ message.created_at[:16] }}</small>
+                                            {% if message.attendance %}
+                                            <div class="mt-1">
+                                                <span class="badge bg-{{ 'success' if message.attendance == 'hadir' else 'danger' if message.attendance == 'tidak_hadir' else 'secondary' }}">
+                                                    {{ 'Hadir' if message.attendance == 'hadir' else 'Tidak Hadir' if message.attendance == 'tidak_hadir' else 'Belum Konfirmasi' }}
+                                                </span>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    {% if message.phone %}
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-phone me-1"></i>{{ message.phone }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.email %}
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-envelope me-1"></i>{{ message.email }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.guest_count and message.guest_count > 1 %}
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-users me-1"></i>{{ message.guest_count }} orang
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.message %}
+                                    <div class="mb-3">
+                                        <div class="bg-light p-3 rounded">
+                                            <strong class="text-primary">
+                                                <i class="fas fa-comment me-1"></i>Pesan:
+                                            </strong>
+                                            <p class="mb-0 mt-2">{{ message.message }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if message.wishes %}
+                                    <div class="mb-3">
+                                        <div class="bg-success bg-opacity-10 p-3 rounded">
+                                            <strong class="text-success">
+                                                <i class="fas fa-hands-praying me-1"></i>Doa & Harapan:
+                                            </strong>
+                                            <p class="mb-0 mt-2">{{ message.wishes }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if guest_messages|length == 0 %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Belum ada pesan dari tamu</h5>
+                        <p class="text-muted">Pesan dan doa dari tamu akan muncul di sini setelah mereka mengisi RSVP</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Belum ada pesan dari tamu</h5>
+                    <p class="text-muted">Buat undangan pernikahan terlebih dahulu untuk menerima pesan dari tamu</p>
+                    <a href="{{ url_for('create_wedding_invitation') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Buat Undangan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,212 @@
+
+{% extends "admin/base.html" %}
+
+{% block title %}Edit Undangan Pernikahan{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h1 class="h2 mb-2 fw-bold text-gradient">Edit Undangan Pernikahan</h1>
+            <p class="text-muted mb-0">Edit data undangan {{ invitation.couple_name }}</p>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="{{ url_for('admin_wedding_invitations') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Kembali
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card elegant-card">
+    <div class="card-header elegant-card-header">
+        <h5 class="mb-0 fw-bold">
+            <i class="fas fa-heart me-2"></i>Form Edit Undangan
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <!-- Mempelai Wanita -->
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary mb-3">Data Mempelai Wanita</h6>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap *</label>
+                        <input type="text" class="form-control" name="bride_name" value="{{ invitation.bride_name }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Gelar (Opsional)</label>
+                        <input type="text" class="form-control" name="bride_title" value="{{ invitation.bride_title or '' }}" placeholder="S.Kom, S.H, dr., dll">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Ayah *</label>
+                        <input type="text" class="form-control" name="bride_father" value="{{ invitation.bride_father }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Ibu *</label>
+                        <input type="text" class="form-control" name="bride_mother" value="{{ invitation.bride_mother }}" required>
+                    </div>
+                </div>
+
+                <!-- Mempelai Pria -->
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary mb-3">Data Mempelai Pria</h6>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap *</label>
+                        <input type="text" class="form-control" name="groom_name" value="{{ invitation.groom_name }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Gelar (Opsional)</label>
+                        <input type="text" class="form-control" name="groom_title" value="{{ invitation.groom_title or '' }}" placeholder="S.Kom, S.H, dr., dll">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Ayah *</label>
+                        <input type="text" class="form-control" name="groom_father" value="{{ invitation.groom_father }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Ibu *</label>
+                        <input type="text" class="form-control" name="groom_mother" value="{{ invitation.groom_mother }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Template Selection -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary mb-3">Template & Tema</h6>
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Template *</label>
+                        <select class="form-select" name="template_id" required>
+                            {% for template in wedding_templates %}
+                            <option value="{{ template.id }}" {% if template.id == invitation.template_id %}selected{% endif %}>
+                                {{ template.name }} {% if template.is_premium %}(Premium){% endif %}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary mb-3">Pengaturan</h6>
+                    <div class="mb-3">
+                        <label class="form-label">Batas Tamu</label>
+                        <input type="number" class="form-control" name="guest_limit" value="{{ invitation.guest_limit }}" min="1" max="1000">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Acara Information -->
+            <h6 class="fw-bold text-primary mb-3">Informasi Acara</h6>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal Pernikahan</label>
+                        <input type="date" class="form-control" name="wedding_date" value="{{ invitation.wedding_date }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Waktu</label>
+                        <input type="time" class="form-control" name="wedding_time" value="{{ invitation.wedding_time }}">
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Venue</label>
+                        <input type="text" class="form-control" name="venue_name" value="{{ invitation.venue_name }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Alamat Venue</label>
+                        <textarea class="form-control" name="venue_address" rows="3">{{ invitation.venue_address }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Payment Info -->
+            <h6 class="fw-bold text-primary mb-3">Informasi Pembayaran</h6>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Bank</label>
+                        <input type="text" class="form-control" name="bank_name" value="{{ invitation.bank_name }}">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Rekening</label>
+                        <input type="text" class="form-control" name="bank_account" value="{{ invitation.bank_account }}">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Pemilik Rekening</label>
+                        <input type="text" class="form-control" name="account_holder" value="{{ invitation.account_holder }}">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Custom Message -->
+            <div class="mb-4">
+                <label class="form-label">Pesan Khusus</label>
+                <textarea class="form-control" name="custom_message" rows="4" placeholder="Tambahkan pesan khusus untuk undangan">{{ invitation.custom_message }}</textarea>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i>Simpan Perubahan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.text-gradient {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-header {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.elegant-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.elegant-card-header {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
+    border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+    padding: 1.5rem;
+}
+</style>
+{% endblock %}
