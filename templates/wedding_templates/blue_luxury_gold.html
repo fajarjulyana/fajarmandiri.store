@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>
+      {{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding
+      Invitation
+    </title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Cormorant Garamond", serif;
+        background: linear-gradient(
+          135deg,
+          #0f1b3c 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        min-height: 100vh;
+        color: #d4af37;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Luxury Background Effects */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(212, 175, 55, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(59, 130, 246, 0.2) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 60%,
+            rgba(212, 175, 55, 0.1) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      /* Blue Gold Particles */
+      .blue-gold-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: linear-gradient(45deg, #d4af37, #3b82f6);
+        border-radius: 50%;
+        animation: blueFloat 10s infinite linear;
+        opacity: 0.7;
+      }
+
+      @keyframes blueFloat {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .invitation-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #1e40af 50%,
+          #2563eb 100%
+        );
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
+      }
+
+      /* Keep gallery functionality on desktop but remove links */
+      .gallery-item img {
+        pointer-events: none;
+      }
+
+      .gallery-overlay {
+        display: none !important;
+      }
+      /* Cover Page */
+      /* Enhanced Responsive Gallery Styles */
+
+      .gallery-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .gallery-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .gallery-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      /* Responsive Gallery Grid */
+
+      /* Gallery Item Styling */
+
+      .gallery-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 15px;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 15px;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-overlay i {
+        color: white;
+        font-size: 2rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Gallery Animation */
+      .gallery-fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .gallery-fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Desktop Optimizations */
+      @media (min-width: 1200px) {
+        .gallery-container {
+          padding: 0 40px;
+        }
+      }
+
+      @media (min-width: 992px) and (max-width: 1199px) {
+      }
+
+      @media (min-width: 768px) and (max-width: 991px) {
+      }
+
+      /* Mobile Optimizations */
+      @media (max-width: 767px) {
+        .gallery-container {
+          padding: 0 15px;
+        }
+
+        .gallery-item img {
+          border-radius: 12px;
+        }
+
+        .gallery-overlay {
+          border-radius: 12px;
+        }
+
+        .gallery-overlay i {
+          font-size: 1.5rem;
+        }
+
+        .gallery-title {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-item img {
+          border-radius: 10px;
+        }
+
+        .gallery-overlay {
+          border-radius: 10px;
+        }
+
+        .gallery-title {
+          font-size: 1.6rem;
+        }
+      }
+
+      /* Ultra small screens */
+      @media (max-width: 360px) {
+        .gallery-container {
+          padding: 0 10px;
+        }
+
+        .gallery-item img {
+          border-radius: 8px;
+        }
+
+        .gallery-overlay {
+          border-radius: 8px;
+        }
+      }
+
+      /* Enhanced Modal for Gallery */
+      .gallery-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+      }
+
+      .gallery-modal-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .gallery-modal-image {
+        max-width: 90vw;
+        max-height: 80vh;
+        border-radius: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        object-fit: contain;
+      }
+
+      .gallery-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-modal-close:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+      }
+
+      /* Gallery Loading State */
+      .gallery-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+      }
+
+      .gallery-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        animation: gallery-spin 1s linear infinite;
+      }
+
+      @keyframes gallery-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Disable photo interactions for all templates */
+
+      .gallery-item img {
+        pointer-events: none !important;
+      }
+
+      .gallery-overlay {
+        display: none !important;
+      }
+
+      /* Remove all onclick handlers */
+      .gallery-item[onclick] {
+        cursor: default !important;
+      }
+
+      .gallery-item img[onclick] {
+        pointer-events: none !important;
+      }
+
+      /* Ensure no modal functionality */
+      .modal,
+      .photo-modal,
+      #photoModal {
+        display: none !important;
+      }
+
+      /* Enhanced Gallery Styles - No Crop, Aspect Ratio Aware */
+      .gallery-section {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      .gallery-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .gallery-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .gallery-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      /* Portrait Photos Section */
+      .gallery-portrait-section {
+        margin-bottom: 50px;
+      }
+
+      .gallery-portrait-title {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #555;
+        font-weight: 500;
+      }
+
+      .gallery-portrait-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        justify-items: center;
+      }
+
+      /* Landscape Photos Section */
+      .gallery-landscape-section {
+        margin-bottom: 30px;
+      }
+
+      .gallery-landscape-title {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #555;
+        font-weight: 500;
+      }
+
+      .gallery-landscape-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+        justify-items: center;
+      }
+
+      /* Portrait Item Styling */
+      .gallery-portrait-item {
+        position: relative;
+        width: 250px;
+        height: 350px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: #f8f9fa;
+      }
+
+      .gallery-portrait-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .gallery-portrait-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        background: #fff;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-portrait-item:hover img {
+        transform: scale(1.02);
+      }
+
+      /* Landscape Item Styling */
+      .gallery-landscape-item {
+        position: relative;
+        width: 350px;
+        height: 250px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: #f8f9fa;
+      }
+
+      .gallery-landscape-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .gallery-landscape-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        background: #fff;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-landscape-item:hover img {
+        transform: scale(1.02);
+      }
+
+      /* Animation */
+      .gallery-fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .gallery-fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Desktop Optimizations */
+      @media (min-width: 1200px) {
+        .gallery-portrait-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 25px;
+        }
+
+        .gallery-landscape-grid {
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+          gap: 25px;
+        }
+
+        .gallery-portrait-item {
+          width: 280px;
+          height: 380px;
+        }
+
+        .gallery-landscape-item {
+          width: 400px;
+          height: 280px;
+        }
+
+        .gallery-container {
+          padding: 0 40px;
+        }
+      }
+
+      @media (min-width: 992px) and (max-width: 1199px) {
+        .gallery-portrait-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+
+        .gallery-landscape-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 991px) {
+        .gallery-portrait-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+
+        .gallery-landscape-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+
+        .gallery-portrait-item {
+          width: 220px;
+          height: 300px;
+        }
+
+        .gallery-landscape-item {
+          width: 300px;
+          height: 220px;
+        }
+
+        .gallery-section {
+          padding: 50px 0;
+        }
+      }
+
+      /* Mobile Optimizations */
+      @media (max-width: 767px) {
+        .gallery-section {
+          padding: 40px 0;
+        }
+
+        .gallery-container {
+          padding: 0 15px;
+        }
+
+        .gallery-portrait-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+
+        .gallery-landscape-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .gallery-portrait-item {
+          width: 160px;
+          height: 220px;
+          border-radius: 12px;
+        }
+
+        .gallery-landscape-item {
+          width: 280px;
+          height: 200px;
+          border-radius: 12px;
+        }
+
+        .gallery-title {
+          font-size: 1.8rem;
+        }
+
+        .gallery-portrait-title,
+        .gallery-landscape-title {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-portrait-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        .gallery-landscape-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .gallery-portrait-item {
+          width: 140px;
+          height: 200px;
+          border-radius: 10px;
+        }
+
+        .gallery-landscape-item {
+          width: 260px;
+          height: 180px;
+          border-radius: 10px;
+        }
+
+        .gallery-title {
+          font-size: 1.6rem;
+        }
+
+        .gallery-section {
+          padding: 30px 0;
+        }
+      }
+
+      /* Ultra small screens */
+      @media (max-width: 360px) {
+        .gallery-container {
+          padding: 0 10px;
+        }
+
+        .gallery-portrait-item {
+          width: 120px;
+          height: 180px;
+          border-radius: 8px;
+        }
+
+        .gallery-landscape-item {
+          width: 240px;
+          height: 160px;
+          border-radius: 8px;
+        }
+      }
+
+      /* Loading State */
+      .gallery-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+      }
+
+      .gallery-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        animation: gallery-spin 1s linear infinite;
+      }
+
+      @keyframes gallery-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Gallery Photo Display Fix */
+      .gallery-section {
+        display: block !important;
+        visibility: visible !important;
+      }
+
+      .gallery-portrait-grid,
+      .gallery-landscape-grid {
+        display: grid !important;
+      }
+
+      .gallery-portrait-item,
+      .gallery-landscape-item {
+        display: block !important;
+        visibility: visible !important;
+      }
+
+      .gallery-portrait-item img,
+      .gallery-landscape-item img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+      }
+
+      /* Cover Page */
+      .cover-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #0f1b3c 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        text-align: center;
+      }
+
+      .cover-content {
+        max-width: 400px;
+        padding: 2rem;
+        position: relative;
+      }
+
+      .luxury-ornament {
+        font-size: 4rem;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+        margin-bottom: 1rem;
+        animation: blueLuxuryGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes blueLuxuryGlow {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8));
+          transform: scale(1);
+        }
+        50% {
+          filter: drop-shadow(0 0 25px rgba(212, 175, 55, 1));
+          transform: scale(1.05);
+        }
+      }
+
+      .couple-names {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        line-height: 1.2;
+      }
+
+      .wedding-date {
+        font-size: 1.2rem;
+        color: rgba(212, 175, 55, 0.9);
+        margin-bottom: 2rem;
+        font-style: italic;
+      }
+
+      .open-invitation-btn {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #d4af37 50%,
+          #1e40af 100%
+        );
+        border: 2px solid #d4af37;
+        color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .open-invitation-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .open-invitation-btn:hover::before {
+        left: 100%;
+      }
+
+      .open-invitation-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        position: relative;
+        height: 100vh;
+        background: linear-gradient(
+            135deg,
+            rgba(15, 27, 60, 0.9),
+            rgba(30, 58, 138, 0.8)
+          ),
+          url('{{ url_for("static", filename="images/templates/blue-luxury-bg.jpg") }}')
+            center/cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .luxury-frame {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+        right: 20px;
+        bottom: 30px;
+        border: 3px solid;
+        border-image: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700) 1;
+        border-radius: 20px;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(59, 130, 246, 0.1),
+          transparent
+        );
+      }
+
+      .luxury-corners {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(45deg, #d4af37, #3b82f6);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+        filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8));
+      }
+
+      .corner-tl {
+        top: 25px;
+        left: 15px;
+      }
+      .corner-tr {
+        top: 25px;
+        right: 15px;
+        transform: rotate(90deg);
+      }
+      .corner-bl {
+        bottom: 25px;
+        left: 15px;
+        transform: rotate(-90deg);
+      }
+      .corner-br {
+        bottom: 25px;
+        right: 15px;
+        transform: rotate(180deg);
+      }
+
+      .wedding-title {
+        font-size: 1rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #d4af37;
+        margin-bottom: 30px;
+        font-weight: 500;
+      }
+
+      .couple-names-hero {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 30px 0;
+        line-height: 0.9;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      }
+
+      .wedding-date-hero {
+        font-size: 1.1rem;
+        color: #d4af37;
+        letter-spacing: 2px;
+        margin-top: 40px;
+      }
+
+      /* Content Sections */
+      .content-section {
+        padding: 60px 30px;
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #1e40af 50%,
+          #2563eb 100%
+        );
+        position: relative;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 600;
+      }
+
+      .section-divider {
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(90deg, #d4af37, #3b82f6, #d4af37);
+        margin: 0 auto 40px;
+        border-radius: 2px;
+        box-shadow: 0 2px 10px rgba(59, 130, 246, 0.5);
+      }
+
+      /* Couple Details */
+      .couple-details {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .person-card {
+        text-align: center;
+        padding: 40px 25px;
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.2) 0%,
+          rgba(212, 175, 55, 0.1) 100%
+        );
+        border: 2px solid;
+        border-image: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700) 1;
+        border-radius: 20px;
+        position: relative;
+        backdrop-filter: blur(10px);
+      }
+
+      .person-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        border-radius: 20px;
+        z-index: -1;
+        filter: blur(5px);
+        opacity: 0.3;
+      }
+
+      .person-name {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .person-title {
+        font-size: 0.95rem;
+        color: #d4af37;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .parents-info {
+        font-size: 1.1rem;
+        color: rgba(212, 175, 55, 0.8);
+        line-height: 1.8;
+      }
+
+      /* Event Section */
+      .event-section {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #d4af37 50%,
+          #1e40af 100%
+        );
+        color: #fff;
+        padding: 60px 30px;
+        text-align: center;
+        position: relative;
+      }
+
+      .event-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(0, 0, 0, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(212, 175, 55, 0.1) 0%,
+            transparent 50%
+          );
+      }
+
+      .event-card {
+        background: rgba(15, 27, 60, 0.9);
+        color: #d4af37;
+        padding: 40px 30px;
+        border-radius: 25px;
+        margin-top: 30px;
+        border: 2px solid #d4af37;
+        position: relative;
+        backdrop-filter: blur(15px);
+        box-shadow: 0 20px 40px rgba(15, 27, 60, 0.8);
+      }
+
+      .event-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        color: #d4af37;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+
+      .event-time {
+        font-size: 1.4rem;
+        color: #3b82f6;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .venue-name {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.2rem;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .venue-address {
+        font-size: 1rem;
+        color: rgba(212, 175, 55, 0.8);
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+
+      .maps-btn {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #d4af37 50%,
+          #1e40af 100%
+        );
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 30px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .maps-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .maps-btn:hover::before {
+        left: 100%;
+      }
+
+      .maps-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        color: #fff;
+      }
+
+      /* RSVP Section */
+      .rsvp-section {
+        padding: 60px 30px;
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #1e40af 50%,
+          #2563eb 100%
+        );
+      }
+
+      .rsvp-form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 1rem;
+        color: #d4af37;
+        margin-bottom: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid rgba(59, 130, 246, 0.3);
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: "Cormorant Garamond", serif;
+        background: rgba(59, 130, 246, 0.1);
+        color: #d4af37;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        background: rgba(59, 130, 246, 0.15);
+      }
+
+      .submit-btn {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #d4af37 50%,
+          #1e40af 100%
+        );
+        color: #fff;
+        padding: 18px 40px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .submit-btn:hover::before {
+        left: 100%;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.6);
+      }
+
+      /* Gift Section */
+      .gift-section {
+        padding: 60px 30px;
+        background: linear-gradient(
+          135deg,
+          #0f1b3c 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        text-align: center;
+      }
+
+      .gift-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 40px;
+      }
+
+      .gift-card {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.2) 0%,
+          rgba(212, 175, 55, 0.1) 100%
+        );
+        padding: 35px 30px;
+        border: 2px solid;
+        border-image: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700) 1;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        backdrop-filter: blur(10px);
+      }
+
+      .gift-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        border-radius: 20px;
+        z-index: -1;
+        filter: blur(8px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .gift-card:hover::before {
+        opacity: 0.3;
+      }
+
+      .gift-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+      }
+
+      .gift-card h4 {
+        background: linear-gradient(45deg, #d4af37, #3b82f6, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+
+      .account-number {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #d4af37;
+        background: rgba(59, 130, 246, 0.2);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        letter-spacing: 2px;
+      }
+
+      .qr-display {
+        width: 200px;
+        height: 200px;
+        margin: 25px auto;
+        border: 3px solid #3b82f6;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+      }
+
+      /* Floating Music Button */
+      .floating-music {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #d4af37 50%,
+          #1e40af 100%
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .floating-music:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.8);
+      }
+
+      .floating-music.playing {
+        animation: blueMusicPulse 2s linear infinite;
+      }
+
+      @keyframes blueMusicPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+
+      /* Responsive */
+      @media (min-width: 768px) {
+        .invitation-container {
+          max-width: 500px;
+          margin: 30px auto;
+          border-radius: 25px;
+          box-shadow: 0 25px 80px rgba(59, 130, 246, 0.6);
+        }
+
+        .couple-details {
+          flex-direction: row;
+          gap: 30px;
+        }
+
+        .person-card {
+          flex: 1;
+        }
+
+        .gift-cards {
+          flex-direction: row;
+        }
+
+        .gift-card {
+          flex: 1;
+        }
+      }
+
+      /* Animations */
+      .scroll-fade {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .scroll-fade.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+      }
+
+      .fade-in-delay {
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Blue Gold Particles Background -->
+    <div class="blue-gold-particles">
+      <div class="particle" style="left: 10%; animation-delay: 0s"></div>
+      <div class="particle" style="left: 20%; animation-delay: 1.2s"></div>
+      <div class="particle" style="left: 30%; animation-delay: 2.4s"></div>
+      <div class="particle" style="left: 40%; animation-delay: 3.6s"></div>
+      <div class="particle" style="left: 50%; animation-delay: 4.8s"></div>
+      <div class="particle" style="left: 60%; animation-delay: 6s"></div>
+      <div class="particle" style="left: 70%; animation-delay: 7.2s"></div>
+      <div class="particle" style="left: 80%; animation-delay: 8.4s"></div>
+      <div class="particle" style="left: 90%; animation-delay: 9.6s"></div>
+    </div>
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="cover-page">
+      <div class="cover-content">
+        <div class="luxury-ornament">◆</div>
+        <h1 class="couple-names fade-in">{{ invitation.couple_name }}</h1>
+        <p class="wedding-date fade-in-delay">
+          {% if invitation.wedding_date %} {{
+          invitation.wedding_date.strftime('%d %B %Y') if
+          invitation.wedding_date.__class__.__name__ == 'datetime' else
+          invitation.wedding_date }} {% else %} Segera {% endif %}
+        </p>
+        <button class="open-invitation-btn" onclick="openInvitation()">
+          <i class="fas fa-envelope-open-text me-2"></i>Buka Undangan
+        </button>
+      </div>
+    </div>
+
+    <div class="invitation-container" id="mainContent" style="display: none">
+      <!-- Hero Section -->
+      <section class="hero-section fade-in">
+        <div class="luxury-frame"></div>
+        <div class="luxury-corners corner-tl"></div>
+        <div class="luxury-corners corner-tr"></div>
+        <div class="luxury-corners corner-bl"></div>
+        <div class="luxury-corners corner-br"></div>
+
+        <div class="wedding-title scroll-fade">The Wedding of</div>
+        <h1 class="couple-names-hero scroll-fade">
+          {{ invitation.bride_name }}<br />&<br />{{ invitation.groom_name }}
+        </h1>
+        <div class="wedding-date-hero scroll-fade">
+          {{ invitation.wedding_date.strftime('%A, %d %B %Y') if
+          invitation.wedding_date else 'Minggu, 31 Desember 2025' }}
+        </div>
+      </section>
+
+      <!-- Couple Details -->
+      <section class="content-section scroll-fade">
+        <h2 class="section-title">Mempelai</h2>
+        <div class="section-divider"></div>
+
+        <div class="couple-details">
+          <div class="person-card">
+            <div class="person-title">Mempelai Wanita</div>
+            <div class="person-name">{{ invitation.bride_name }}</div>
+            <div class="parents-info">
+              Putri dari<br />
+              Bpk. {{ invitation.bride_father }}<br />
+              & Ibu {{ invitation.bride_mother }}
+            </div>
+          </div>
+
+          <div class="person-card">
+            <div class="person-title">Mempelai Pria</div>
+            <div class="person-name">{{ invitation.groom_name }}</div>
+            <div class="parents-info">
+              Putra dari<br />
+              Bpk. {{ invitation.groom_father }}<br />
+              & Ibu {{ invitation.groom_mother }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Event Details -->
+      <section class="event-section scroll-fade">
+        <h2 class="section-title" style="color: #fff">Acara Pernikahan</h2>
+        <div class="event-card">
+          <div class="event-title">
+            <i class="fas fa-heart me-2"></i>Resepsi Pernikahan
+          </div>
+          <div class="event-time">
+            {{ invitation.wedding_time if invitation.wedding_time else '14:00'
+            }} WIB
+          </div>
+          <div class="venue-name">
+            {{ invitation.venue_name if invitation.venue_name else 'Venue
+            Pernikahan' }}
+          </div>
+          <div class="venue-address">
+            {{ invitation.venue_address if invitation.venue_address else 'Alamat
+            Venue' }}
+          </div>
+          <a
+            href="{{ invitation.venue_address if invitation.venue_address else '#' }}"
+            target="_blank"
+            class="maps-btn"
+          >
+            <i class="fas fa-map-marker-alt me-2"></i>Lihat Lokasi
+          </a>
+        </div>
+      </section>
+
+      <!-- Custom Message Section -->
+      <section class="content-section scroll-fade">
+        <div class="section-divider"></div>
+        <h2 class="section-title">
+          <i class="fas fa-comment-dots me-2"></i> Pesan Khusus
+        </h2>
+        <div class="text-center">
+          <p
+            class="lead"
+            style="
+              font-style: italic;
+              color: rgba(212, 175, 55, 0.8);
+              line-height: 1.8;
+            "
+          >
+            {{ invitation.custom_message if invitation.custom_message else
+            'Dengan penuh rasa syukur dan kebahagiaan, kami mengundang Anda
+            untuk berbagi kegembiraan di hari istimewa kami.' }}
+          </p>
+        </div>
+      </section>
+      <!-- Enhanced Wedding Album Gallery Section -->
+      {% if prewedding_photos and prewedding_photos|length > 0 %}
+      <section class="gallery-section py-5">
+        <div class="gallery-container">
+          <div class="gallery-header">
+            <h2 class="gallery-title">Cerita Kami</h2>
+            <div class="gallery-decorative-line">
+              <div class="line"></div>
+              <i class="fas fa-heart"></i>
+              <div class="line"></div>
+            </div>
+            <p class="gallery-subtitle">Momen terindah yang tak terlupakan</p>
+          </div>
+
+          <!-- Portrait Photos -->
+          <div class="gallery-portrait-section">
+            <div class="gallery-portrait-grid">
+              {% for photo in prewedding_photos %} {% if photo is mapping and
+              photo.get('orientation') == 'portrait' %}
+              <div class="gallery-portrait-item">
+                <div
+                  class="portrait-frame"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
+                >
+                  <img
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
+                    alt="Prewedding Photo {{ loop.index }}"
+                    loading="lazy"
+                  />
+                  <div class="photo-overlay">
+                    <div class="overlay-content">
+                      <i class="fas fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+
+          <!-- Landscape Photos -->
+          <div class="gallery-landscape-section">
+            <div class="gallery-landscape-grid">
+              {% for photo in prewedding_photos %} {% if photo is mapping and
+              photo.get('orientation') == 'landscape' %}
+              <div class="gallery-landscape-item">
+                <div
+                  class="landscape-frame"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
+                >
+                  <img
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
+                    alt="Prewedding Photo {{ loop.index }}"
+                    loading="lazy"
+                  />
+                  <div class="photo-overlay">
+                    <div class="overlay-content">
+                      <i class="fas fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+
+          <!-- Mixed Photos (for backward compatibility or if orientation is not specified) -->
+          <div class="gallery-mixed-section">
+            <div class="gallery-mixed-grid">
+              {% for photo in prewedding_photos %} {% if photo is string %}
+              <!-- Handle old format (just filename) -->
+              <div class="gallery-mixed-item visible">
+                <div
+                  class="mixed-frame"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo) }}')"
+                >
+                  <img
+                    src="{{ url_for('serve_documents', filename=photo) }}"
+                    alt="Prewedding Photo {{ loop.index }}"
+                    loading="lazy"
+                  />
+                  <div class="photo-overlay">
+                    <div class="overlay-content">
+                      <i class="fas fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% elif photo is mapping and photo.get('orientation') not in
+              ['portrait', 'landscape'] %}
+              <div class="gallery-mixed-item visible">
+                <div
+                  class="mixed-frame"
+                  onclick="openPhotoModal('{{ url_for('serve_documents', filename=photo.filename) }}')"
+                >
+                  <img
+                    src="{{ url_for('serve_documents', filename=photo.filename) }}"
+                    alt="Prewedding Photo {{ loop.index }}"
+                    loading="lazy"
+                  />
+                  <div class="photo-overlay">
+                    <div class="overlay-content">
+                      <i class="fas fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- RSVP Section -->
+      <section class="rsvp-section scroll-fade">
+        <h2 class="section-title">Konfirmasi Kehadiran</h2>
+        <div class="section-divider"></div>
+
+        <form
+          class="rsvp-form"
+          method="POST"
+          action="{{ url_for('rsvp_wedding', invitation_id=invitation.id) }}"
+        >
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" name="name" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nomor WhatsApp</label>
+            <input type="text" name="phone" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Konfirmasi Kehadiran</label>
+            <select name="attendance" class="form-input" required>
+              <option value="">Pilih konfirmasi</option>
+              <option value="hadir">Hadir</option>
+              <option value="tidak_hadir">Tidak Dapat Hadir</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Jumlah Tamu</label>
+            <select name="guest_count" class="form-input">
+              <option value="1">1 Orang</option>
+              <option value="2">2 Orang</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pesan & Doa</label>
+            <textarea
+              name="wishes"
+              class="form-input"
+              rows="4"
+              placeholder="Berikan pesan dan doa untuk kami..."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Kirim Konfirmasi</button>
+        </form>
+      </section>
+
+      <!-- Gift Section -->
+      <section class="gift-section scroll-fade">
+        <h2 class="section-title">Amplop Digital</h2>
+        <div class="section-divider"></div>
+
+        <p
+          style="
+            margin-bottom: 30px;
+            color: rgba(212, 175, 55, 0.8);
+            line-height: 1.6;
+          "
+        >
+          Doa restu Anda adalah kado terindah bagi kami.<br />
+          Namun jika ingin memberikan kado, bisa melalui:
+        </p>
+
+        <div class="gift-cards">
+          {% if invitation.bank_name and invitation.bank_account %}
+          <div class="gift-card">
+            <h4>
+              <i class="fas fa-university"></i> {{ invitation.bank_name }}
+            </h4>
+            <div class="account-number">{{ invitation.bank_account }}</div>
+            <p style="color: rgba(212, 175, 55, 0.8)">
+              a.n. {{ invitation.account_holder or invitation.bride_name }}
+            </p>
+          </div>
+          {% endif %} {% if invitation.qris_code %}
+          <div class="gift-card">
+            <h4><i class="fas fa-qrcode"></i> QRIS Payment</h4>
+            <img
+              src="data:image/png;base64,{{ invitation.qris_code }}"
+              class="qr-display"
+              alt="QRIS Code"
+            />
+          </div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicToggle">
+      <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="backgroundMusic" loop preload="auto">
+      {% if invitation.background_music %}
+      <source
+        src="{{ url_for('serve_documents', filename='music/' + invitation.background_music) }}"
+        type="audio/mpeg"
+      />
+      {% else %}
+      <source
+        src="{{ url_for('serve_documents', filename='music/default_wedding.mp3') }}"
+        type="audio/mpeg"
+      />
+      {% endif %}
+    </audio>
+
+    <script>
+      // Open invitation function
+      function openInvitation() {
+        const coverPage = document.getElementById("coverPage");
+        const mainContent = document.getElementById("mainContent");
+        const music = document.getElementById("backgroundMusic");
+
+        coverPage.style.transition =
+          "opacity 1.5s ease-out, transform 1.5s ease-out";
+        coverPage.style.opacity = "0";
+        coverPage.style.transform = "scale(0.8)";
+
+        setTimeout(() => {
+          coverPage.style.display = "none";
+          mainContent.style.display = "block";
+          mainContent.style.opacity = "0";
+
+          setTimeout(() => {
+            mainContent.style.transition = "opacity 1.5s ease-in";
+            mainContent.style.opacity = "1";
+          }, 100);
+
+          // Play background music
+          if (music) {
+            music.play().catch((e) => console.log("Audio play failed:", e));
+          }
+        }, 1500);
+      }
+
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".scroll-fade").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Music functionality
+      let isPlaying = false;
+      const audio = document.getElementById("backgroundMusic");
+      const musicToggle = document.getElementById("musicToggle");
+      const musicIcon = document.getElementById("musicIcon");
+
+      if (audio && musicToggle) {
+        audio.volume = 0.3;
+
+        musicToggle.addEventListener("click", function () {
+          if (isPlaying) {
+            audio.pause();
+            musicIcon.className = "fas fa-music";
+            musicToggle.classList.remove("playing");
+          } else {
+            audio.play().catch(console.error);
+            musicIcon.className = "fas fa-pause";
+            musicToggle.classList.add("playing");
+          }
+          isPlaying = !isPlaying;
+        });
+
+        audio.addEventListener("play", () => {
+          isPlaying = true;
+          musicIcon.className = "fas fa-pause";
+          musicToggle.classList.add("playing");
+        });
+
+        audio.addEventListener("pause", () => {
+          isPlaying = false;
+          musicIcon.className = "fas fa-music";
+          musicToggle.classList.remove("playing");
+        });
+      }
+
+      // Generate blue gold particles
+      function createBlueGoldParticles() {
+        const container = document.querySelector(".blue-gold-particles");
+        for (let i = 0; i < 20; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.animationDelay = Math.random() * 10 + "s";
+          particle.style.animationDuration = 10 + Math.random() * 5 + "s";
+          container.appendChild(particle);
+        }
+      }
+
+      // Initialize particles
+      createBlueGoldParticles();
+    </script>
+  </body>
+</html>

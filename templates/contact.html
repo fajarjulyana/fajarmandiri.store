@@ -1,0 +1,109 @@
+
+{% extends "base.html" %}
+
+{% block title %}Kontak - Fajar Mandiri{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Hubungi Kami</h2>
+                <p class="lead text-muted">Kami siap membantu kebutuhan Anda</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary rounded-circle p-3 me-3">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <h5 class="mb-0">Alamat Toko</h5>
+                            </div>
+                            <p class="mb-0">
+                                <strong>fajarmandiri.store</strong><br>
+                                Jl. Pasir Wangi, RT.01/RW.11,<br>
+                                Gudangkahuripan, Kec. Lembang,<br>
+                                Kabupaten Bandung Barat, Jawa Barat 40391
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-success rounded-circle p-3 me-3">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <h5 class="mb-0">Jam Operasional</h5>
+                            </div>
+                            <p class="mb-0">
+                                <strong>Senin - Kamis:</strong> 08:00 - 22:00<br>
+                                <strong>Jum'at</strong> Libur <br>
+                                <strong>Sabtu:</strong> 8:00 - 22:00 <br>
+                                <strong>Minggu:</strong> 10:00 - 22:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="fas fa-phone me-2 text-primary"></i>Kontak & Layanan Online
+                            </h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <a href="https://fajarmandiri.store" target="_blank" class="btn btn-outline-primary w-100">
+                                        <i class="fas fa-globe me-2"></i>Website
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-outline-success w-100">
+                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ url_for('order') }}" class="btn btn-primary w-100">
+                                        <i class="fas fa-shopping-cart me-2"></i>Pesan Online
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-map me-2"></i>Lokasi di Peta
+                            </h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="ratio ratio-16x9">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31692.42183830367!2d107.5650036334991!3d-6.824122742895601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e673e96e0b43%3A0x9c2b4c04e85b8c47!2sJl.%20Pasir%20Wangi%2C%20Gudangkahuripan%2C%20Kec.%20Lembang%2C%20Kabupaten%20Bandung%20Barat%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1743600000000!5m2!1sid!2sid"
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
