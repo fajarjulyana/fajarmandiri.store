@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>{{ invitation.bride_name }} & {{ invitation.groom_name }} - Wedding Invitation</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Sorts+Mill+Goudy:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 30%, #FFD700 70%, #FFA500 100%);
+            min-height: 100vh;
+            color: #2F1B14;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Royal Background with 3D Ornaments */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(218, 165, 32, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 165, 0, 0.15) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23DAA520' stroke-width='2' opacity='0.1'%3E%3Cpath d='M50,10 L60,30 L80,30 L66,44 L70,64 L50,54 L30,64 L34,44 L20,30 L40,30 Z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+            animation: royal-pattern 30s linear infinite;
+        }
+
+        @keyframes royal-pattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+
+        /* Golden Particles */
+        .golden-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .golden-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            animation: golden-float 15s infinite linear;
+            opacity: 0.8;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes golden-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .invitation-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(218, 165, 32, 0.05) 50%, rgba(255, 215, 0, 0.1) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 100px rgba(218, 165, 32, 0.4),
+                inset 0 0 50px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+        }
+
+        /* Royal 3D Ornament Border */
+        .royal-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(0deg, transparent 48%, rgba(218, 165, 32, 0.3) 50%, transparent 52%),
+                linear-gradient(90deg, transparent 48%, rgba(218, 165, 32, 0.3) 50%, transparent 52%);
+            background-size: 100% 20px, 20px 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 30%, #FFD700 70%, #FFA500 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            color: #2F1B14;
+        }
+
+        .cover-content {
+            max-width: 400px;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(218, 165, 32, 0.5);
+            border-radius: 25px;
+            box-shadow: 
+                0 25px 80px rgba(218, 165, 32, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .cover-content::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #DAA520, #FFD700);
+            border-radius: inherit;
+            z-index: -1;
+            animation: royal-glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes royal-glow {
+            0% { box-shadow: 0 0 20px rgba(218, 165, 32, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        .couple-initials {
+            font-size: 4.5rem;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            text-shadow: 2px 2px 0 rgba(218, 165, 32, 0.3);
+        }
+
+        .couple-initials .fas {
+            font-size: 2.5rem;
+            animation: royal-heartbeat 2s ease-in-out infinite;
+            color: #DAA520;
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.8);
+        }
+
+        @keyframes royal-heartbeat {
+            0%, 100% { 
+                transform: scale(1) rotateZ(0deg);
+                text-shadow: 0 0 20px rgba(218, 165, 32, 0.8);
+            }
+            50% { 
+                transform: scale(1.3) rotateZ(10deg);
+                text-shadow: 0 0 30px rgba(255, 215, 0, 1);
+            }
+        }
+
+        .couple-names-cover {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 rgba(218, 165, 32, 0.5);
+            background: linear-gradient(45deg, #8B4513, #DAA520, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .wedding-date-cover {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.3);
+        }
+
+        .open-invitation-btn {
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.3), rgba(255, 215, 0, 0.2));
+            border: 2px solid rgba(218, 165, 32, 0.6);
+            color: #2F1B14;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .open-invitation-btn:hover {
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.5), rgba(255, 215, 0, 0.4));
+            color: #8B4513;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Hero Section with Royal Frame */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(139, 69, 19, 0.1), rgba(218, 165, 32, 0.2));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .royal-frame {
+            position: absolute;
+            top: 30px;
+            left: 15px;
+            right: 15px;
+            bottom: 30px;
+            border: 4px solid rgba(218, 165, 32, 0.6);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 50px rgba(218, 165, 32, 0.3);
+        }
+
+        .royal-ornament {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #DAA520, #FFD700);
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 0 20px rgba(218, 165, 32, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .ornament-tl { top: -30px; left: -30px; }
+        .ornament-tr { top: -30px; right: -30px; }
+        .ornament-bl { bottom: -30px; left: -30px; }
+        .ornament-br { bottom: -30px; right: -30px; }
+
+        .royal-ornament::before {
+            content: "♔";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #8B4513;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .wedding-title {
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #DAA520;
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-shadow: 1px 1px 0 rgba(139, 69, 19, 0.3);
+        }
+
+        .couple-names {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #8B4513;
+            margin: 25px 0;
+            line-height: 0.9;
+            text-shadow: 2px 2px 0 rgba(218, 165, 32, 0.4);
+            background: linear-gradient(45deg, #8B4513, #DAA520, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .wedding-date-hero {
+            font-size: 1.1rem;
+            color: #8B4513;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.3);
+        }
+
+        /* Content Sections with Royal Styling */
+        .content-section {
+            padding: 60px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #8B4513;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.3);
+            position: relative;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: "❦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #DAA520;
+            font-size: 1.5rem;
+        }
+
+        .section-title::before {
+            left: -50px;
+        }
+
+        .section-title::after {
+            right: -50px;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #DAA520, #FFD700, #DAA520, transparent);
+            margin: 0 auto 40px;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .person-card {
+            text-align: center;
+            padding: 40px 25px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(218, 165, 32, 0.05));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            border-radius: 25px;
+            box-shadow: 
+                0 15px 50px rgba(218, 165, 32, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+
+        .person-card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, transparent, #DAA520, transparent);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .person-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .person-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .person-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.4);
+        }
+
+        .person-title {
+            font-size: 1rem;
+            color: #DAA520;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .parents-info {
+            font-size: 1.1rem;
+            color: #2F1B14;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Events Section */
+        .events-section {
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #2F1B14;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(218, 165, 32, 0.1));
+            color: #2F1B14;
+            padding: 50px 30px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            box-shadow: 
+                0 20px 60px rgba(218, 165, 32, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .event-card::before {
+            content: "♛";
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #DAA520;
+            text-shadow: 0 0 15px rgba(218, 165, 32, 0.8);
+        }
+
+        .event-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 30px 80px rgba(218, 165, 32, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .event-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin: 30px 0 20px;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.4);
+        }
+
+        .event-time {
+            font-size: 1.5rem;
+            color: #DAA520;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .venue-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.3);
+        }
+
+        .venue-address {
+            font-size: 1.1rem;
+            color: #2F1B14;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .maps-btn {
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.3), rgba(255, 215, 0, 0.2));
+            color: #8B4513;
+            padding: 15px 35px;
+            border: 2px solid rgba(218, 165, 32, 0.5);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 5px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.2);
+        }
+
+        .maps-btn:hover {
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.5), rgba(255, 215, 0, 0.4));
+            color: #2F1B14;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.4);
+        }
+
+        /* Gallery with Royal Frame */
+        .gallery-section {
+            padding: 60px 30px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 40px rgba(218, 165, 32, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.1), rgba(255, 215, 0, 0.05));
+            border: 3px solid rgba(218, 165, 32, 0.4);
+            position: relative;
+        }
+
+        .gallery-item::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #FFD700, transparent, #DAA520, transparent);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.05) rotateZ(2deg);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Form Elements with Royal Styling */
+        .form-input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            background: rgba(255, 255, 255, 0.1);
+            color: #2F1B14;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #DAA520;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 0 25px rgba(218, 165, 32, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: rgba(47, 27, 20, 0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.4) 0%, rgba(255, 215, 0, 0.3) 100%);
+            color: #2F1B14;
+            padding: 20px 50px;
+            border: 2px solid rgba(218, 165, 32, 0.6);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(218, 165, 32, 0.5);
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.6) 0%, rgba(255, 215, 0, 0.5) 100%);
+        }
+
+        /* Gift Section with Royal Cards */
+        .gift-section {
+            padding: 60px 30px;
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.08) 0%, rgba(255, 215, 0, 0.05) 100%);
+            text-align: center;
+        }
+
+        .gift-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(218, 165, 32, 0.1));
+            padding: 40px 30px;
+            border-radius: 25px;
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 20px 60px rgba(218, 165, 32, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .gift-card::before {
+            content: "♕";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #DAA520;
+            opacity: 0.7;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 30px 80px rgba(218, 165, 32, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .gift-card h4 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.3);
+        }
+
+        .account-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2F1B14;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 1px solid rgba(218, 165, 32, 0.4);
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* Countdown with Royal Style */
+        .countdown-section {
+            background: rgba(218, 165, 32, 0.1);
+            padding: 60px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(218, 165, 32, 0.1));
+            padding: 30px 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            min-width: 100px;
+            box-shadow: 
+                0 15px 40px rgba(218, 165, 32, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+
+        .countdown-item::before {
+            content: "♔";
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #DAA520;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .countdown-number {
+            color: #8B4513;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            display: block;
+            text-shadow: 1px 1px 0 rgba(218, 165, 32, 0.4);
+            margin-top: 10px;
+        }
+
+        .countdown-label {
+            color: #DAA520;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Floating Music Button with Royal Style */
+        .floating-music {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 75px;
+            height: 75px;
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.4), rgba(255, 215, 0, 0.3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8B4513;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(218, 165, 32, 0.6);
+            box-shadow: 
+                0 15px 40px rgba(218, 165, 32, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .floating-music::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #FFD700, transparent, #DAA520, transparent);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .floating-music:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 
+                0 25px 60px rgba(218, 165, 32, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .floating-music:hover::before {
+            opacity: 0.7;
+        }
+
+        .floating-music.playing {
+            animation: royal-music-pulse 2s infinite;
+        }
+
+        @keyframes royal-music-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 15px 40px rgba(218, 165, 32, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                transform: scale(1.2);
+                box-shadow: 
+                    0 25px 60px rgba(218, 165, 32, 0.7),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .invitation-container {
+                max-width: 100%;
+            }
+            
+            .couple-names {
+                font-size: 3.2rem;
+            }
+            
+            .royal-frame {
+                top: 20px;
+                left: 10px;
+                right: 10px;
+                bottom: 20px;
+            }
+            
+            .royal-ornament {
+                width: 40px;
+                height: 40px;
+            }
+
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Golden Particles Animation -->
+    <div class="golden-particles" id="goldenParticles"></div>
+    <div class="royal-border"></div>
+
+    <!-- Cover Page -->
+    <div class="cover-page" id="coverPage">
+        <div class="cover-content">
+            <div class="couple-initials">
+                <span>{{ invitation.bride_name[0] }}</span>
+                <i class="fas fa-crown"></i>
+                <span>{{ invitation.groom_name[0] }}</span>
+            </div>
+            <div class="couple-names-cover">{{ invitation.bride_name }} & {{ invitation.groom_name }}</div>
+            <div class="wedding-date-cover">{{ invitation.wedding_date }}</div>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-crown"></i> Royal Versailles
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Invitation -->
+    <div class="invitation-container" id="mainInvitation" style="display: none;">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="royal-frame">
+                <div class="royal-ornament ornament-tl"></div>
+                <div class="royal-ornament ornament-tr"></div>
+                <div class="royal-ornament ornament-bl"></div>
+                <div class="royal-ornament ornament-br"></div>
+            </div>
+            <div class="wedding-title">Royal Versailles Wedding</div>
+            <div class="couple-names">{{ invitation.bride_name }} & {{ invitation.groom_name }}</div>
+            <div class="wedding-date-hero">{{ invitation.wedding_date }}</div>
+        </section>
+
+        <!-- Couple Details -->
+        <section class="content-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">The Royal Couple</h2>
+            
+            <div class="person-card">
+                <div class="person-name">{{ invitation.bride_name }}</div>
+                <div class="person-title">Princess, Daughter of</div>
+                <div class="parents-info">
+                    His Majesty {{ invitation.bride_father }}<br>
+                    & Her Majesty {{ invitation.bride_mother }}
+                </div>
+            </div>
+            
+            <div class="person-card">
+                <div class="person-name">{{ invitation.groom_name }}</div>
+                <div class="person-title">Prince, Son of</div>
+                <div class="parents-info">
+                    His Majesty {{ invitation.groom_father }}<br>
+                    & Her Majesty {{ invitation.groom_mother }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="events-section">
+            <h2 class="section-title">Royal Ceremonies</h2>
+            
+            <div class="event-card">
+                <div class="event-title">Sacred Union</div>
+                <div class="event-time">{{ invitation.akad_time }}</div>
+                <div class="venue-name">{{ invitation.akad_venue }}</div>
+                <div class="venue-address">{{ invitation.akad_address }}</div>
+                <a href="{{ invitation.akad_maps }}" target="_blank" class="maps-btn">
+                    <i class="fas fa-map-marker-alt"></i> Royal Location
+                </a>
+            </div>
+
+            <div class="event-card">
+                <div class="event-title">Grand Reception</div>
+                <div class="event-time">{{ invitation.reception_time }}</div>
+                <div class="venue-name">{{ invitation.reception_venue }}</div>
+                <div class="venue-address">{{ invitation.reception_address }}</div>
+                <a href="{{ invitation.reception_maps }}" target="_blank" class="maps-btn">
+                    <i class="fas fa-map-marker-alt"></i> Royal Location
+                </a>
+            </div>
+        </section>
+
+        <!-- Countdown -->
+        <section class="countdown-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Royal Countdown</h2>
+            <div class="countdown-timer" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Royal Gallery</h2>
+            <div class="gallery-grid">
+                {% for photo in invitation.photos %}
+                <div class="gallery-item">
+                    <img src="{{ photo.url }}" alt="Royal Photo {{ loop.index }}">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="content-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Royal RSVP</h2>
+            <form class="rsvp-form" onsubmit="submitRSVP(event)">
+                <div class="form-group">
+                    <label class="form-label">Your Royal Name</label>
+                    <input type="text" class="form-input" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Attendance Confirmation</label>
+                    <select class="form-input" name="attendance" required>
+                        <option value="">Select your response</option>
+                        <option value="attending">Will Attend the Royal Wedding</option>
+                        <option value="not-attending">Cannot Attend</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Royal Guests</label>
+                    <select class="form-input" name="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Royal Wishes</label>
+                    <textarea class="form-input" name="message" rows="4" placeholder="Share your royal blessings..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Royal RSVP</button>
+            </form>
+        </section>
+
+        <!-- Gift -->
+        <section class="gift-section">
+            <div class="section-divider"></div>
+            <h2 class="section-title">Royal Treasury</h2>
+            <div class="gift-cards">
+                <div class="gift-card">
+                    <h4>{{ invitation.bank_1_name }}</h4>
+                    <div class="account-number">{{ invitation.bank_1_number }}</div>
+                    <p>{{ invitation.bank_1_holder }}</p>
+                </div>
+                {% if invitation.bank_2_name %}
+                <div class="gift-card">
+                    <h4>{{ invitation.bank_2_name }}</h4>
+                    <div class="account-number">{{ invitation.bank_2_number }}</div>
+                    <p>{{ invitation.bank_2_holder }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Closing -->
+        <section class="content-section" style="text-align: center; background: linear-gradient(135deg, rgba(218, 165, 32, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);">
+            <div class="section-title">Royal Gratitude</div>
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">
+                We are deeply honored by your presence<br>
+                at our Royal Versailles celebration.<br>
+                Your blessings complete our happiness.
+            </p>
+            <div style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; text-shadow: 2px 2px 0 rgba(218, 165, 32, 0.4);">
+                {{ invitation.bride_name }} & {{ invitation.groom_name }}
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Music Button -->
+    <div class="floating-music" id="musicBtn" onclick="toggleMusic()" style="display: none;">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" preload="auto" loop>
+        {% if invitation.music_file %}
+        <source src="{{ invitation.music_file }}" type="audio/mpeg">
+        {% endif %}
+    </audio>
+
+    <script>
+        // Create Golden Particles
+        function createGoldenParticles() {
+            const container = document.getElementById('goldenParticles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'golden-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createGoldenParticles();
+
+        // Cover Page Animation
+        function openInvitation() {
+            const coverPage = document.getElementById('coverPage');
+            const mainInvitation = document.getElementById('mainInvitation');
+            const musicBtn = document.getElementById('musicBtn');
+            
+            coverPage.style.opacity = '0';
+            setTimeout(() => {
+                coverPage.style.display = 'none';
+                mainInvitation.style.display = 'block';
+                musicBtn.style.display = 'flex';
+                startCountdown();
+                setTimeout(() => {
+                    playMusic();
+                }, 1000);
+            }, 500);
+        }
+
+        // Music Control
+        let isPlaying = false;
+        const music = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        }
+
+        function playMusic() {
+            if (music.src) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.className = 'fas fa-pause';
+                    musicBtn.classList.add('playing');
+                }).catch(e => {
+                    console.log('Cannot play music:', e);
+                });
+            }
+        }
+
+        function pauseMusic() {
+            music.pause();
+            isPlaying = false;
+            musicIcon.className = 'fas fa-music';
+            musicBtn.classList.remove('playing');
+        }
+
+        // Countdown Timer
+        function startCountdown() {
+            const weddingDate = new Date('{{ invitation.wedding_date_full }}').getTime();
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('countdown').innerHTML = '<div style="font-size: 1.5rem; color: #8B4513;">The Royal Wedding Has Begun!</div>';
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+                document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // RSVP Form
+        function submitRSVP(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                name: formData.get('name'),
+                attendance: formData.get('attendance'),
+                guests: formData.get('guests'),
+                message: formData.get('message')
+            };
+            
+            alert('Thank you for your Royal RSVP! We are honored by your response.');
+            event.target.reset();
+        }
+
+        // Royal Scroll Effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px) scale(0.95)';
+                section.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

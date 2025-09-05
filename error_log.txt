@@ -1,0 +1,194 @@
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.pyw", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.pyw", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2489, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2494, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2494, in run_flask
+    init_database()
+    ^^^^^^^^^^^^^
+NameError: name 'init_database' is not defined. Did you mean: 'reset_database'?
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2512, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=True)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 1097, in run_simple
+    run_with_reloader(
+    ~~~~~~~~~~~~~~~~~^
+        srv.serve_forever,
+        ^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        reloader_type=reloader_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\_reloader.py", line 439, in run_with_reloader
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2722, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 1075, in run_simple
+    srv = make_server(
+        hostname,
+    ...<7 lines>...
+        fd=fd,
+    )
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 915, in make_server
+    return ThreadedWSGIServer(
+        host, port, app, request_handler, passthrough_errors, ssl_context, fd=fd
+    )
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 781, in __init__
+    self.socket = socket.fromfd(fd, address_family, socket.SOCK_STREAM)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\socket.py", line 548, in fromfd
+    nfd = dup(fd)
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2722, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 1075, in run_simple
+    srv = make_server(
+        hostname,
+    ...<7 lines>...
+        fd=fd,
+    )
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 915, in make_server
+    return ThreadedWSGIServer(
+        host, port, app, request_handler, passthrough_errors, ssl_context, fd=fd
+    )
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 781, in __init__
+    self.socket = socket.fromfd(fd, address_family, socket.SOCK_STREAM)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\socket.py", line 548, in fromfd
+    nfd = dup(fd)
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2719, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False, allow_unsafe_werkzeug=True)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: run_simple() got an unexpected keyword argument 'allow_unsafe_werkzeug'
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2719, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False, allow_unsafe_werkzeug=True)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: run_simple() got an unexpected keyword argument 'allow_unsafe_werkzeug'
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2719, in run_flask
+    app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False, allow_unsafe_werkzeug=True)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: run_simple() got an unexpected keyword argument 'allow_unsafe_werkzeug'
+
+Traceback (most recent call last):
+  File "C:\Users\FJ-PC\Downloads\fajarmandiri.store\app.py", line 2719, in run_flask
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True, allow_unsafe_werkzeug=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask_socketio\__init__.py", line 660, in run
+    app.run(host=host, port=port, threaded=True,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            use_reloader=use_reloader, **reloader_options, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\serving.py", line 1097, in run_simple
+    run_with_reloader(
+    ~~~~~~~~~~~~~~~~~^
+        srv.serve_forever,
+        ^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        reloader_type=reloader_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\FJ-PC\AppData\Roaming\Python\Python313\site-packages\werkzeug\_reloader.py", line 439, in run_with_reloader
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+
