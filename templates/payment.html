@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}Payment - Fajar Mandiri Store{% endblock %}
+
+{% block extra_css %}
+<style>
+    .payment-container {
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+    
+    .payment-summary {
+        background: #f8f9fa;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .loading-spinner {
+        display: none;
+    }
+    
+    .loading-spinner.show {
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="payment-container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">
+                <i class="fas fa-credit-card me-2"></i>Pembayaran Premium
+            </h2>
+            <p class="text-muted">Selesaikan pembayaran untuk mengaktifkan akun premium Anda</p>
+        </div>
+
+        <div class="payment-summary">
+            <h5 class="fw-bold mb-3">Ringkasan Pesanan</h5>
+            <div class="d-flex justify-content-between mb-2">
+                <span>Paket:</span>
+                <strong>{{ subscription_type.title() }}</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <span>Order ID:</span>
+                <small class="text-muted">{{ order_id }}</small>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <h6>Total:</h6>
+                <h6 class="text-primary fw-bold">Rp {{ "{:,}".format(amount).replace(",", ".") }}</h6>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Memproses pembayaran...</p>
+            </div>
+            
+            {% if payment_link %}
+            <div class="alert alert-info">
+                <h6><i class="fas fa-info-circle me-2"></i>Sistem pembayaran sedang dalam perbaikan</h6>
+                <p class="mb-3">Silakan gunakan link pembayaran berikut untuk menyelesaikan transaksi:</p>
+                <a href="{{ payment_link }}" target="_blank" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-external-link-alt me-2"></i>Buka Link Pembayaran
+                </a>
+                <p class="mt-2 small text-muted">Link akan terbuka di tab baru</p>
+            </div>
+            {% else %}
+            <button id="pay-button" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-lock me-2"></i>Bayar Sekarang
+            </button>
+            {% endif %}
+            
+            <div class="mt-3">
+                <small class="text-muted">
+                    <i class="fas fa-shield-alt me-1"></i>
+                    Pembayaran aman dengan Midtrans
+                </small>
+            </div>
+        </div></old_str>
+
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">
+                        <i class="fas fa-info-circle me-2"></i>Informasi Pembayaran
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Akun premium akan aktif setelah pembayaran berhasil
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Notifikasi konfirmasi akan dikirim ke email Anda
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Dapat menggunakan berbagai metode pembayaran
+                        </li>
+                        <li>
+                            <i class="fas fa-check text-success me-2"></i>
+                            Pembayaran dilindungi dengan enkripsi SSL
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if is_production %}
+<script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ client_key }}"></script>
+{% else %}
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ client_key }}"></script>
+{% endif %}
+<script>
+document.getElementById('pay-button').onclick = function(){
+    // Show loading
+    document.querySelector('.loading-spinner').classList.add('show');
+    document.getElementById('pay-button').style.display = 'none';
+    
+    // Check if snap token exists
+    const snapToken = '{{ snap_token }}';
+    if (!snapToken || snapToken === '' || snapToken === 'None') {
+        document.querySelector('.loading-spinner').classList.remove('show');
+        document.getElementById('pay-button').style.display = 'block';
+        alert('Token pembayaran tidak valid. Silakan kembali dan coba buat pembayaran lagi.');
+        window.history.back();
+        return;
+    }
+    
+    // Check if snap is loaded
+    if (typeof snap === 'undefined') {
+        document.querySelector('.loading-spinner').classList.remove('show');
+        document.getElementById('pay-button').style.display = 'block';
+        alert('Sistem pembayaran belum siap. Silakan refresh halaman dan coba lagi.');
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+        return;
+    }
+    
+    try {
+        snap.pay(snapToken, {
+            onSuccess: function(result){
+                console.log('Payment success:', result);
+                document.querySelector('.loading-spinner').classList.remove('show');
+                window.location.href = '{{ url_for("payment_success") }}?order_id={{ order_id }}';
+            },
+            onPending: function(result){
+                console.log('Payment pending:', result);
+                document.querySelector('.loading-spinner').classList.remove('show');
+                alert('Pembayaran sedang diproses. Silakan cek status pembayaran Anda.');
+                window.location.href = '{{ url_for("dashboard") }}';
+            },
+            onError: function(result){
+                console.error('Payment error:', result);
+                document.querySelector('.loading-spinner').classList.remove('show');
+                document.getElementById('pay-button').style.display = 'block';
+                
+                let errorMessage = 'Pembayaran gagal. ';
+                if (result.status_message) {
+                    errorMessage += result.status_message;
+                } else if (result.error_messages && result.error_messages.length > 0) {
+                    errorMessage += result.error_messages.join(', ');
+                } else {
+                    errorMessage += 'Silakan coba lagi atau hubungi customer service.';
+                }
+                
+                alert(errorMessage);
+            },
+            onClose: function(){
+                console.log('Payment popup closed');
+                document.querySelector('.loading-spinner').classList.remove('show');
+                document.getElementById('pay-button').style.display = 'block';
+                // Don't show alert for close, user might intentionally close it
+            }
+        });
+    } catch (error) {
+        console.error('Snap error:', error);
+        document.querySelector('.loading-spinner').classList.remove('show');
+        document.getElementById('pay-button').style.display = 'block';
+        alert('Terjadi kesalahan sistem pembayaran. Silakan refresh halaman dan coba lagi.');
+    }
+};
+
+// Add error handling for script loading
+window.addEventListener('error', function(e) {
+    if (e.target.src && e.target.src.includes('snap.js')) {
+        console.error('Failed to load Midtrans Snap script');
+        alert('Gagal memuat sistem pembayaran. Silakan periksa koneksi internet Anda dan refresh halaman.');
+    }
+});
+</script>
+{% endblock %}
